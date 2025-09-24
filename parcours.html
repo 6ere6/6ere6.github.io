@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon Parcours - Amelaine Loris</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   <link rel="icon" href="/assets/img/logo.ico" type="logo.ico">
+</head>
+<body>
+  <!-- Conteneur principal avec effet 3D -->
+  <div class="perspective effect-rotate-left">
+    <!-- Bouton Retour -->
+    <a href="index.html" class="outer-nav--return is-vis">
+      <span>RETOUR</span>
+    </a>
+    <div class="container">
+      <!-- Menu latéral 3D -->
+      <ul class="outer-nav">
+        <li>Accueil</li>
+        <li>Projets/Realisation</li>
+        <li>Compétences/Services</li>
+        <li class="is-active">Parcours et Expériences</li>
+        <li>Contact</li>
+      </ul>
+      <!-- Conteneur principal -->
+      <div id="viewport" class="l-viewport">
+        <div class="l-wrapper">
+          <main class="parcours-container">
+            <!-- Titre principal -->
+            <h1 class="parcours-title">Mon Parcours</h1>
+
+            <!-- Timeline -->
+            <div class="timeline-container">
+              <!-- Baccalauréat Technologique -->
+              <div class="timeline-item">
+                <div class="timeline-content">
+                  <div class="timeline-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                  </div>
+                  <h3 class="timeline-title">Baccalauréat Technologique</h3>
+                  <p class="timeline-subtitle">Lycée Raoul Follereau, Nevers</p>
+                  <p class="timeline-date">2022 - 2024</p>
+                  <p class="timeline-description">Spécialité Système d'information de gestion (SIG).</p>
+                </div>
+              </div>
+
+              <!-- Certification Cybersécurité -->
+              <div class="timeline-item">
+                <div class="timeline-content">
+                  <div class="timeline-icon">
+                    <i class="fas fa-shield-alt"></i>
+                  </div>
+                  <h3 class="timeline-title">Certification Cybersécurité</h3>
+                  <p class="timeline-subtitle">ANSSI / OpenClassrooms</p>
+                  <p class="timeline-date">2024</p>
+                  <p class="timeline-description">Formation aux bases de la cybersécurité et tests d'intrusion.</p>
+                </div>
+              </div>
+
+              <!-- Stage Maintenance et Cybersécurité -->
+              <div class="timeline-item">
+                <div class="timeline-content">
+                  <div class="timeline-icon">
+                    <i class="fas fa-briefcase"></i>
+                  </div>
+                  <h3 class="timeline-title">Stage en Maintenance et Cybersécurité</h3>
+                  <p class="timeline-subtitle">Fédération des centres sociaux de la Nièvre</p>
+                  <p class="timeline-date">02/06/2025 - 04/06/2025</p>
+                  <p class="timeline-description">Participation à des audits de sécurité, analyse de vulnérabilités, et rédaction de rapports.</p>
+                  <a href="assets/img/Rapport de stage AMELAINE Loris.pdf" class="timeline-download" download>
+                    <i class="fas fa-download"></i> Télécharger le rapport
+                  </a>
+                </div>
+              </div>
+
+              <!-- BTS SIO -->
+              <div class="timeline-item">
+                <div class="timeline-content">
+                  <div class="timeline-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                  </div>
+                  <h3 class="timeline-title">BTS SIO (En cours)</h3>
+                  <p class="timeline-subtitle">Lycée Raoul Follereau, Nevers</p>
+                  <p class="timeline-date">2024 - 2026</p>
+                  <p class="timeline-description">Spécialité SISR (Solutions d'Infrastructure, Systèmes et Réseaux).</p>
+                </div>
+              </div>
+
+              <!-- Ajoutez d'autres éléments ici -->
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script pour les animations -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Animation d'entrée pour le titre
+      const title = document.querySelector('.parcours-title');
+      title.style.opacity = '0';
+      title.style.transform = 'translateY(20px)';
+      setTimeout(() => {
+        title.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        title.style.opacity = '1';
+        title.style.transform = 'translateY(0)';
+      }, 100);
+
+      // Animation d'entrée pour les items de la timeline
+      const timelineItems = document.querySelectorAll('.timeline-item');
+      timelineItems.forEach((item, index) => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+          item.style.opacity = '1';
+          item.style.transform = 'translateY(0)';
+        }, 300 + (index * 200));
+      });
+
+      // Animation au survol des items de la timeline
+      timelineItems.forEach(item => {
+        item.addEventListener('mouseenter', () => {
+          item.querySelector('.timeline-content').style.transform = 'scale(1.02)';
+          item.querySelector('.timeline-content').style.boxShadow = '0 10px 20px rgba(15, 51, 255, 0.2)';
+        });
+        item.addEventListener('mouseleave', () => {
+          item.querySelector('.timeline-content').style.transform = 'scale(1)';
+          item.querySelector('.timeline-content').style.boxShadow = 'none';
+        });
+      });
+
+      // Animation pour le menu latéral 3D
+      const menuItems = document.querySelectorAll('.outer-nav li');
+      menuItems.forEach((item, index) => {
+        item.style.transitionDelay = `${0.04 * index}s`;
+      });
+    });
+  </script>
+</body>
+</html>

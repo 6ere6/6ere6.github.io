@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>À Propos - Loris Amelaine</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+   <link rel="icon" href="/assets/img/logo.ico" type="logo.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary-color: #0f33ff;
+      --secondary-color: #121212;
+      --text-color: #fff;
+      --text-secondary: #ccc;
+      --highlight-color: #000005;
+      --transition: all 0.3s ease;
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    .perspective {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+    }
+    .container {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+    }
+    .outer-nav--return {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      padding: 10px 20px;
+      color: var(--text-color);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      background-color: transparent;
+      border: 1px solid var(--primary-color);
+      transition: var(--transition);
+      z-index: 100;
+      border-radius: 4px;
+    }
+    .outer-nav--return:hover {
+      background-color: var(--primary-color);
+      transform: scale(1.05);
+    }
+    .outer-nav {
+      position: fixed;
+      top: 50%;
+      left: 20px;
+      transform: translateY(-50%);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      z-index: 10;
+    }
+    .outer-nav li {
+      transform: translateX(-150px);
+      font-size: 16px;
+      font-weight: 600;
+      opacity: 0.8;
+      cursor: pointer;
+      transition: var(--transition);
+      padding: 10px 20px;
+      color: var(--text-color);
+      margin-bottom: 5px;
+      border-radius: 4px;
+      background-color: rgba(15, 51, 255, 0.1);
+    }
+    .outer-nav li.is-active {
+      background-color: var(--primary-color);
+      transform: translateX(0);
+      opacity: 1;
+    }
+    .outer-nav li:hover {
+      opacity: 1;
+      transform: translateX(0);
+      background-color: rgba(15, 51, 255, 0.3);
+    }
+    .l-viewport {
+      margin-left: 100px;
+      padding: 20px;
+      min-height: 100vh;
+    }
+    .l-wrapper {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .apropos-title {
+      font-size: 48px;
+      font-weight: 700;
+      text-align: center;
+      margin: 60px 0;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      position: relative;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .apropos-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background-color: var(--primary-color);
+    }
+    .profile-section {
+      display: flex;
+      align-items: center;
+      margin-bottom: 60px;
+      gap: 40px;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .profile-initial {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background-color: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      border: 3px solid var(--text-color);
+      flex-shrink: 0;
+      transition: var(--transition);
+      box-shadow: 0 10px 20px rgba(15, 51, 255, 0.2);
+      overflow: hidden;
+      position: relative;
+    }
+    .profile-picture {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    .profile-initial:hover {
+      transform: rotateY(180deg);
+      box-shadow: 0 15px 30px rgba(15, 51, 255, 0.4);
+    }
+    .profile-initial:hover .profile-picture {
+      transform: scale(1.1);
+    }
+    .profile-content {
+      flex: 1;
+    }
+    .profile-content h2 {
+      font-size: 24px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+    .profile-content h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 2px;
+      background-color: var(--primary-color);
+    }
+    .profile-content p {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      margin-bottom: 15px;
+    }
+    .section {
+      margin-bottom: 60px;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .section h2 {
+      font-size: 24px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+    .section h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 2px;
+      background-color: var(--primary-color);
+    }
+    .skills-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .skill {
+      background-color: rgba(15, 51, 255, 0.2);
+      padding: 8px 15px;
+      border-radius: 5px;
+      font-size: 14px;
+      color: var(--text-color);
+      transition: var(--transition);
+      border: 1px solid rgba(15, 51, 255, 0.3);
+    }
+    .skill:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(15, 51, 255, 0.4);
+      background-color: rgba(15, 51, 255, 0.3);
+    }
+    .software-section {
+      margin-bottom: 60px;
+    }
+    .software-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .software-item {
+      width: 150px;
+      height: 150px;
+      background-color: rgba(15, 51, 255, 0.1);
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      transition: var(--transition);
+      border: 1px solid rgba(15, 51, 255, 0.2);
+    }
+    .software-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(15, 51, 255, 0.4);
+      background-color: rgba(15, 51, 255, 0.2);
+    }
+    .software-icon {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 10px;
+      color: var(--primary-color);
+    }
+    .software-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-color);
+      text-align: center;
+    }
+    /* Section Compétences */
+    .competences-section {
+      margin-bottom: 60px;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .competences-section h2 {
+      font-size: 28px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 15px;
+      position: relative;
+      padding-bottom: 10px;
+      color: var(--text-color);
+    }
+    .competences-section h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background-color: var(--primary-color);
+    }
+    .competences-section p {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      margin-bottom: 30px;
+    }
+    .competences-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+    .competence-category {
+      background-color: rgba(15, 51, 255, 0.05);
+      border: 1px solid rgba(15, 51, 255, 0.2);
+      border-radius: 10px;
+      padding: 25px;
+      transition: var(--transition);
+    }
+    .competence-category:hover {
+      background-color: rgba(15, 51, 255, 0.1);
+      box-shadow: 0 5px 15px rgba(15, 51, 255, 0.1);
+      transform: translateY(-3px);
+    }
+    .competence-category-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .competence-icon {
+      font-size: 24px;
+      color: var(--primary-color);
+      margin-right: 15px;
+    }
+    .competence-category-header h3 {
+      font-size: 20px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 0;
+      color: var(--text-color);
+    }
+    .competence-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .competence-item {
+      display: flex;
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(15, 51, 255, 0.2);
+      border-radius: 8px;
+      padding: 15px;
+      transition: var(--transition);
+    }
+    .competence-item:hover {
+      background-color: rgba(15, 51, 255, 0.1);
+      box-shadow: 0 5px 15px rgba(15, 51, 255, 0.2);
+      transform: translateX(3px);
+    }
+    .competence-item-icon {
+      font-size: 20px;
+      color: var(--primary-color);
+      margin-right: 15px;
+      width: 30px;
+      text-align: center;
+    }
+    .competence-item-content {
+      flex: 1;
+    }
+   /* Style pour les logiciels */
+.software-section {
+  margin-bottom: 60px;
+  padding: 20px;
+  background-color: rgba(15, 51, 255, 0.03);
+  border-radius: 15px;
+  border: 1px solid rgba(15, 51, 255, 0.1);
+}
+
+.software-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 25px;
+  justify-content: center;
+  padding: 20px;
+}
+
+.software-item {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 20px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(15, 51, 255, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(5px);
+  height: 150px;
+}
+
+.software-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 20px rgba(15, 51, 255, 0.3);
+  background-color: rgba(15, 51, 255, 0.1);
+  border-color: rgba(15, 51, 255, 0.3);
+}
+
+.software-logo {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.software-icon-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.software-item:hover .software-logo {
+  transform: scale(1.1);
+}
+
+.software-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-color);
+  text-align: center;
+  margin-top: 8px;
+}
+
+    .competence-item-content h4 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-color);
+      margin: 0;
+    }
+    .competence-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 5px;
+    }
+    .competence-tag {
+      background-color: rgba(15, 51, 255, 0.2);
+      color: var(--text-color);
+      padding: 4px 10px;
+      border-radius: 15px;
+      font-size: 12px;
+      font-weight: 400;
+      transition: var(--transition);
+    }
+    .competence-tag:hover {
+      background-color: rgba(15, 51, 255, 0.4);
+    }
+    .qualities-section {
+      margin-bottom: 60px;
+      text-align: center;
+    }
+    .qualities-title {
+      font-size: 36px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 40px;
+      position: relative;
+      display: inline-block;
+    }
+    .qualities-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--highlight-color), transparent);
+    }
+    .qualities-container {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      flex-wrap: wrap;
+    }
+    .quality-item {
+      text-align: center;
+      max-width: 200px;
+    }
+    .quality-icon {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transition: var(--transition);
+      border-radius: 50%;
+      background-color: rgba(15, 51, 255, 0.2);
+      border: 1px solid rgba(15, 51, 255, 0.3);
+    }
+    .quality-icon:hover {
+      transform: scale(1.1) rotateY(180deg);
+      box-shadow: 0 10px 20px rgba(15, 51, 255, 0.4);
+    }
+    .quality-icon svg {
+      width: 60px;
+      height: 60px;
+      fill: var(--text-color);
+      stroke: var(--highlight-color);
+      stroke-width: 2px;
+      transition: var(--transition);
+    }
+    .quality-icon:hover svg {
+      fill: var(--highlight-color);
+      transform: scale(1.1);
+    }
+    .quality-title {
+      font-size: 18px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+    .quality-description {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .download-cv {
+      display: flex;
+      justify-content: center;
+      margin: 60px 0;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .download-cv a {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: var(--primary-color);
+      color: var(--text-color);
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: var(--transition);
+      border: 1px solid var(--primary-color);
+    }
+    .download-cv a:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(15, 51, 255, 0.4);
+      background-color: transparent;
+      color: var(--primary-color);
+    }
+    @media (max-width: 768px) {
+      .l-viewport {
+        margin-left: 0;
+      }
+      .profile-section {
+        flex-direction: column;
+        text-align: center;
+      }
+      .qualities-container {
+        gap: 30px;
+      }
+      .outer-nav {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Conteneur principal -->
+  <div class="perspective">
+    <!-- Bouton Retour -->
+    <a href="index.html" class="outer-nav--return is-vis">
+      <span>Retour</span>
+    </a>
+    <div class="container">
+      
+      <!-- Contenu principal -->
+      <div class="l-viewport">
+        <div class="l-wrapper">
+          <main class="apropos-container">
+            <!-- Titre principal -->
+            <h1 class="apropos-title">À Propos de Moi</h1>
+            <!-- Section Profil -->
+            <div class="profile-section section">
+              <div class="profile-initial">
+                <img src="assets/img/loris.jpg" alt="Photo de profil" class="profile-picture">
+              </div>
+              <div class="profile-content">
+                <h2>Profil</h2>
+                <p>
+                  Bonjour, je m'appelle Loris Amelaine. Je suis un étudiant passionné par l'informatique, la cybersécurité et le développement web.
+                </p>
+                <p>
+                  Actuellement en formation au Lycée Raoul Follereau à Nevers, je me spécialise dans les systèmes et réseaux, avec un intérêt particulier pour la cybersécurité.
+                </p>
+              </div>
+            </div>
+            <!-- Section Compétences -->
+            <div class="section">
+              <h2>Compétences</h2>
+              <p>
+                Voici quelques-un des logiciels que je maîtrise :
+              </p>
+              <br>
+
+          <!-- Section Logiciels -->
+<div class="software-section section">
+  <h2>Logiciels Maîtrisés</h2>
+  <div class="software-container">
+    <!-- Nmap -->
+    <div class="software-item">
+      <div class="software-logo">
+        <img src="assets/img/nmap.png" alt="Nmap Logo" class="software-icon-img">
+      </div>
+      <div class="software-name">Nmap</div>
+    </div>
+    <!-- Wireshark -->
+    <div class="software-item">
+      <div class="software-logo">
+        <img src="assets/img/wireshark.png" alt="Wireshark Logo" class="software-icon-img">
+      </div>
+      <div class="software-name">Wireshark</div>
+    </div>
+    <!-- Metasploit -->
+    <div class="software-item">
+      <div class="software-logo">
+        <img src="assets/img/metasploit.png" alt="Metasploit Logo" class="software-icon-img">
+      </div>
+      <div class="software-name">Metasploit</div>
+    </div>
+    <!-- Snort -->
+    <div class="software-item">
+      <div class="software-logo">
+        <img src="assets/img/snort.png" alt="Snort Logo" class="software-icon-img">
+      </div>
+      <div class="software-name">Snort</div>
+    </div>
+    <!-- John the Ripper -->
+    <div class="software-item">
+      <div class="software-logo">
+        <img src="assets/img/jonh.png" alt="John the Ripper Logo" class="software-icon-img">
+      </div>
+      <div class="software-name">John the Ripper</div>
+    </div>
+    <!-- Aircrack-ng -->
+    <div class="software-item">
+      <div class="software-logo">
+        <img src="assets/img/aircrack.png" alt="Aircrack-ng Logo" class="software-icon-img">
+      </div>
+      <div class="software-name">Aircrack-ng</div>
+    </div>
+    <!-- Docker -->
+    <div class="software-item">
+      <div class="software-logo">
+        <img src="assets/img/docker.png" alt="Docker Logo" class="software-icon-img">
+      </div>
+      <div class="software-name">Docker</div>
+    </div>
+    <!-- Git -->
+    <div class="software-item">
+      <div class="software-logo">
+        <img src="assets/img/git.png" alt="Git Logo" class="software-icon-img">
+      </div>
+      <div class="software-name">Git</div>
+    </div>
+    <!-- PostgreSQL -->
+    <div class="software-item">
+      <div class="software-logo">
+        <img src="assets/img/postgresql.png" alt="PostgreSQL Logo" class="software-icon-img">
+      </div>
+      <div class="software-name">PostgreSQL</div>
+    </div>
+    <!-- Elasticsearch -->
+    <div class="software-item">
+      <div class="software-logo">
+        <img src="assets/img/elastic.png" alt="Elasticsearch Logo" class="software-icon-img">
+      </div>
+      <div class="software-name">Elasticsearch</div>
+    </div>
+    <!-- Kali Linux -->
+    <div class="software-item">
+      <div class="software-logo">
+        <img src="assets/img/kali.png" alt="Kali Linux Logo" class="software-icon-img">
+      </div>
+      <div class="software-name">Kali Linux</div>
+    </div>
+    <!-- Visual Studio Code -->
+    <div class="software-item">
+      <div class="software-logo">
+        <img src="assets/img/vscode.png" alt="VS Code Logo" class="software-icon-img">
+      </div>
+      <div class="software-name">VS Code</div>
+    </div>
+  </div>
+</div>
+            <!-- Section Compétences détaillées -->
+            <div class="competences-section section">
+              <h2>Mes Compétences Techniques</h2>
+              <p>Voici un aperçu de mes compétences techniques et des technologies que je maîtrise.</p>
+
+              <div class="competences-grid">
+                <!-- Systèmes d'Exploitation -->
+                <div class="competence-category">
+                  <div class="competence-category-header">
+                    <div class="competence-icon">
+                      <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Systèmes d'Exploitation</h3>
+                  </div>
+                  <div class="competence-list">
+                    <div class="competence-item">
+                      <div class="competence-item-icon">
+                        <i class="fab fa-linux"></i>
+                      </div>
+                      <div class="competence-item-content">
+                        <h4>Linux</h4>
+                        <div class="competence-tags">
+                          <span class="competence-tag">Debian</span>
+                          <span class="competence-tag">Ubuntu</span>
+                          <span class="competence-tag">Kali</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="competence-item">
+                      <div class="competence-item-icon">
+                        <i class="fab fa-windows"></i>
+                      </div>
+                      <div class="competence-item-content">
+                        <h4>Windows</h4>
+                        <div class="competence-tags">
+                          <span class="competence-tag">Windows Serveur</span>
+                          <span class="competence-tag">Windows 7 à 11</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Programmation -->
+                <div class="competence-category">
+                  <div class="competence-category-header">
+                    <div class="competence-icon">
+                      <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Programmation</h3>
+                  </div>
+                  <div class="competence-list">
+                    <div class="competence-item">
+                      <div class="competence-item-icon">
+                        <i class="fab fa-html5"></i>
+                      </div>
+                      <div class="competence-item-content">
+                        <h4>HTML</h4>
+                      </div>
+                    </div>
+                    <div class="competence-item">
+                      <div class="competence-item-icon">
+                        <i class="fab fa-css3-alt"></i>
+                      </div>
+                      <div class="competence-item-content">
+                        <h4>CSS</h4>
+                      </div>
+                    </div>
+                    
+                    <div class="competence-item">
+                      <div class="competence-item-icon">
+                        <i class="fab fa-python"></i>
+                      </div>
+                      <div class="competence-item-content">
+                        <h4>Python</h4>
+                      </div>
+                    </div>
+                    <div class="competence-item">
+                      <div class="competence-item-icon">
+                        <i class="fas fa-file-alt"></i>
+                      </div>
+                      <div class="competence-item-content">
+                        <h4>C#</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Scripting -->
+                <div class="competence-category">
+                  <div class="competence-category-header">
+                    <div class="competence-icon">
+                      <i class="fas fa-file-code"></i>
+                    </div>
+                    <h3>Scripting</h3>
+                  </div>
+                  <div class="competence-list">
+                    <div class="competence-item">
+                      <div class="competence-item-icon">
+                        <i class="fas fa-terminal"></i>
+                      </div>
+                      <div class="competence-item-content">
+                        <h4>Bash</h4>
+                      </div>
+                    </div>
+                    <div class="competence-item">
+                      <div class="competence-item-icon">
+                        <i class="fas fa-terminal"></i>
+                      </div>
+                      <div class="competence-item-content">
+                        <h4>Shell</h4>
+                      </div>
+                    </div>
+                    <div class="competence-item">
+                      <div class="competence-item-icon">
+                        <i class="fab fa-microsoft"></i>
+                      </div>
+                      <div class="competence-item-content">
+                        <h4>PowerShell</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Réseau -->
+                <div class="competence-category">
+                  <div class="competence-category-header">
+                    <div class="competence-icon">
+                      <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3>Réseau</h3>
+                  </div>
+                  <div class="competence-list">
+                    <div class="competence-item">
+                      <div class="competence-item-icon">
+                        <i class="fas fa-globe"></i>
+                      </div>
+                      <div class="competence-item-content">
+                        <h4>Services Réseau</h4>
+                        <div class="competence-tags">
+                          <span class="competence-tag">IPv6</span>
+                          <span class="competence-tag">IPv4</span>
+                          <span class="competence-tag">DHCP</span>
+                          <span class="competence-tag">DNS</span>
+                          <span class="competence-tag">Pare-feu</span>
+                          <span class="competence-tag">VLSM</span>
+                          <span class="competence-tag">SIEM</span>
+                          <span class="competence-tag">IDS/IPS</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="competence-item">
+                      <div class="competence-item-icon">
+                        <i class="fas fa-router"></i>
+                      </div>
+                      <div class="competence-item-content">
+                        <h4>Routeur Cisco</h4>
+                        <div class="competence-tags">
+                          <span class="competence-tag">Switch Cisco</span>
+                          <span class="competence-tag">VLAN</span>
+                          <span class="competence-tag">Routage</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="competence-item">
+                      <div class="competence-item-icon">
+                        <i class="fas fa-firewall"></i>
+                      </div>
+                      <div class="competence-item-content">
+                        <h4>PFSENSE</h4>
+                      </div>
+                    </div>
+                    <div class="competence-item">
+                      <div class="competence-item-icon">
+                        <i class="fas fa-sitemap"></i>
+                      </div>
+                      <div class="competence-item-content">
+                        <h4>Active Directory</h4>
+                      </div>
+                    </div>
+                    <div class="competence-item">
+                      <div class="competence-item-icon">
+                        <i class="fas fa-project-diagram"></i>
+                      </div>
+                      <div class="competence-item-content">
+                        <h4>WAN / LAN</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Virtualisation -->
+                <div class="competence-category">
+                  <div class="competence-category-header">
+                    <div class="competence-icon">
+                      <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3>Virtualisation</h3>
+                  </div>
+                  <div class="competence-list">
+                    <div class="competence-item">
+                      <div class="competence-item-icon">
+                        <i class="fas fa-cube"></i>
+                      </div>
+                      <div class="competence-item-content">
+                        <h4>VirtualBox</h4>
+                      </div>
+                    </div>
+                    <div class="competence-item">
+                      <div class="competence-item-icon">
+                        <i class="fas fa-cubes"></i>
+                      </div>
+                      <div class="competence-item-content">
+                        <h4>VMware Workstation</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Base de Données -->
+                <div class="competence-category">
+                  <div class="competence-category-header">
+                    <div class="competence-icon">
+                      <i class="fas fa-database"></i>
+                    </div>
+                    <h3>Base de Données</h3>
+                  </div>
+                  <div class="competence-list">
+                    <div class="competence-item">
+                      <div class="competence-item-icon">
+                        <i class="fas fa-database"></i>
+                      </div>
+                      <div class="competence-item-content">
+                        <h4>MySQL</h4>
+                      </div>
+                    </div>
+                    <div class="competence-item">
+                      <div class="competence-item-icon">
+                        <i class="fas fa-server"></i>
+                      </div>
+                      <div class="competence-item-content">
+                        <h4>SQL Server</h4>
+                      </div>
+                    </div>
+                    <div class="competence-item">
+                      <div class="competence-item-icon">
+                        <i class="fas fa-server"></i>
+                      </div>
+                      <div class="competence-item-content">
+                        <h4>Maria DB</h4>
+                      </div>
+                      
+                    </div>
+                    <div class="competence-item">
+                      <div class="competence-item-icon">
+                        <i class="fas fa-server"></i>
+                      </div>
+                      <div class="competence-item-content">
+                        <h4>Acess</h4>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Services -->
+                <div class="competence-category">
+                  <div class="competence-category-header">
+                    <div class="competence-icon">
+                      <i class="fas fa-server"></i>
+                    </div>
+                    <h3>Services</h3>
+                  </div>
+                  <div class="competence-list">
+                    <div class="competence-item">
+                      <div class="competence-item-icon">
+                        <i class="fas fa-server"></i>
+                      </div>
+                      <div class="competence-item-content">
+                        <h4>Apache</h4>
+                      </div>
+                    </div>
+                    <div class="competence-item">
+                      <div class="competence-item-icon">
+                        <i class="fas fa-server"></i>
+                      </div>
+                      <div class="competence-item-content">
+                        <h4>Nginx</h4>
+                      </div>
+                    </div>
+                    <div class="competence-item">
+                      <div class="competence-item-icon">
+                        <i class="fab fa-php"></i>
+                      </div>
+                      <div class="competence-item-content">
+                        <h4>PHP</h4>
+                      </div>
+                    </div>
+                    <div class="competence-item">
+                      <div class="competence-item-icon">
+                        <i class="fas fa-upload"></i>
+                      </div>
+                      <div class="competence-item-content">
+                        <h4>FTP</h4>
+                      </div>
+                    </div>
+                    <div class="competence-item">
+                      <div class="competence-item-icon">
+                        <i class="fas fa-lock"></i>
+                      </div>
+                      <div class="competence-item-content">
+                        <h4>SFTP</h4>
+                      </div>
+                    </div>
+                    <div class="competence-item">
+                      <div class="competence-item-icon">
+                        <i class="fas fa-share-alt"></i>
+                      </div>
+                      <div class="competence-item-content">
+                        <h4>Samba</h4>
+                      </div>
+                    </div>
+                    <div class="competence-item">
+                      <div class="competence-item-icon">
+                        <i class="fas fa-terminal"></i>
+                      </div>
+                      <div class="competence-item-content">
+                        <h4>SSH</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section Qualités -->
+            <div class="qualities-section section">
+              <h2 class="qualities-title">* Mes Qualités</h2>
+              <div class="qualities-container">
+                <div class="quality-item">
+                  <div class="quality-icon">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9v6m3-3H9"/>
+                    </svg>
+                  </div>
+                  <div class="quality-title">Rigoureux</div>
+                  <div class="quality-description">
+                    Gagner du temps, être plus efficace et performant
+                  </div>
+                </div>
+                <div class="quality-item">
+                  <div class="quality-icon">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L9 6l6 6 6-6-1.41 1.41L14 9.17l-3.59 3.58z"/>
+                    </svg>
+                  </div>
+                  <div class="quality-title">Persévérant</div>
+                  <div class="quality-description">
+                    S'obstiner pour être récompensé par la satisfaction d'avoir réussi
+                  </div>
+                </div>
+                <div class="quality-item">
+                  <div class="quality-icon">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7-7H5V5h14v4zM2 18v2h20v-2H2z"/>
+                    </svg>
+                  </div>
+                  <div class="quality-title">Autonome</div>
+                  <div class="quality-description">
+                    Mettre des solutions en place sans avoir besoin d'être assisté
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bouton pour télécharger le CV -->
+            <div class="download-cv section">
+              <a href="assets/img/CV Loris amelaine.pdf" download>Télécharger mon CV</a>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script pour les animations -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Animation d'entrée pour le titre
+      const title = document.querySelector('.apropos-title');
+      setTimeout(() => {
+        title.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        title.style.opacity = '1';
+        title.style.transform = 'translateY(0)';
+      }, 100);
+
+      // Animation d'entrée pour les sections
+      const sections = document.querySelectorAll('.section');
+      sections.forEach((section, index) => {
+        setTimeout(() => {
+          section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+          section.style.opacity = '1';
+          section.style.transform = 'translateY(0)';
+        }, 300 + (index * 200));
+      });
+
+      // Animation pour le menu latéral
+      const menuItems = document.querySelectorAll('.outer-nav li');
+      menuItems.forEach((item, index) => {
+        setTimeout(() => {
+          item.style.transitionDelay = `${0.04 * index}s`;
+          item.style.transform = 'translateX(0)';
+          item.style.opacity = '1';
+        }, 300 + (index * 100));
+      });
+    });
+  </script>
+</body>
+</html>
