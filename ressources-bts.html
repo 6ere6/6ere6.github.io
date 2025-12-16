@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Loris Amelaine - Procédures Techniques BTS SIO. Tutoriels détaillés pour Nagios, RADIUS-NPS, Graylog, Snort, OpenVPN et veille technologique.">
+    <meta name="keywords" content="BTS SIO, procédures techniques, Nagios, RADIUS, NPS, Graylog, Snort, OpenVPN, cybersécurité, Loris Amelaine">
+    <title>Procédures Techniques | Loris Amelaine</title>
+    <link href="https://fonts.cdnfonts.com/css/pp-neue-montreal" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #1b1c21;
+            --bg-glass: rgba(27, 28, 33, 0.6);
+            --border-glass: 1px solid rgba(255, 255, 255, 0.1);
+            --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --text-primary: #f5f5f5;
+            --text-secondary: #c9c9c9;
+            --primary-color: #7b4397;
+            --accent-color: #f1719b;
+            --font-main: 'PP Neue Montreal', sans-serif;
+            --font-mono: 'Fira Code', monospace;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: linear-gradient(135deg, #1b1c21 0%, #2d1b69 50%, #1b1c21 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 10vh;
+        }
+
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.2;
+        }
+
+        .header-ui {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(27, 28, 33, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: var(--border-glass);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .header-ui.scroll-down {
+            transform: translateY(-100%);
+        }
+
+        .header-ui.scroll-up {
+            transform: translateY(0);
+        }
+
+        .logo {
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+            transform: scale(1.05);
+        }
+
+        .nav-links a.active {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .status {
+            color: var(--accent-color);
+            font-size: 0.8rem;
+        }
+
+        .scroll-content {
+            margin-top: 60px;
+            padding: 2rem;
+        }
+
+        .main-content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            font-weight: 500;
+            text-shadow: 0 0 8px rgba(123, 67, 151, 0.3);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--accent-color);
+        }
+
+        .filter-menu {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 0.6rem 1.2rem;
+            background: var(--bg-glass);
+            border: var(--border-glass);
+            color: var(--text-secondary);
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: var(--font-main);
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .filter-btn:hover {
+            background: rgba(123, 67, 151, 0.3);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: var(--bg-dark);
+            box-shadow: 0 4px 10px rgba(123, 67, 151, 0.3);
+        }
+
+        .procedures-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            padding-top: 1rem;
+        }
+
+        .glass-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(12px);
+            border: var(--border-glass);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow-glass);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 17px;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(123, 67, 151, 0.3);
+        }
+
+        .glass-card:hover::before {
+            opacity: 0.15;
+        }
+
+        .glass-card h3 {
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .glass-card h3 i {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .glass-card:hover h3 i {
+            transform: scale(1.2);
+            color: var(--primary-color);
+        }
+
+        .glass-card h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.5rem;
+        }
+
+        .resource-section {
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .resource-section p {
+            margin-bottom: 0.75rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: var(--font-mono);
+            color: #e0e0e0;
+            overflow-x: auto;
+            margin: 1rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+        }
+
+        .procedure-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: block;
+        }
+
+        .pdf-preview {
+            margin-top: auto;
+            padding-top: 1.5rem;
+            text-align: center;
+            border-top: var(--border-glass);
+        }
+
+        .pdf-preview a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            background: rgba(27, 28, 33, 0.5);
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .pdf-preview a:hover {
+            background: var(--primary-color);
+            color: var(--bg-dark);
+            transform: translateY(-2px);
+        }
+
+        .fin-marker {
+            text-align: center;
+            margin: 4rem 0 2rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .fin-marker::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 1px;
+            background: var(--accent-color);
+        }
+
+        /* Nouvelle classe pour les étapes */
+        .step {
+            margin-bottom: 1.5rem;
+        }
+
+        .step-title {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .step-content {
+            margin-left: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .step-content code {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+        }
+
+        /* Badges pour les catégories */
+        .category-badge {
+            display: inline-block;
+            padding: 0.3rem 0.6rem;
+            background: rgba(123, 67, 151, 0.2);
+            color: var(--accent-color);
+            font-size: 0.7rem;
+            border-radius: 12px;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-family: var(--font-mono);
+        }
+
+        @media (max-width: 768px) {
+            .header-ui {
+                padding: 0.75rem 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                display: none;
+            }
+
+            .glass-card {
+                padding: 1.5rem;
+            }
+
+            .procedures-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-menu {
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="canvas-container"></div>
+    <header class="header-ui">
+        <div class="logo">LORIS.AMELAINE.FR</div>
+        <nav class="nav-links">
+            <a href="index.html#home">ACCUEIL</a>
+            <a href="index.html#about">À PROPOS</a>
+            <a href="index.html#skills">COMPÉTENCES</a>
+            <a href="index.html#projects">PROJETS</a>
+            <a href="index.html#parcours">PARCOURS</a>
+            <a href="ressources-bts.html" class="active">RESSOURCES BTS</a>
+            <a href="index.html#contact">CONTACT</a>
+        </nav>
+        <div class="status">>> EN LIGNE</div>
+    </header>
+
+    <main class="scroll-content">
+        <div class="main-content-wrapper">
+            <section class="content-section">
+                <h2 class="section-title">// PROCÉDURES TECHNIQUES</h2>
+                <div class="filter-menu">
+                    <button class="filter-btn active" data-category="all">TOUTES</button>
+                    <button class="filter-btn" data-category="siem">SIEM</button>
+                    <button class="filter-btn" data-category="ids">IDS/IPS</button>
+                    <button class="filter-btn" data-category="vpn">VPN</button>
+                    <button class="filter-btn" data-category="reseau">RÉSEAU</button>
+                    <button class="filter-btn" data-category="monitoring">MONITORING</button>
+                    <button class="filter-btn" data-category="radius">RADIUS/NPS</button>
+                    <button class="filter-btn" data-category="veille">VEILLE</button>
+                </div>
+
+                <div class="procedures-grid">
+                    <div class="glass-card procedure" data-category="siem ids">
+                        <div class="category-badges">
+                            <span class="category-badge">SIEM</span>
+                            <span class="category-badge">IDS/IPS</span>
+                        </div>
+                        <h3><i class="fas fa-server"></i> CENTRALISATION DES LOGS AVEC GRAYLOG</h3>
+                        <div class="resource-section">
+                            <h4>1. Installation des conteneurs Docker</h4>
+                            <p><strong>Objectif :</strong> Déployer Graylog, MongoDB et Elasticsearch pour une gestion centralisée des logs.</p>
+                            <pre class="code-block">
+version: '3'
+services:
+  mongodb:
+    image: mongo:4.2
+    container_name: mongodb
+    volumes:
+      - mongodb_data:/data/db
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+  graylog:
+    image: graylog/graylog:4.0
+    container_name: graylog
+    depends_on:
+      - mongodb
+      - elasticsearch
+    ports:
+      - "9000:9000"
+      - "1514:1514/udp"
+                            </pre>
+                            
+                            <img src="images/graylog-schema.png" alt="Schéma Graylog" class="procedure-image">
+                            <p><strong>Étapes suivantes :</strong> Configurer Snort pour envoyer les alertes à Graylog.</p>
+                        </div>
+                        <div class="pdf-preview">
+                            <a href="pdfs/graylog-procedure.pdf" target="_blank">
+                                <i class="fas fa-file-pdf"></i> TÉLÉCHARGER LE PDF
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="glass-card procedure" data-category="ids reseau">
+                        <div class="category-badges">
+                            <span class="category-badge">IDS/IPS</span>
+                            <span class="category-badge">RÉSEAU</span>
+                        </div>
+                        <h3><i class="fas fa-shield-alt"></i> INSTALLATION DE SNORT SUR UBUNTU</h3>
+                        <div class="resource-section">
+                            <h4>1. Préparation du système</h4>
+                            <p><strong>Objectif :</strong> Installer Snort pour la détection d'intrusions réseau.</p>
+                            <pre class="code-block">
+# Mise à jour du système
+sudo apt update && sudo apt upgrade -y
+# Installation de Snort
+sudo apt install snort -y
+# Configuration initiale
+sudo snort -T -c /etc/snort/snort.conf
+                            </pre>
+                            
+                            <img src="images/snort-config.png" alt="Configuration Snort" class="procedure-image">
+                            <p><strong>Test :</strong> Lancer une attaque simulée depuis Kali Linux pour vérifier les alertes.</p>
+                        </div>
+                        <div class="pdf-preview">
+                            <a href="pdfs/snort-procedure.pdf" target="_blank">
+                                <i class="fas fa-file-pdf"></i> TÉLÉCHARGER LE PDF
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="glass-card procedure" data-category="vpn reseau">
+                        <div class="category-badges">
+                            <span class="category-badge">VPN</span>
+                            <span class="category-badge">RÉSEAU</span>
+                        </div>
+                        <h3><i class="fas fa-network-wired"></i> TUNNEL VPN AVEC OPENVPN</h3>
+                        <div class="resource-section">
+                            <h4>1. Configuration de l'autorité de certification</h4>
+                            <p><strong>Objectif :</strong> Créer un VPN client-to-site sécurisé.</p>
+                            <pre class="code-block">
+# Exemple de configuration OpenVPN
+dev tun
+proto udp
+port 1194
+ca ca.crt
+cert server.crt
+key server.key
+dh dh2048.pem
+server 10.8.0.0 255.255.255.0
+push "redirect-gateway def1"
+push "dhcp-option DNS 8.8.8.8"
+                            </pre>
+                            
+                            <img src="images/openvpn-schema.png" alt="Schéma OpenVPN" class="procedure-image">
+                            <p><strong>Validation :</strong> Tester la connexion depuis un client Windows/Linux.</p>
+                        </div>
+                        <div class="pdf-preview">
+                            <a href="pdfs/openvpn-procedure.pdf" target="_blank">
+                                <i class="fas fa-file-pdf"></i> TÉLÉCHARGER LE PDF
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="glass-card procedure" data-category="monitoring reseau">
+                        <div class="category-badges">
+                            <span class="category-badge">MONITORING</span>
+                            <span class="category-badge">RÉSEAU</span>
+                        </div>
+                        <h3><i class="fas fa-chart-line"></i> INSTALLATION DE NAGIOS CORE SOUS DOCKER</h3>
+                        <div class="resource-section">
+                            <div class="step">
+                                <h4 class="step-title">1. Préparation de l'environnement</h4>
+                                <div class="step-content">
+                                    <p>Ouvrir <strong>PowerShell</strong> sous Windows et créer un répertoire de travail :</p>
+                                    <pre class="code-block">
+mkdir nagios-docker
+cd nagios-docker
+                                    </pre>
+                                    
+                                    <img src="images/nagios-docker-dir.png" alt="Création du répertoire nagios-docker" class="procedure-image" loading="lazy">
+                                </div>
+                            </div>
+
+                            <div class="step">
+                                <h4 class="step-title">2. Création du fichier docker-compose.yml</h4>
+                                <div class="step-content">
+                                    <p>Créer le fichier <code>docker-compose.yml</code> avec la configuration suivante :</p>
+                                    <pre class="code-block">
+version: '3.8'
+services:
+  nagios:
+    image: jasonrivers/nagios:latest
+    container_name: nagios
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      - NAGIOSADMIN_USER=admin
+      - NAGIOSADMIN_PASSWORD=admin
+    volumes:
+      - ./nagios/etc:/opt/nagios/etc
+      - ./nagios/var:/opt/nagios/var
+      - ./nagios/custom-plugins:/opt/Custom-Nagios-Plugins
+                                    </pre>
+                                    <p><strong>Fonction :</strong> Ce fichier définit le service Nagios, les ports exposés, les identifiants d'accès et les volumes pour stocker la configuration.</p>
+                                </div>
+                            </div>
+
+                            <div class="step">
+                                <h4 class="step-title">3. Déploiement de Nagios</h4>
+                                <div class="step-content">
+                                    <p>Lancer la création du conteneur avec :</p>
+                                    <pre class="code-block">
+docker compose up -d
+                                    </pre>
+                                    
+                                    <img src="images/nagios-docker-up.png" alt="Lancement de docker compose" class="procedure-image" loading="lazy">
+                                    <p>Vérifier le bon démarrage avec :</p>
+                                    <pre class="code-block">
+docker ps
+                                    </pre>
+                                    <p>Le conteneur <code>nagios</code> doit apparaître dans la liste des services actifs.</p>
+                                </div>
+                            </div>
+
+                            <div class="step">
+                                <h4 class="step-title">4. Accès à l'interface Web</h4>
+                                <div class="step-content">
+                                    <p>Ouvrir un navigateur et saisir : <a href="http://localhost:8080" target="_blank" class="link">http://localhost:8080</a></p>
+                                    <p><strong>Identifiants par défaut :</strong></p>
+                                    <ul>
+                                        <li><strong>Utilisateur :</strong> admin</li>
+                                        <li><strong>Mot de passe :</strong> admin</li>
+                                    </ul>
+                                    
+                                    <img src="images/nagios-web-interface.png" alt="Interface Web Nagios" class="procedure-image" loading="lazy">
+                                </div>
+                            </div>
+
+                            <div class="step">
+                                <h4 class="step-title">5. Configuration personnalisée</h4>
+                                <div class="step-content">
+                                    <p>Créer un répertoire pour les configurations personnalisées :</p>
+                                    <pre class="code-block">
+mkdir nagios/etc/opencr_conf
+                                    </pre>
+                                    <p>Créer le fichier <code>nagios/etc/opencr_conf/nagios-server.cfg</code> avec le contenu suivant :</p>
+                                    <pre class="code-block">
+define command {
+    command_name check-ping-localhost
+    command_line $USER1$/check_ping -H localhost -w 40,40% -c 60,60%
+}
+define command {
+    command_name check-ssh-localhost
+    command_line $USER1$/check_ssh localhost
+}
+define host {
+    host_name Nagios Server
+    address localhost
+    check_command check-ping-localhost
+    max_check_attempts 3
+}
+define service {
+    service_description SSH sur Nagios Server
+    host_name Nagios Server
+    check_command check-ssh-localhost
+    max_check_attempts 3
+}
+                                    </pre>
+                                </div>
+                            </div>
+
+                            <div class="step">
+                                <h4 class="step-title">6. Inclusion de la configuration</h4>
+                                <div class="step-content">
+                                    <p>Éditer <code>nagios/etc/nagios.cfg</code> et ajouter :</p>
+                                    <pre class="code-block">
+cfg_dir=/opt/nagios/etc/opencr_conf
+                                    </pre>
+                                    <p>Vérifier la configuration avec :</p>
+                                    <pre class="code-block">
+docker exec -it nagios nagios -v /opt/nagios/etc/nagios.cfg
+                                    </pre>
+                                    
+                                    <img src="images/nagios-config-check.png" alt="Vérification de la configuration Nagios" class="procedure-image" loading="lazy">
+                                </div>
+                            </div>
+
+                            <div class="step">
+                                <h4 class="step-title">7. Redémarrage et validation</h4>
+                                <div class="step-content">
+                                    <p>Redémarrer le conteneur :</p>
+                                    <pre class="code-block">
+docker restart nagios
+                                    </pre>
+                                    <p>Vérifier dans l'interface Web (<a href="http://localhost:8080" target="_blank" class="link">http://localhost:8080</a>) :</p>
+                                    <ul>
+                                        <li>Menu <strong>Hosts</strong> : "Nagios Server" doit apparaître.</li>
+                                        <li>Menu <strong>Services</strong> : "SSH sur Nagios Server" doit être visible.</li>
+                                    </ul>
+                                    <p><strong>Permissions admin :</strong> Éditer <code>nagios/etc/cgi.cfg</code> et ajouter :</p>
+                                    <pre class="code-block">
+authorized_for_system_information=admin
+authorized_for_configuration_information=admin
+authorized_for_system_commands=admin
+authorized_for_all_services=admin
+authorized_for_all_hosts=admin
+authorized_for_all_service_commands=admin
+authorized_for_all_host_commands=admin
+                                    </pre>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pdf-preview">
+                            <a href="pdfs/nagios-procedure.pdf" target="_blank">
+                                <i class="fas fa-file-pdf"></i> TÉLÉCHARGER LE PDF
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="glass-card procedure" data-category="radius reseau">
+                        <div class="category-badges">
+                            <span class="category-badge">RADIUS</span>
+                            <span class="category-badge">NPS</span>
+                            <span class="category-badge">RÉSEAU</span>
+                        </div>
+                        <h3><i class="fas fa-network-wired"></i> INSTALLATION ET CONFIGURATION RADIUS-NPS</h3>
+                        <div class="resource-section">
+                            <div class="step">
+                                <h4 class="step-title">1. Situation de départ</h4>
+                                <div class="step-content">
+                                    <p>Environnement initial :</p>
+                                    <ul>
+                                        <li>Serveur Windows 2019 avec Active Directory (IP : 172.20.90.100).</li>
+                                        <li>Domaine AD : <code>mars.local</code>.</li>
+                                        <li>Groupes AD : "escrime" et "handball".</li>
+                                        <li>Utilisateurs : "valerie" (escrime) et "nicolas" (handball).</li>
+                                    </ul>
+                                    <p><strong>Objectif :</strong> Configurer un serveur RADIUS-NPS pour une authentification 802.1x avec placement dynamique dans des VLANs.</p>
+                                </div>
+                            </div>
+
+                            <div class="step">
+                                <h4 class="step-title">2. Installation des Services de Certificats AD</h4>
+                                <div class="step-content">
+                                    <p>Ajouter le rôle <strong>Services de certificats Active Directory</strong> :</p>
+                                    
+                                    <img src="images/ad-cs-install.png" alt="Installation des Services de Certificats AD" class="procedure-image" loading="lazy">
+                                    <p>Configurer une <strong>autorité de certification d'entreprise racine</strong> :</p>
+                                    <ul>
+                                        <li>Créer une nouvelle clé privée.</li>
+                                        <li>Utiliser les paramètres de chiffrement par défaut.</li>
+                                        <li>Nommer l'autorité avec le nom de domaine (ex : <code>mars-MARS-CA</code>).</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="step">
+                                <h4 class="step-title">3. Installation du Serveur NPS</h4>
+                                <div class="step-content">
+                                    <p>Ajouter le rôle <strong>Services de stratégie et d'accès réseau</strong> :</p>
+                                    
+                                    <img src="images/nps-install.png" alt="Installation du Serveur NPS" class="procedure-image" loading="lazy">
+                                    <p>Sélectionner uniquement le <strong>Service NPS</strong>.</p>
+                                    <p>Inscrire NPS dans Active Directory pour lui permettre d'interroger la base des utilisateurs.</p>
+                                </div>
+                            </div>
+
+                            <div class="step">
+                                <h4 class="step-title">4. Configuration du Client RADIUS</h4>
+                                <div class="step-content">
+                                    <p>Déclarer le client RADIUS (ex : commutateur Cisco SF300) :</p>
+                                    <ul>
+                                        <li><strong>Nom convivial :</strong> <code>Client-Cisco-SF300</code></li>
+                                        <li><strong>Adresse IP :</strong> <code>172.20.20.41</code></li>
+                                        <li><strong>Secret partagé :</strong> <code>Sesame9999</code> (à configurer aussi sur le commutateur).</li>
+                                    </ul>
+                                    
+                                    <img src="images/nps-client-radius.png" alt="Configuration du Client RADIUS" class="procedure-image" loading="lazy">
+                                </div>
+                            </div>
+
+                            <div class="step">
+                                <h4 class="step-title">5. Stratégie de Demande de Connexion</h4>
+                                <div class="step-content">
+                                    <p>Créer une stratégie pour les connexions <strong>Ethernet 802.1x</strong> :</p>
+                                    <ul>
+                                        <li>Nom : <code>Connexion-cablée</code>.</li>
+                                        <li>Type de port NAS : <strong>Ethernet</strong>.</li>
+                                        <li>Authentification locale (pas de transfert).</li>
+                                    </ul>
+                                    
+                                    <img src="images/nps-connection-policy.png" alt="Stratégie de Demande de Connexion" class="procedure-image" loading="lazy">
+                                </div>
+                            </div>
+
+                            <div class="step">
+                                <h4 class="step-title">6. Stratégie Réseau (Accès au Réseau) - Groupe 'escrime'</h4>
+                                <div class="step-content">
+                                    <p>Créer une stratégie pour le groupe <strong>"escrime"</strong> :</p>
+                                    <ul>
+                                        <li><strong>Condition :</strong> Membre du groupe AD "escrime".</li>
+                                        <li><strong>Authentification :</strong> PEAP/MSCHAPv2.</li>
+                                        <li><strong>Attributs RADIUS :</strong>
+                                            <ul>
+                                                <li><code>Tunnel-Type</code> : <code>VLAN</code>.</li>
+                                                <li><code>Tunnel-Medium-Type</code> : <code>802 (includes...)</code>.</li>
+                                                <li><code>Tunnel-Pvt-Group-ID</code> : <code>2</code> (VLAN 2).</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    
+                                    <img src="images/nps-vlan-escrime.png" alt="Configuration VLAN escrime" class="procedure-image" loading="lazy">
+                                </div>
+                            </div>
+
+                            <div class="step">
+                                <h4 class="step-title">7. Stratégie Réseau - Groupe 'handball'</h4>
+                                <div class="step-content">
+                                    <p>Créer une stratégie pour le groupe <strong>"handball"</strong> (similaire) :</p>
+                                    <ul>
+                                        <li><strong>Condition :</strong> Membre du groupe AD "handball".</li>
+                                        <li><strong>Attributs RADIUS :</strong>
+                                            <ul>
+                                                <li><code>Tunnel-Type</code> : <code>VLAN</code>.</li>
+                                                <li><code>Tunnel-Medium-Type</code> : <code>802 (includes...)</code>.</li>
+                                                <li><code>Tunnel-Pvt-Group-ID</code> : <code>3</code> (VLAN 3).</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <p><strong>Rappel :</strong> L'ordre des stratégies réseau est crucial. Les stratégies spécifiques doivent précéder la stratégie "catch-all" (ex: Refus pour les autres).</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pdf-preview">
+                            <a href="pdfs/radius-nps-procedure.pdf" target="_blank">
+                                <i class="fas fa-file-pdf"></i> TÉLÉCHARGER LE PDF
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card procedure" data-category="veille">
+                        <div class="category-badges">
+                            <span class="category-badge">VEILLE</span>
+                        </div>
+                        <h3><i class="fas fa-lightbulb"></i> MISE EN PLACE D'UNE VEILLE TECHNOLOGIQUE</h3>
+                        <div class="resource-section">
+                            <div class="step">
+                                <h4 class="step-title">1. Outils et Méthodes</h4>
+                                <div class="step-content">
+                                    <p><strong>Objectif :</strong> Suivre les avancées en cybersécurité (CVE, Zero-Day, nouvelles réglementations).</p>
+                                    <ul>
+                                        <li><strong>Flux RSS :</strong> Utilisation de Feedly pour centraliser les sources (ANSSI, CERT-FR, The Hacker News).</li>
+                                        <li><strong>Alertes :</strong> Configuration de Google Alerts sur des mots-clés spécifiques (ex: <code>"zero-day" exploit</code>, <code>log4j vulnerability</code>).</li>
+                                        <li><strong>Réseaux Sociaux :</strong> Suivi de comptes d'experts et de chercheurs en sécurité (ex: Twitter).</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <h4 class="step-title">2. Structuration du Document</h4>
+                                <div class="step-content">
+                                    <p>Le livrable doit comprendre : la méthode, le sujet retenu, la description technique de la faille/technologie, l'impact et la bibliographie.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pdf-preview">
+                            <a href="pdfs/veille-technologique.pdf" target="_blank">
+                                <i class="fas fa-file-pdf"></i> TÉLÉCHARGER LE PDF
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="fin-marker">FIN DES PROCÉDURES TECHNIQUES BTS SIO</div>
+
+            </section>
+        </div>
+    </main>
+
+    <script>
+        // Gestionnaire d'événement pour le filtrage
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const procedures = document.querySelectorAll('.procedure');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const category = button.dataset.category;
+
+                    // Mise à jour de l'état actif des boutons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    // Filtrage des cartes
+                    procedures.forEach(card => {
+                        const cardCategories = card.dataset.category.split(' ');
+                        const isVisible = category === 'all' || cardCategories.includes(category);
+                        card.style.display = isVisible ? 'flex' : 'none';
+                    });
+                });
+            });
+
+            // Gestion du défilement du header
+            let lastScrollTop = 0;
+            const header = document.querySelector('.header-ui');
+
+            window.addEventListener('scroll', () => {
+                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                if (scrollTop > lastScrollTop && scrollTop > 50) {
+                    // Défilement vers le bas
+                    header.classList.remove('scroll-up');
+                    header.classList.add('scroll-down');
+                } else {
+                    // Défilement vers le haut ou en haut de page
+                    header.classList.remove('scroll-down');
+                    header.classList.add('scroll-up');
+                }
+                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Pour la compatibilité
+            }, false);
+
+            // Initialiser le AOS (si vous utilisez cette librairie)
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 800,
+                    easing: 'ease-in-out',
+                    once: true
+                });
+            }
+
+        });
+    </script>
+</body>
+</html>

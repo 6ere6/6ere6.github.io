@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="cyber-purple">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet | ScanFlow Utility (C#)</title>
+    <link href="https://fonts.cdnfonts.com/css/pp-neue-montreal" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        /* Variables CSS (identiques à index.html) */
+        :root {
+            --bg-dark: #1b1c21;
+            --bg-glass: rgba(27, 28, 33, 0.65);
+            --border-glass: 1px solid rgba(255, 255, 255, 0.1);
+            --shadow-glass: 0 8px 20px rgba(0, 0, 0, 0.2);
+            --text-primary: #f5f5f5;
+            --text-secondary: #c9c9c9;
+            --primary-color: #7b4397;
+            --accent-color: #f1719b;
+            --bg-gradient-start: var(--bg-dark);
+            --bg-gradient-middle: #2d1b69;
+            --bg-gradient-end: var(--bg-dark);
+            --font-main: 'PP Neue Montreal', sans-serif;
+            --font-mono: 'Fira Code', monospace;
+            --transition: all 0.3s ease;
+        }
+
+        /* Thèmes */
+        [data-theme="cyber-purple"] {
+            --primary-color: #7b4397;
+            --accent-color: #f1719b;
+            --bg-gradient-middle: #2d1b69;
+        }
+        [data-theme="neon-blue"] {
+            --primary-color: #0077ff;
+            --accent-color: #00ffcc;
+            --bg-gradient-middle: #1b1c40;
+        }
+        [data-theme="matrix-green"] {
+            --primary-color: #00b000;
+            --accent-color: #00ff41;
+            --bg-gradient-middle: #1b2d1c;
+        }
+        [data-theme="fire-red"] {
+            --primary-color: #cc2936;
+            --accent-color: #ff9900;
+            --bg-gradient-middle: #4a1c1d;
+        }
+
+        /* Reset et styles de base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-middle) 50%, var(--bg-gradient-end) 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            transition: background 0.8s ease;
+        }
+
+        /* Header */
+        .header-ui {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--bg-glass);
+            backdrop-filter: blur(10px);
+            border-bottom: var(--border-glass);
+            padding: 0.75rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .header-ui.scroll-down {
+            transform: translateY(-100%);
+        }
+
+        .header-ui.scroll-up {
+            transform: translateY(0);
+        }
+
+        .logo {
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: var(--transition);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+            background: color-mix(in srgb, var(--primary-color) 20%, transparent);
+        }
+
+        .nav-links a.active {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        /* Sélecteur de thème */
+        .header-tools {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        #theme-switcher {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        #theme-switcher i {
+            color: var(--primary-color);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        #color-theme-selector {
+            background: var(--bg-glass);
+            color: var(--text-primary);
+            border: var(--border-glass);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-family: var(--font-main);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+            appearance: none;
+            outline: none;
+        }
+
+        #color-theme-selector:hover {
+            border-color: var(--accent-color);
+        }
+
+        .status {
+            color: var(--accent-color);
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        /* Contenu principal */
+        .scroll-content {
+            margin-top: 60px;
+            padding: 1rem;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Sections */
+        .section {
+            padding: 2.5rem 0;
+            position: relative;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+            display: inline-block;
+            transition: var(--transition);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            transition: var(--transition);
+        }
+
+        /* Glass Card */
+        .glass-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(10px);
+            border: var(--border-glass);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+            border-left: 3px solid var(--primary-color);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-glass);
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .glass-card h3 {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: var(--transition);
+        }
+
+        .glass-card h3 i {
+            transition: var(--transition);
+        }
+
+        .glass-card:hover h3 i {
+            color: var(--accent-color);
+            transform: scale(1.1);
+        }
+
+        .glass-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.65;
+            flex-grow: 1;
+        }
+
+        /* Grilles */
+        .grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        /* Tags */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .tag {
+            background: rgba(123, 67, 151, 0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            font-family: var(--font-mono);
+            transition: var(--transition);
+        }
+
+        /* Boutons et liens */
+        .button {
+            padding: 0.6rem 1.2rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .button:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .link:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        /* Code Snippet */
+        .code-snippet {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin-top: 1rem;
+            border-left: 3px solid var(--accent-color);
+        }
+
+        /* Project-Specific Styles */
+        .project-header {
+            text-align: center;
+            padding-top: 5rem;
+            margin-bottom: 3rem;
+        }
+
+        .project-header h1 {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+        }
+
+        .project-meta {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .project-content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: flex-start;
+            margin-bottom: 3rem;
+        }
+
+        .project-image {
+            background: #000;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow-glass);
+            overflow: hidden;
+            border: 2px solid var(--primary-color);
+        }
+
+        .project-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .project-content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        footer::before {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 1px;
+            background: var(--accent-color);
+            margin: 0 auto 1rem;
+            transition: var(--transition);
+        }
+
+        /* Back to Top */
+        #back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(123, 67, 151, 0.3);
+        }
+
+        #back-to-top.visible {
+            opacity: 1;
+        }
+
+        #back-to-top:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(241, 113, 155, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div id="canvas-container"></div>
+    <header class="header-ui">
+        <div class="logo">LORIS.AMELAINE.FR</div>
+        <nav class="nav-links">
+            <a href="index.html#home">ACCUEIL</a>
+            <a href="index.html#about">À PROPOS</a>
+            <a href="index.html#skills">COMPÉTENCES</a>
+            <a href="index.html#experience">EXPÉRIENCE</a>
+            <a href="index.html#projects" class="active">PROJETS</a>
+            <a href="index.html#certifications">CERTIFICATIONS</a>
+            <a href="index.html#parcours">PARCOURS</a>
+            <a href="ressources-bts-protected.html">RESSOURCES BTS</a>
+            <a href="#contact">CONTACT</a>
+        </nav>
+        <div class="header-tools">
+            <div id="theme-switcher">
+                <i class="fas fa-palette" title="Changer de Thème"></i>
+                <select id="color-theme-selector">
+                    <option value="cyber-purple" selected>Cyber Purple</option>
+                    <option value="neon-blue">Neon Blue</option>
+                    <option value="matrix-green">Matrix Green</option>
+                    <option value="fire-red">Fire Red</option>
+                </select>
+            </div>
+            <div class="status">>> EN LIGNE</div>
+        </div>
+    </header>
+
+    <button id="back-to-top" title="Retour en haut"><i class="fas fa-arrow-up"></i></button>
+
+    <main class="scroll-content">
+        <div class="main-content">
+            <div class="project-header" data-aos="fade-in">
+                <h1>ScanFlow Network Utility <i class="fas fa-terminal" style="color: var(--primary-color);"></i></h1>
+                <p class="project-meta">Développement C# - Automatisation et Audit Réseau</p>
+                <a href="index.html#projects" class="link" style="margin-top: 1rem; display: block;"><i class="fas fa-arrow-left"></i> Retour aux Projets</a>
+            </div>
+
+            <div class="project-content-grid">
+                <div class="glass-card project-image" data-aos="fade-right">
+                    <img src="assets/img/scanflow.png" alt="Capture d'écran de l'application ScanFlow">
+                </div>
+
+                <div class="project-details" data-aos="fade-left">
+                    <h3 style="color: var(--accent-color);">DESCRIPTION DU PROJET</h3>
+                    <p><strong>ScanFlow</strong> est une application console développée en <strong>C# (.NET)</strong>. Elle a été conçue pour créer une interface utilisateur simple et conviviale (CLI) au-dessus d'outils d'audit réseau complexes comme <strong>Nmap</strong>.</p>
+                    <p>L'objectif était d'automatiser des séquences de scans courantes, de gérer l'historique des commandes et d'offrir une flexibilité pour les scans avancés, rendant les tâches d'audit initial plus rapides et moins sujettes aux erreurs manuelles.</p>
+
+                    <h3 style="margin-top: 2rem; color: var(--accent-color);">TECHNOLOGIES CLÉS</h3>
+                    <div class="tags">
+                        <span class="tag">C# (.NET)</span>
+                        <span class="tag">Application Console</span>
+                        <span class="tag">Process/Thread Management</span>
+                        <span class="tag">Nmap Wrapper</span>
+                        <span class="tag">Automatisation</span>
+                    </div>
+
+                    <h3 style="margin-top: 2rem; color: var(--accent-color);">EXTRAIT DE CODE</h3>
+                    <p>Extrait montrant la structure d'un menu principal en C# :</p>
+                    <pre class="code-snippet">
+<code class="language-csharp">
+// Fonction principale du menu
+public static void MainMenu()
+{
+    Console.Clear();
+    DisplayTitle();
+
+    // Affichage des options du menu
+    Console.WriteLine("= Main Menu =");
+    Console.WriteLine("1. Basic Network Scan");
+    // ... autres options ...
+
+    Console.Write("C:\\loris | ");
+    string input = Console.ReadLine();
+
+    // Gestion de la sélection de l'utilisateur
+    switch (input)
+    {
+        case "1":
+            PerformBasicScan();
+            break;
+        case "6":
+            ViewCommandHistory();
+            break;
+        // ...
+        default:
+            Console.WriteLine("Commande non reconnue.");
+            break;
+    }
+}
+</code>
+                    </pre>
+                </div>
+            </div>
+
+       
+    <footer class="footer">
+        <p>© 2025 Loris Amelaine. Développé avec <i class="fas fa-heart" style="color: var(--accent-color);"></i> et Cybersécurité.</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, easing: 'ease-in-out', once: true });
+
+        // Header Scroll Effect & Back to Top
+        let lastScrollTop = 0;
+        const header = document.querySelector('.header-ui');
+        const backToTop = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            // Header hide/show
+            if (scrollTop > lastScrollTop && scrollTop > 60) {
+                header.classList.add('scroll-down');
+                header.classList.remove('scroll-up');
+            } else {
+                header.classList.remove('scroll-down');
+                header.classList.add('scroll-up');
+            }
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+
+            // Back to Top button visibility
+            if (scrollTop > 400) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        }, false);
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Theme Switcher Logic
+        const themeSelector = document.getElementById('color-theme-selector');
+        const root = document.documentElement;
+
+        themeSelector.addEventListener('change', (e) => {
+            const selectedTheme = e.target.value;
+            root.setAttribute('data-theme', selectedTheme);
+            localStorage.setItem('theme', selectedTheme);
+        });
+
+        // Load saved theme on startup
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            root.setAttribute('data-theme', savedTheme);
+            themeSelector.value = savedTheme;
+        }
+    </script>
+</body>
+</html>

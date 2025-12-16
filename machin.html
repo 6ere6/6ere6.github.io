@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="cyber-purple">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Loris Amelaine - Portfolio Cybersécurité. Étudiant en BTS SIO spécialisé en pentesting, SIEM et DevSecOps.">
+    <meta name="keywords" content="cybersécurité, pentest, BTS SIO, Loris Amelaine, portfolio, DevSecOps, stage, alternance">
+    <title>Loris Amelaine | Cybersécurité</title>
+    <link href="https://fonts.cdnfonts.com/css/pp-neue-montreal" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            /* Couleurs de base, mises à jour par JS */
+            --bg-dark: #1b1c21;
+            --bg-glass: rgba(27, 28, 33, 0.65);
+            --border-glass: 1px solid rgba(255, 255, 255, 0.1);
+            --shadow-glass: 0 8px 20px rgba(0, 0, 0, 0.2);
+            --text-primary: #f5f5f5;
+            --text-secondary: #c9c9c9;
+
+            /* Variables de thème par défaut: Cyber Purple */
+            --primary-color: #7b4397; /* Violet foncé */
+            --accent-color: #f1719b; /* Rose/Magenta */
+            --bg-gradient-start: var(--bg-dark);
+            --bg-gradient-middle: #2d1b69; /* Pour le body background */
+            --bg-gradient-end: var(--bg-dark);
+
+            --font-main: 'PP Neue Montreal', sans-serif;
+            --font-mono: 'Fira Code', monospace;
+            --transition: all 0.3s ease;
+        }
+
+        /* Définitions des Thèmes pour le JavaScript */
+        [data-theme="cyber-purple"] {
+            --primary-color: #7b4397;
+            --accent-color: #f1719b;
+            --bg-gradient-middle: #2d1b69;
+        }
+        [data-theme="neon-blue"] {
+            --primary-color: #0077ff;
+            --accent-color: #00ffcc;
+            --bg-gradient-middle: #1b1c40;
+        }
+        [data-theme="matrix-green"] {
+            --primary-color: #00b000;
+            --accent-color: #00ff41;
+            --bg-gradient-middle: #1b2d1c;
+        }
+        [data-theme="fire-red"] {
+            --primary-color: #cc2936;
+            --accent-color: #ff9900;
+            --bg-gradient-middle: #4a1c1d;
+        }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            /* Utilisation des variables de gradient pour le corps */
+            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-middle) 50%, var(--bg-gradient-end) 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            transition: background 0.8s ease; /* Transition pour le changement de fond */
+        }
+
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.15;
+        }
+
+        /* Header */
+        .header-ui {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--bg-glass);
+            backdrop-filter: blur(10px);
+            border-bottom: var(--border-glass);
+            padding: 0.75rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .header-ui.scroll-down {
+            transform: translateY(-100%);
+        }
+
+        .header-ui.scroll-up {
+            transform: translateY(0);
+        }
+
+        .logo {
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: var(--transition); 
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+            /* Utilisation d'une couleur d'accentuation transparente basée sur primary-color */
+            background: color-mix(in srgb, var(--primary-color) 20%, transparent);
+        }
+
+        .nav-links a.active {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        /* Styles du sélecteur de thème */
+        .header-tools {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        #theme-switcher {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        #theme-switcher i {
+            color: var(--primary-color);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        #color-theme-selector {
+            background: var(--bg-glass);
+            color: var(--text-primary);
+            border: var(--border-glass);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-family: var(--font-main);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+            appearance: none; /* Cache les flèches par défaut */
+            outline: none;
+        }
+
+        #color-theme-selector:hover {
+            border-color: var(--accent-color);
+        }
+        /* Fin des styles du sélecteur de thème */
+
+        .status {
+            color: var(--accent-color);
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        /* Contenu principal */
+        .scroll-content {
+            margin-top: 60px;
+            padding: 1rem;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Sections */
+        .section {
+            padding: 2.5rem 0;
+            position: relative;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+            display: inline-block;
+            transition: var(--transition);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            transition: var(--transition);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            transition: var(--transition);
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-mono);
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            height: 30px;
+            transition: var(--transition);
+        }
+
+        .hero-description {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            line-height: 1.7;
+        }
+
+        .cta-container {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            padding: 0.75rem 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 12px rgba(123, 67, 151, 0.3); /* Conserve le shadow, il changera indirectement */
+        }
+
+        .cta-button:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(241, 113, 155, 0.4); /* Conserve le shadow, il changera indirectement */
+        }
+
+        /* Cartes (glassmorphism) */
+        .glass-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(10px);
+            border: var(--border-glass);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-glass);
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .glass-card h3 {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: var(--transition);
+        }
+
+        .glass-card h3 i {
+            transition: var(--transition);
+        }
+
+        .glass-card:hover h3 i {
+            color: var(--accent-color);
+            transform: scale(1.1);
+        }
+
+        .glass-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.65;
+        }
+
+        /* Grilles */
+        .grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        /* Outils */
+        .tools-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .tool-item {
+            background: rgba(27, 28, 33, 0.4);
+            border: var(--border-glass);
+            border-radius: 10px;
+            padding: 1.25rem;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .tool-item:hover {
+            background: rgba(27, 28, 33, 0.6);
+            transform: translateY(-3px);
+            border-color: var(--accent-color);
+        }
+
+        .tool-item i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .tool-item:hover i {
+            color: var(--accent-color);
+            transform: scale(1.1);
+        }
+
+        .tool-item span {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            display: block;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
+            transition: var(--transition);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        .timeline-date {
+            position: absolute;
+            left: -100px;
+            width: 90px;
+            text-align: right;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .timeline-content {
+            background: var(--bg-glass);
+            border: var(--border-glass);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-left: 10px;
+        }
+
+        .timeline-content h4 {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .timeline-content p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Expérience Pro */
+        .experience-item {
+            background: var(--bg-glass);
+            border: var(--border-glass);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .experience-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(241, 113, 155, 0.2);
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+        }
+
+        .experience-title {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .experience-date {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            background: rgba(123, 67, 151, 0.2);
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            transition: var(--transition);
+        }
+
+        .experience-company {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+        }
+
+        .experience-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .experience-tag {
+            background: rgba(123, 67, 151, 0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            font-family: var(--font-mono);
+            transition: var(--transition);
+        }
+
+        /* Tags */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .tag {
+            background: rgba(123, 67, 151, 0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            font-family: var(--font-mono);
+            transition: var(--transition);
+        }
+
+        /* Boutons et liens */
+        .button {
+            padding: 0.6rem 1.2rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .button:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .link:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        /* Pied de page */
+        .footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .footer::before {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 1px;
+            background: var(--accent-color);
+            margin: 0 auto 1rem;
+            transition: var(--transition);
+        }
+
+        /* Back to Top */
+        #back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(123, 67, 151, 0.3);
+        }
+
+        #back-to-top.visible {
+            opacity: 1;
+        }
+
+        #back-to-top:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(241, 113, 155, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            .section-title {
+                font-size: 1.6rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            .tools-showcase {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .timeline-date {
+                position: static;
+                text-align: left;
+                margin-bottom: 0.5rem;
+                width: auto;
+            }
+            .timeline-item {
+                padding-left: 0;
+            }
+            .timeline::before {
+                left: 10px;
+            }
+            .header-ui {
+                padding: 0.75rem 1rem;
+            }
+            .header-tools {
+                gap: 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            .tools-showcase {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .glass-card, .experience-item {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="canvas-container"></div>
+    <header class="header-ui">
+        <div class="logo">LORIS.AMELAINE.FR</div>
+        <nav class="nav-links">
+            <a href="#home" class="active">ACCUEIL</a>
+            <a href="#about">À PROPOS</a>
+            <a href="#skills">COMPÉTENCES</a>
+            <a href="#experience">EXPÉRIENCE</a>
+            <a href="#projects">PROJETS</a>
+            <a href="#certifications">CERTIFICATIONS</a>
+            <a href="#parcours">PARCOURS</a>
+            <a href="ressources-bts.html">RESSOURCES BTS</a>
+            <a href="#contact">CONTACT</a>
+        </nav>
+        <div class="header-tools">
+            <div id="theme-switcher">
+                <i class="fas fa-palette" title="Changer de Thème"></i>
+                <select id="color-theme-selector">
+                    <option value="cyber-purple" selected>Cyber Purple</option>
+                    <option value="neon-blue">Neon Blue</option>
+                    <option value="matrix-green">Matrix Green</option>
+                    <option value="fire-red">Fire Red</option>
+                </select>
+            </div>
+            <div class="status">>> EN LIGNE</div>
+        </div>
+    </header>
+
+    <button id="back-to-top" title="Retour en haut"><i class="fas fa-arrow-up"></i></button>
+
+    <main class="scroll-content">
+        <div class="main-content">
+            <section class="hero-section" id="home" data-aos="fade-in">
+                <div class="hero-content">
+                    <h1 class="hero-title">LORIS AMELAINE</h1>
+                    <div class="hero-subtitle">
+                        <p>> <span id="typed-text"></span><span class="cursor">|</span></p>
+                    </div>
+                    <div class="hero-description">
+                        <p>Je conçois des <strong>solutions de sécurité offensive et défensive</strong>, avec une expertise en tests d'intrusion, analyse forensique et DevSecOps.</p>
+                        <p>Actuellement en <strong>BTS SIO Spé SISR</strong>, je cherche un <strong>stage ou une alternance</strong> pour 2026.</p>
+                    </div>
+                    <div class="cta-container">
+                        <a href="#about" class="cta-button">Découvrir</a>
+                        <a href="pdfs/cv-loris-amelaine.pdf" class="cta-button" download>
+                            <i class="fas fa-download"></i> Mon CV
+                        </a>
+                        <a href="#contact" class="cta-button">Me Contacter</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="about" data-aos="fade-up">
+                <h2 class="section-title">// À PROPOS</h2>
+                <div class="glass-card">
+                    <p>Étudiant en <strong>Réseau et Cybersécurité</strong> au Lycée Raoul Follereau (Nevers), je me spécialise dans la <strong>détection d'intrusions</strong>, l'<strong>analyse forensique</strong> et l'<strong>automatisation des tests de sécurité</strong>.</p>
+                    <p>Mon approche combine <strong>rigueur technique</strong> et <strong>créativité</strong> pour résoudre des problèmes complexes, avec un focus sur les solutions <strong>open-source</strong> et <strong>scalables</strong>.</p>
+                    <p>Passionné par les <strong>CTF</strong> et les défis techniques, je participe régulièrement à des compétitions pour me perfectionner.</p>
+                </div>
+
+                <h3 style="margin: 2rem 0 1rem; color: var(--text-primary); font-size: 1.4rem;">OUTILS & TECHNOLOGIES</h3>
+                <div class="tools-showcase" data-aos="fade-up">
+                    <div class="tool-item">
+                        <i class="fas fa-network-wired"></i>
+                        <span>Nmap</span>
+                    </div>
+                    <div class="tool-item">
+                        <i class="fas fa-bug"></i>
+                        <span>Metasploit</span>
+                    </div>
+                    <div class="tool-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Snort</span>
+                    </div>
+                    <div class="tool-item">
+                        <i class="fas fa-database"></i>
+                        <span>PostgreSQL</span>
+                    </div>
+                    <div class="tool-item">
+                        <i class="fas fa-search"></i>
+                        <span>Elasticsearch</span>
+                    </div>
+                    <div class="tool-item">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Wireshark</span>
+                    </div>
+                    <div class="tool-item">
+                        <i class="fab fa-docker"></i>
+                        <span>Docker</span>
+                    </div>
+                    <div class="tool-item">
+                        <i class="fab fa-linux"></i>
+                        <span>Kali Linux</span>
+                    </div>
+                    <div class="tool-item">
+                        <i class="fab fa-git-alt"></i>
+                        <span>Git</span>
+                    </div>
+                    <div class="tool-item">
+                        <i class="fas fa-server"></i>
+                        <span>Graylog</span>
+                    </div>
+                    <div class="tool-item">
+                        <i class="fas fa-microscope"></i>
+                        <span>Autopsy</span>
+                    </div>
+                    <div class="tool-item">
+                        <i class="fas fa-wifi"></i>
+                        <span>Aircrack-ng</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="experience" data-aos="fade-up">
+                <h2 class="section-title">// EXPÉRIENCE PROFESSIONNELLE</h2>
+                <div class="grid grid-2">
+                    <div class="experience-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="experience-header">
+                            <h4 class="experience-title">Stage en Maintenance et Cybersécurité</h4>
+                            <div class="experience-date">2024 - 2025</div>
+                        </div>
+                        <div class="experience-company">Fédération des Centres Sociaux de la Nièvre</div>
+                        <p>Participation à des audits de sécurité, déploiement de solutions de détection d'intrusions (Snort), et rédaction de rapports techniques.</p>
+                        <div class="experience-tags">
+                            <span class="experience-tag">Snort</span>
+                            <span class="experience-tag">Nmap</span>
+                            <span class="experience-tag">Audit</span>
+                            <span class="experience-tag">Rapport</span>
+                        </div>
+                        <div style="text-align: center; margin-top: 1rem;">
+                            <a href="pdfs/rapport-stage.pdf" class="link" target="_blank">
+                                <i class="fas fa-file-pdf"></i> Voir le rapport
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="experience-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="experience-header">
+                            <h4 class="experience-title">BTS SIO (En cours)</h4>
+                            <div class="experience-date">2024 - 2026</div>
+                        </div>
+                        <div class="experience-company">Lycée Raoul Follereau, Nevers</div>
+                        <p>Spécialisation en <strong>Solutions d'Infrastructure, Systèmes et Réseaux (SISR)</strong>, avec un focus sur la cybersécurité et les solutions SISR.</p>
+                        <div class="experience-tags">
+                            <span class="experience-tag">SISR</span>
+                            <span class="experience-tag">Cybersécurité</span>
+                            <span class="experience-tag">Réseau</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="skills" data-aos="fade-up">
+                <h2 class="section-title">// COMPÉTENCES</h2>
+                <div class="grid grid-2">
+                    <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+                        <h3><i class="fas fa-shield-alt"></i> PENTESTING</h3>
+                        <p>Expertise en tests d'intrusion (web, réseau, applications) avec <strong>Burp Suite</strong>, <strong>Metasploit</strong>, et scripts Python/Bash.</p>
+                        <div class="tags">
+                            <span class="tag">Burp Suite</span>
+                            <span class="tag">Metasploit</span>
+                            <span class="tag">Nmap</span>
+                            <span class="tag">OWASP Top 10</span>
+                        </div>
+                    </div>
+
+                    <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
+                        <h3><i class="fas fa-search"></i> ANALYSE FORENSIQUE</h3>
+                        <p>Investigation numérique avec <strong>Autopsy</strong> et <strong>Volatility</strong>. Analyse de logs et réponse aux incidents.</p>
+                        <div class="tags">
+                            <span class="tag">Autopsy</span>
+                            <span class="tag">Volatility</span>
+                            <span class="tag">SIEM</span>
+                        </div>
+                    </div>
+
+                    <div class="glass-card" data-aos="fade-up" data-aos-delay="300">
+                        <h3><i class="fas fa-code"></i> AUTOMATISATION</h3>
+                        <p>Scripts Python/Bash pour automatiser des tâches de sécurité. Intégration CI/CD avec <strong>GitHub Actions</strong> et <strong>Ansible</strong>.</p>
+                        <div class="tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Bash</span>
+                            <span class="tag">Ansible</span>
+                            <span class="tag">Docker</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="projects" data-aos="fade-up">
+                <h2 class="section-title">// PROJETS ET RÉALISATIONS</h2>
+                <div class="grid grid-2">
+                    <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+                        <h3><i class="fas fa-shield-alt"></i> CYBERSÉCURITÉ</h3>
+                        <p>Mise en place d'un <strong>IDS/IPS (Snort, Suricata)</strong> pour la détection d'intrusion. Mise en place de <strong>SIEM (Wazuh, Splunk, ELK)</strong> pour centraliser et analyser les logs.</p>
+                        <div class="tags">
+                            <span class="tag">Snort</span>
+                            <span class="tag">Suricata</span>
+                            <span class="tag">Wazuh</span>
+                            <span class="tag">ELK</span>
+                        </div>
+                    </div>
+
+                    <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
+                        <h3><i class="fas fa-server"></i> RÉSEAU & INFRASTRUCTURE</h3>
+                        <p>Architecture réseau sécurisée (schéma + configuration) avec <strong>VLAN</strong>, segmentation, et <strong>DMZ</strong>. Déploiement de serveurs virtualisés.</p>
+                        <div class="tags">
+                            <span class="tag">VLAN</span>
+                            <span class="tag">DMZ</span>
+                            <span class="tag">Virtualisation</span>
+                        </div>
+                    </div>
+
+                    <div class="glass-card" data-aos="fade-up" data-aos-delay="300">
+                        <h3><i class="fas fa-network-wired"></i> DÉVELOPPEMENT / AUTOMATISATION</h3>
+                        <p>Scripts d'automatisation pour l'administration et la sécurité. Outils de scan personnalisés (ex. wrapper autour de Nmap). Dashboard web pour visualiser les métriques de sécurité ou réseau.</p>
+                        <div class="tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Bash</span>
+                            <span class="tag">Nmap</span>
+                            <span class="tag">Dashboard</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="certifications" data-aos="fade-up">
+                <h2 class="section-title">// CERTIFICATIONS</h2>
+                <div class="grid grid-2">
+                    <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+                        <h3><i class="fas fa-certificate"></i> ANSSI / OpenClassrooms</h3>
+                        <p>Formation aux bases de la cybersécurité et tests d'intrusion.</p>
+                        <div style="text-align: center; margin-top: 1rem;">
+                            <a href="pdfs/certification-anssi.pdf" class="link" target="_blank">
+                                <i class="fas fa-file-pdf"></i> Voir la certification
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
+                        <h3><i class="fas fa-certificate"></i> SecNum Académie</h3>
+                        <p>Certification en cybersécurité délivrée par l'ANSSI.</p>
+                        <div style="text-align: center; margin-top: 1rem;">
+                            <a href="pdfs/certification-secnum.pdf" class="link" target="_blank">
+                                <i class="fas fa-file-pdf"></i> Voir la certification
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="parcours" data-aos="fade-up">
+                <h2 class="section-title">// PARCOURS</h2>
+                <div class="timeline">
+                    <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="timeline-date">2022 - 2024</div>
+                        <div class="timeline-content">
+                            <h4>Baccalauréat Technologique</h4>
+                            <p>Lycée Raoul Follereau, Nevers</p>
+                            <p>Spécialité <strong>Système d'Information de Gestion (SIG)</strong>.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="timeline-date">2024</div>
+                        <div class="timeline-content">
+                            <h4>Certification Cybersécurité</h4>
+                            <p>ANSSI / OpenClassrooms</p>
+                            <p>Formation aux bases de la cybersécurité et tests d'intrusion.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+                        <div class="timeline-date">2024 - 2026</div>
+                        <div class="timeline-content">
+                            <h4>BTS SIO - Spé SISR</h4>
+                            <p>Lycée Raoul Follereau, Nevers</p>
+                            <p>Spécialisation en <strong>Solutions d'Infrastructure, Systèmes et Réseaux</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="contact" data-aos="fade-up">
+                <h2 class="section-title">// CONTACT</h2>
+                <div class="grid grid-2">
+                    <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+                        <h3><i class="fas fa-envelope"></i> ME CONTACTER</h3>
+                        <p>Pour toute question, collaboration ou opportunité professionnelle, n'hésitez pas à me contacter.</p>
+                        <div style="text-align: center; margin: 1.5rem 0;">
+                            <a href="mailto:loris.amelaine@proton.me" class="link">
+                                <i class="fas fa-envelope"></i> loris.amelaine@proton.me
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
+                        <h3><i class="fab fa-linkedin"></i> LIENS SOCIAUX</h3>
+                        <p>Retrouvez-moi sur LinkedIn et GitHub pour suivre mes projets.</p>
+                        <div style="text-align: center; margin: 1.5rem 0; display: flex; justify-content: center; gap: 1rem;">
+                            <a href="https://linkedin.com/in/votreprofil" class="cta-button" target="_blank" style="padding: 0.5rem 1rem;">
+                                <i class="fab fa-linkedin"></i> LinkedIn
+                            </a>
+                            <a href="https://github.com/votreprofil" class="cta-button" target="_blank" style="padding: 0.5rem 1rem;">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>© 2025 Loris Amelaine. Développé avec <i class="fas fa-heart" style="color: var(--accent-color);"></i> et Cybersécurité.</p>
+    </footer>
+
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 1000,
+                once: true,
+                easing: 'ease-in-out',
+                offset: 100,
+            });
+
+            // --- Logique du Changement de Thème ---
+            const html = document.documentElement;
+            const themeSelector = document.getElementById('color-theme-selector');
+            const defaultTheme = 'cyber-purple';
+
+            // 1. Charger le thème sauvegardé
+            const savedTheme = localStorage.getItem('theme') || defaultTheme;
+            html.setAttribute('data-theme', savedTheme);
+            themeSelector.value = savedTheme;
+
+            // 2. Gestion du changement par l'utilisateur
+            themeSelector.addEventListener('change', function() {
+                const newTheme = this.value;
+                html.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+            // ---------------------------------------
+
+
+            // --- Logique du Typed Text et du Curseur (similaire à une console) ---
+            const typedTextElement = document.getElementById('typed-text');
+            const cursorElement = document.querySelector('.cursor');
+            const phrases = [
+                "Pentesting Expert",
+                "Ingénieur Cybersécurité",
+                "Analyste Forensique",
+                "DevSecOps Enthusiast"
+            ];
+            let phraseIndex = 0;
+            let charIndex = 0;
+            let isTyping = true;
+
+            function type() {
+                const currentPhrase = phrases[phraseIndex];
+                if (isTyping) {
+                    if (charIndex < currentPhrase.length) {
+                        typedTextElement.textContent += currentPhrase.charAt(charIndex);
+                        charIndex++;
+                        setTimeout(type, 100); 
+                    } else {
+                        isTyping = false;
+                        setTimeout(type, 1500); // Pause avant d'effacer
+                    }
+                } else {
+                    if (charIndex > 0) {
+                        typedTextElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                        charIndex--;
+                        setTimeout(type, 50); 
+                    } else {
+                        isTyping = true;
+                        phraseIndex = (phraseIndex + 1) % phrases.length;
+                        setTimeout(type, 500); // Pause avant de taper la phrase suivante
+                    }
+                }
+            }
+
+            // Gestion du clignotement du curseur
+            setInterval(() => {
+                cursorElement.style.visibility = (cursorElement.style.visibility === 'hidden' && isTyping) ? 'visible' : 'hidden';
+            }, 500);
+
+
+            // Démarre la séquence de typage seulement si l'élément existe
+            if (typedTextElement) {
+                type();
+            }
+            // -------------------------------------------------------------------
+
+
+            // --- Logique du Header et Back to Top ---
+            let lastScrollTop = 0;
+            const header = document.querySelector('.header-ui');
+            const backToTop = document.getElementById('back-to-top');
+
+            window.addEventListener('scroll', function() {
+                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                // Cacher/Afficher le header
+                if (scrollTop > lastScrollTop && scrollTop > 50) {
+                    // Scroll Down
+                    header.classList.add('scroll-down');
+                    header.classList.remove('scroll-up');
+                } else if (scrollTop < lastScrollTop) {
+                    // Scroll Up
+                    header.classList.add('scroll-up');
+                    header.classList.remove('scroll-down');
+                }
+                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; 
+
+                // Afficher/Cacher le bouton Back to Top
+                if (scrollTop > 400) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+
+                // Activer le lien de navigation en fonction de la section visible
+                const sections = document.querySelectorAll('section');
+                let current = '';
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 100; // Ajustement
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= sectionTop) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                document.querySelectorAll('.nav-links a').forEach(a => {
+                    a.classList.remove('active');
+                    if (a.getAttribute('href').substring(1) === current) {
+                        a.classList.add('active');
+                    }
+                });
+            });
+
+            // Action du bouton Back to Top
+            backToTop.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            // ------------------------------------------
+
+        });
+    </script>
+    
+</body>
+</html>

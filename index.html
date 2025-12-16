@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="cyber-purple">
+<head>
+    <head>
+    <!-- Encodage et viewport (déjà présent) -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Balises méta SEO de base -->
+    <meta name="description" content="Loris Amelaine - Portfolio Cybersécurité. Étudiant en BTS SIO spécialisé en pentesting, SIEM, DevSecOps et analyse forensique. Découvrez mes projets, compétences et certifications en cybersécurité à Nevers, Bourgogne.">
+    <meta name="keywords" content="cybersécurité, pentest, BTS SIO, Loris Amelaine, portfolio, DevSecOps, stage, alternance, analyse forensique, SIEM, Nmap, Metasploit, Kali Linux, Nevers, Bourgogne, étudiant cybersécurité, audit sécurité, protection données">
+    <meta name="author" content="Loris Amelaine">
+    <meta name="robots" content="index, follow">
+
+    <!-- Balises Open Graph (Facebook, LinkedIn) -->
+    <meta property="og:title" content="Loris Amelaine | Portfolio Cybersécurité - Pentesting & DevSecOps">
+    <meta property="og:description" content="Étudiant en BTS SIO à Nevers, spécialisé en cybersécurité, pentesting, DevSecOps et analyse forensique. Découvrez mes projets, compétences et certifications.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://loris.amelaine.fr">
+    <meta property="og:image" content="https://loris.amelaine.fr/assets/img/og-image.jpg">
+    <meta property="og:site_name" content="Loris Amelaine - Portfolio Cybersécurité">
+    <meta property="og:locale" content="fr_FR">
+
+    <!-- Balises Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Loris Amelaine | Portfolio Cybersécurité - Pentesting & DevSecOps">
+    <meta name="twitter:description" content="Étudiant en BTS SIO à Nevers, spécialisé en cybersécurité, pentesting, DevSecOps et analyse forensique. Découvrez mes projets et compétences.">
+    <meta name="twitter:image" content="https://loris.amelaine.fr/assets/img/og-image.jpg">
+    <meta name="twitter:site" content="@ton_compte_twitter">
+    <meta name="twitter:creator" content="@ton_compte_twitter">
+
+    <!-- Balise canonical (évite le contenu dupliqué) -->
+    <link rel="canonical" href="https://loris.amelaine.fr">
+
+    <!-- Lien vers le sitemap (pour les moteurs de recherche) -->
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="https://loris.amelaine.fr/sitemap.xml">
+
+    <!-- Favicon (pour l'onglet du navigateur) -->
+    <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+
+    <!-- Pré-chargement des polices et ressources critiques -->
+    <link rel="preload" href="https://fonts.cdnfonts.com/css/pp-neue-montreal" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.cdnfonts.com/css/pp-neue-montreal"></noscript>
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+
+    <!-- Balise pour les applications mobiles (PWA) -->
+    <meta name="theme-color" content="#7b4397">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Balise pour iOS (PWA) -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Loris Amelaine">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Loris Amelaine - Portfolio Cybersécurité. Étudiant en BTS SIO spécialisé en pentesting, SIEM et DevSecOps.">
+    <meta name="keywords" content="cybersécurité, pentest, BTS SIO, Loris Amelaine, portfolio, DevSecOps, stage, alternance">
+    <title>Loris Amelaine | Cybersécurité</title>
+    <link href="https://fonts.cdnfonts.com/css/pp-neue-montreal" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #1b1c21;
+            --bg-glass: rgba(27, 28, 33, 0.65);
+            --border-glass: 1px solid rgba(255, 255, 255, 0.1);
+            --shadow-glass: 0 8px 20px rgba(0, 0, 0, 0.2);
+            --text-primary: #f5f5f5;
+            --text-secondary: #c9c9c9;
+            --primary-color: #7b4397;
+            --accent-color: #f1719b;
+            --bg-gradient-start: var(--bg-dark);
+            --bg-gradient-middle: #2d1b69;
+            --bg-gradient-end: var(--bg-dark);
+            --font-main: 'PP Neue Montreal', sans-serif;
+            --font-mono: 'Fira Code', monospace;
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="cyber-purple"] {
+            --primary-color: #7b4397;
+            --accent-color: #f1719b;
+            --bg-gradient-middle: #2d1b69;
+        }
+        [data-theme="neon-blue"] {
+            --primary-color: #0077ff;
+            --accent-color: #00ffcc;
+            --bg-gradient-middle: #1b1c40;
+        }
+        [data-theme="matrix-green"] {
+            --primary-color: #00b000;
+            --accent-color: #00ff41;
+            --bg-gradient-middle: #1b2d1c;
+        }
+        [data-theme="fire-red"] {
+            --primary-color: #cc2936;
+            --accent-color: #ff9900;
+            --bg-gradient-middle: #4a1c1d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-middle) 50%, var(--bg-gradient-end) 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            transition: background 0.8s ease;
+        }
+
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.15;
+        }
+
+        /* Header */
+        .header-ui {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--bg-glass);
+            backdrop-filter: blur(10px);
+            border-bottom: var(--border-glass);
+            padding: 0.75rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .header-ui.scroll-down {
+            transform: translateY(-100%);
+        }
+
+        .header-ui.scroll-up {
+            transform: translateY(0);
+        }
+
+        .logo {
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: var(--transition);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--accent-color);
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+            background: color-mix(in srgb, var(--primary-color) 20%, transparent);
+        }
+
+        .nav-links a:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        .nav-links a.active {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        /* Styles du sélecteur de thème */
+        .header-tools {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        #theme-switcher {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        #theme-switcher i {
+            color: var(--primary-color);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        #color-theme-selector {
+            background: var(--bg-glass);
+            color: var(--text-primary);
+            border: var(--border-glass);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-family: var(--font-main);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+            appearance: none;
+            outline: none;
+        }
+
+        #color-theme-selector:hover {
+            border-color: var(--accent-color);
+        }
+
+        .status {
+            color: var(--accent-color);
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        /* Contenu principal */
+        .scroll-content {
+            margin-top: 60px;
+            padding: 1rem;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Sections */
+        .section {
+            padding: 2.5rem 0;
+            position: relative;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+            display: inline-block;
+            transition: var(--transition);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            transition: var(--transition);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            transition: var(--transition);
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-mono);
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            height: 30px;
+            transition: var(--transition);
+        }
+
+        .hero-description {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            line-height: 1.7;
+        }
+
+        .cta-container {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            padding: 0.75rem 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 12px rgba(123, 67, 151, 0.3);
+            transform: scale(1);
+        }
+
+        .cta-button:hover {
+            background: var(--accent-color);
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(241, 113, 155, 0.4);
+        }
+
+        /* Cartes (glassmorphism) */
+        .glass-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(10px);
+            border: var(--border-glass);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+            border-left: 3px solid var(--primary-color);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(241, 113, 155, 0.2);
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .glass-card h3 {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: var(--transition);
+        }
+
+        .glass-card h3 i {
+            transition: var(--transition);
+        }
+
+        .glass-card:hover h3 i {
+            color: var(--accent-color);
+            transform: scale(1.2);
+            text-shadow: 0 0 8px var(--accent-color);
+        }
+
+        .glass-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.65;
+            flex-grow: 1;
+        }
+
+        /* Grilles */
+        .grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        /* Outils */
+        .tools-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .tool-item {
+            background: rgba(27, 28, 33, 0.4);
+            border: var(--border-glass);
+            border-radius: 10px;
+            padding: 1.25rem 0.5rem;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tool-item:hover {
+            background: rgba(27, 28, 33, 0.6);
+            transform: translateY(-5px) scale(1.05);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 15px rgba(241, 113, 155, 0.3);
+        }
+
+        .tool-item img.tool-icon {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            margin-bottom: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .tool-item i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .tool-item:hover i, .tool-item:hover img.tool-icon {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 8px var(--accent-color));
+        }
+
+        .tool-item span {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            display: block;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
+            transition: var(--transition);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        .timeline-date {
+            position: absolute;
+            left: -100px;
+            width: 90px;
+            text-align: right;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .timeline-content {
+            background: var(--bg-glass);
+            border: var(--border-glass);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-left: 10px;
+            transition: var(--transition);
+        }
+
+        .timeline-content:hover {
+            transform: translateX(5px);
+            box-shadow: 0 6px 12px rgba(241, 113, 155, 0.2);
+        }
+
+        .timeline-content h4 {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .timeline-content p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Expérience Pro */
+        .experience-item {
+            background: var(--bg-glass);
+            border: var(--border-glass);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .experience-item:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(241, 113, 155, 0.2);
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+        }
+
+        .experience-title {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .experience-date {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            background: rgba(123, 67, 151, 0.2);
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            transition: var(--transition);
+        }
+
+        .experience-company {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+        }
+
+        .experience-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .experience-tag {
+            background: rgba(123, 67, 151, 0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            font-family: var(--font-mono);
+            transition: var(--transition);
+        }
+
+        .experience-tag:hover {
+            background: rgba(241, 113, 155, 0.2);
+            transform: scale(1.1);
+        }
+
+        /* Tags */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .tag {
+            background: rgba(123, 67, 151, 0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            font-family: var(--font-mono);
+            transition: var(--transition);
+        }
+
+        .tag:hover {
+            background: rgba(241, 113, 155, 0.2);
+            transform: scale(1.1);
+        }
+
+        /* Boutons et liens */
+        .button {
+            padding: 0.6rem 1.2rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .button:hover {
+            background: var(--accent-color);
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(241, 113, 155, 0.4);
+        }
+
+        .link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+        }
+
+        .link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .link:hover {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .link:hover::after {
+            width: 100%;
+        }
+
+        /* Pied de page */
+        .footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .footer::before {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 1px;
+            background: var(--accent-color);
+            margin: 0 auto 1rem;
+            transition: var(--transition);
+        }
+
+        /* Back to Top */
+        #back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(123, 67, 151, 0.3);
+        }
+
+        #back-to-top.visible {
+            opacity: 1;
+        }
+
+        #back-to-top:hover {
+            transform: scale(1.2);
+            box-shadow: 0 6px 16px rgba(241, 113, 155, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            .section-title {
+                font-size: 1.6rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            .tools-showcase {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .timeline-date {
+                position: static;
+                text-align: left;
+                margin-bottom: 0.5rem;
+                width: auto;
+            }
+            .timeline-item {
+                padding-left: 0;
+            }
+            .timeline::before {
+                left: 10px;
+            }
+            .header-ui {
+                padding: 0.75rem 1rem;
+            }
+            .header-tools {
+                gap: 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            .tools-showcase {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .glass-card, .experience-item {
+                padding: 1rem;
+            }
+        }
+
+        /* Styles pour les cartes de certification */
+        .certification-card {
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+            min-height: 300px;
+        }
+
+        .certification-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .certification-logos {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .certification-logo {
+            height: 50px;
+            width: auto;
+            max-width: 100px;
+            filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.3));
+        }
+
+        .certification-card h3 {
+            color: var(--accent-color);
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .certification-organization {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 0.25rem;
+        }
+
+        .certification-date {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .certification-description {
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .certification-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="canvas-container"></div>
+    <header class="header-ui">
+        <div class="logo">LORIS.AMELAINE.FR</div>
+        <nav class="nav-links">
+            <a href="#home" class="active">ACCUEIL</a>
+            <a href="#about">À PROPOS</a>
+            <a href="#skills">COMPÉTENCES</a>
+            <a href="#experience">EXPÉRIENCE</a>
+            <a href="#projects">PROJETS</a>
+            <a href="#certifications">CERTIFICATIONS</a>
+            <a href="#parcours">PARCOURS</a>
+            <a href="ressources-bts-protected.html">RESSOURCES BTS</a>
+            <a href="#contact">CONTACT</a>
+        </nav>
+        <div class="header-tools">
+            <div id="theme-switcher">
+                <i class="fas fa-palette" title="Changer de Thème"></i>
+                <select id="color-theme-selector">
+                    <option value="cyber-purple" selected>Cyber Purple</option>
+                    <option value="neon-blue">Neon Blue</option>
+                    <option value="matrix-green">Matrix Green</option>
+                    <option value="fire-red">Fire Red</option>
+                </select>
+            </div>
+            <div class="status">>> EN LIGNE</div>
+        </div>
+    </header>
+
+    <button id="back-to-top" title="Retour en haut"><i class="fas fa-arrow-up"></i></button>
+
+    <main class="scroll-content">
+        <div class="main-content">
+            <section class="hero-section" id="home" data-aos="fade-in">
+                <div class="hero-content">
+                    <h1 class="hero-title">LORIS AMELAINE</h1>
+                    <div class="hero-subtitle">
+                        <p>> <span id="typed-text"></span><span class="cursor">|</span></p>
+                    </div>
+                    <div class="hero-description">
+                        <p>Je conçois des <strong>solutions de sécurité offensive et défensive</strong>, avec une expertise en tests d'intrusion, analyse forensique et DevSecOps.</p>
+                    </div>
+                    <div class="cta-container">
+                        <a href="#about" class="cta-button">Découvrir</a>
+                        <a href="assets/img/CV Loris amelaine.pdf" class="cta-button" download>
+                            <i class="fas fa-download"></i> Mon CV
+                        </a>
+                        <a href="#contact" class="cta-button">Me Contacter</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="about" data-aos="fade-up">
+                <h2 class="section-title">// À PROPOS</h2>
+                <div class="glass-card">
+                    <p>Étudiant en <strong>Réseau et Cybersécurité</strong> au Lycée Raoul Follereau (Nevers), je me spécialise dans la <strong>détection d'intrusions</strong>, l'<strong>analyse forensique</strong> et l'<strong>automatisation des tests de sécurité</strong>.</p>
+                    <p>Mon approche combine <strong>rigueur technique</strong> et <strong>créativité</strong> pour résoudre des problèmes complexes, avec un focus sur les solutions <strong>open-source</strong> et <strong>scalables</strong>.</p>
+                </div>
+
+                <h3 style="margin: 2rem 0 1rem; color: var(--text-primary); font-size: 1.4rem;">OUTILS & TECHNOLOGIES</h3>
+                <div class="tools-showcase" data-aos="fade-up">
+                    <div class="tool-item">
+                        <img src="assets/img/nmap.png" alt="Logo Nmap" class="tool-icon">
+                        <span>Nmap</span>
+                    </div>
+                    <div class="tool-item">
+                        <img src="assets/img/metasploit.png" alt="Logo Metasploit" class="tool-icon">
+                        <span>Metasploit</span>
+                    </div>
+                    <div class="tool-item">
+                        <img src="assets/img/snort.png" alt="Logo Snort" class="tool-icon">
+                        <span>Snort</span>
+                    </div>
+                    <div class="tool-item">
+                        <img src="assets/img/postgresql.png" alt="Logo PostgreSQL" class="tool-icon">
+                        <span>PostgreSQL</span>
+                    </div>
+                    <div class="tool-item">
+                        <img src="assets/img/elastic.png" alt="Logo Elasticsearch" class="tool-icon">
+                        <span>Elastic Stack</span>
+                    </div>
+                    <div class="tool-item">
+                        <img src="assets/img/wireshark.png" alt="Logo Wireshark" class="tool-icon">
+                        <span>Wireshark</span>
+                    </div>
+                    <div class="tool-item">
+                        <img src="assets/img/docker.png" alt="Logo Docker" class="tool-icon">
+                        <span>Docker</span>
+                    </div>
+                    <div class="tool-item">
+                        <img src="assets/img/kali.png" alt="Logo Kali Linux" class="tool-icon">
+                        <span>Kali Linux</span>
+                    </div>
+                    <div class="tool-item">
+                        <img src="assets/img/autopsy.png" alt="Logo Autopsy" class="tool-icon">
+                        <span>Autopsy</span>
+                    </div>
+                    <div class="tool-item">
+                        <img src="assets/img/aircrack.png" alt="Logo Aircrack-ng" class="tool-icon">
+                        <span>Aircrack-ng</span>
+                    </div>
+                    <div class="tool-item">
+                        <img src="assets/img/graylog.png" alt="Logo Graylog" class="tool-icon">
+                        <span>Graylog</span>
+                    </div>
+                    <div class="tool-item">
+                        <img src="assets/img/vscode.png" alt="Logo VSCode" class="tool-icon">
+                        <span>VSCode</span>
+                    </div>
+                    <div class="tool-item">
+                        <img src="assets/img/git.png" alt="Logo Git" class="tool-icon">
+                        <span>Git</span>
+                    </div>
+                    <div class="tool-item">
+                        <img src="assets/img/jonh.png" alt="Logo John the Ripper" class="tool-icon">
+                        <span>John the Ripper</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="experience" data-aos="fade-up">
+                <h2 class="section-title">// EXPÉRIENCE PROFESSIONNELLE</h2>
+                <div class="grid grid-2">
+                    <div class="experience-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="experience-header">
+                            <h4 class="experience-title">Stage en Maintenance et Cybersécurité</h4>
+                            <div class="experience-date">2024 - 2025</div>
+                        </div>
+                        <div class="experience-company">Fédération des Centres Sociaux de la Nièvre</div>
+                        <p>Participation à des audits de sécurité et rédaction de rapports techniques.</p>
+                        <div class="experience-tags">
+                            <span class="experience-tag">Snort</span>
+                            <span class="experience-tag">Nmap</span>
+                            <span class="experience-tag">Audit</span>
+                            <span class="experience-tag">Rapport</span>
+                        </div>
+                        <div style="text-align: center; margin-top: 1rem;">
+                            <a href="/assets/img/Rapport de stage AMELAINE Loris.pdf" class="link" target="_blank">
+                                <i class="fas fa-file-pdf"></i> Voir le rapport
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="experience-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="experience-header">
+                            <h4 class="experience-title">BTS SIO (En cours)</h4>
+                            <div class="experience-date">2024 - 2026</div>
+                        </div>
+                        <div class="experience-company">Lycée Raoul Follereau, Nevers</div>
+                        <p>Spécialisation en <strong>Solutions d'Infrastructure, Systèmes et Réseaux (SISR)</strong>, avec un focus sur la cybersécurité et les solutions SISR.</p>
+                        <div class="experience-tags">
+                            <span class="experience-tag">SISR</span>
+                            <span class="experience-tag">Cybersécurité</span>
+                            <span class="experience-tag">Réseau</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="skills" data-aos="fade-up">
+                <h2 class="section-title">// COMPÉTENCES TECHNIQUES</h2>
+                <div class="grid grid-2">
+                    <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+                        <h3><i class="fas fa-shield-alt"></i> PENTESTING</h3>
+                        <p>Expertise en tests d'intrusion (web, réseau, applications) avec <strong>Burp Suite</strong>, <strong>Metasploit</strong>, et scripts Python/Bash.</p>
+                        <div class="tags">
+                            <span class="tag">Burp Suite</span>
+                            <span class="tag">Metasploit</span>
+                            <span class="tag">Nmap</span>
+                        </div>
+                    </div>
+
+                    <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
+                        <h3><i class="fas fa-search"></i> ANALYSE FORENSIQUE</h3>
+                        <p>Investigation numérique avec <strong>Autopsy</strong> et <strong>Volatility</strong>. Analyse de logs et réponse aux incidents.</p>
+                        <div class="tags">
+                            <span class="tag">Autopsy</span>
+                            <span class="tag">Volatility</span>
+                            <span class="tag">SIEM</span>
+                        </div>
+                    </div>
+
+                    <div class="glass-card" data-aos="fade-up" data-aos-delay="300">
+                        <h3><i class="fas fa-code"></i> AUTOMATISATION</h3>
+                        <p>Scripts Python/Bash pour automatiser des tâches de sécurité. Intégration CI/CD avec <strong>GitHub Actions</strong> et <strong>Ansible</strong>.</p>
+                        <div class="tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Bash</span>
+                            <span class="tag">Ansible</span>
+                            <span class="tag">Docker</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="projects" data-aos="fade-up">
+                <h2 class="section-title">// PROJETS ET RÉALISATIONS</h2>
+                <div class="grid grid-2">
+                    <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+                        <h3><i class="fas fa-network-wired"></i> ScanFlow Utility (C#)</h3>
+                        <p>Application console développée en C# pour encapsuler et simplifier l'exécution de scans réseau (wrapper Nmap) et l'analyse de vulnérabilités pour un diagnostic rapide.</p>
+                        <p><strong>Technologies :</strong> C#, .NET, Nmap, Interface Console.</p>
+                        <div style="margin-top: auto; text-align: right;">
+                            <a href="projet-scanflow.html" class="button" style="background: var(--accent-color); color: var(--bg-dark);">
+                                <i class="fas fa-arrow-right"></i> Détails du Projet
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
+                        <h3><i class="fas fa-shield-alt"></i> Déploiement IDS/SIEM</h3>
+                        <p>Mise en place d'une architecture de sécurité complète intégrant **Snort** (IDS) et **Graylog** (SIEM) pour la surveillance des logs et la détection en temps réel sur le réseau virtuel.</p>
+                        <div class="tags">
+                            <span class="tag">Snort</span>
+                            <span class="tag">Graylog</span>
+                            <span class="tag">Virtualisation</span>
+                        </div>
+                    </div>
+
+                    <div class="glass-card" data-aos="fade-up" data-aos-delay="300">
+                        <h3><i class="fas fa-lock"></i> Authentification Réseau 802.1x</h3>
+                        <p>Configuration de serveurs RADIUS (NPS) et de commutateurs Cisco pour l'authentification dynamique des utilisateurs, garantissant l'accès au réseau uniquement aux terminaux autorisés.</p>
+                        <div class="tags">
+                            <span class="tag">802.1x</span>
+                            <span class="tag">RADIUS/NPS</span>
+                            <span class="tag">Cisco</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="certifications" data-aos="fade-up">
+                <h2 class="section-title">// CERTIFICATIONS ET BADGES</h2>
+                <div class="grid grid-2">
+                    <div class="glass-card certification-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="certification-header">
+                            <div class="certification-logos">
+                                <img src="assets/img/ansii.png" alt="Logo ANSSI" class="certification-logo" loading="lazy">
+                                <img src="assets/img/openclass.png" alt="Logo OpenClassrooms" class="certification-logo" loading="lazy">
+                            </div>
+                            <h3>Certification Cybersécurité</h3>
+                        </div>
+                        <p class="certification-organization">ANSSI / OpenClassrooms</p>
+                        <p class="certification-date">2024</p>
+                        <p class="certification-description">
+                            Formation aux bases de la cybersécurité et tests d'intrusion.
+                            Apprentissage des bonnes pratiques, des outils (Nmap, Metasploit) et des méthodologies d'audit.
+                        </p>
+                        <div class="certification-tags">
+                            <span class="tag">Cybersécurité</span>
+                            <span class="tag">Pentesting</span>
+                            <span class="tag">ANSSI</span>
+                        </div>
+                    </div>
+
+                    <div class="glass-card certification-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="certification-header">
+                            <div class="certification-logos">
+                                <img src="assets/img/ebios.png" alt="Logo Club EBIOS" class="certification-logo" loading="lazy">
+                            </div>
+                            <h3>MooC EBIOS Risk Manager</h3>
+                        </div>
+                        <p class="certification-organization">Club EBIOS</p>
+                        <p class="certification-date">2025</p>
+                        <p class="certification-description">
+                            Introduction à la méthode EBIOS Risk Manager.
+                            Formation à distance d'une durée de 3 heures, validée avec succès.
+                        </p>
+                        <div class="certification-tags">
+                            <span class="tag">Gestion des Risques</span>
+                            <span class="tag">EBIOS</span>
+                            <span class="tag">MooC</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="parcours" data-aos="fade-up">
+                <h2 class="section-title">// PARCOURS ACADÉMIQUE</h2>
+                <div class="timeline">
+                    <div class="timeline-item" data-aos="fade-up">
+                        <span class="timeline-date">2024 - 2026</span>
+                        <div class="timeline-content">
+                            <h4>BTS SIO Option SISR</h4>
+                            <p>Lycée Raoul Follereau, Nevers. Focus sur l'infrastructure, le réseau et la cybersécurité.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item" data-aos="fade-up">
+                        <span class="timeline-date">2023</span>
+                        <div class="timeline-content">
+                            <h4>Baccalauréat STMG</h4>
+                            <p>Option Sciences et Technologies du Management et de la Gestion.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="contact" data-aos="fade-up">
+                <h2 class="section-title">// CONTACT</h2>
+                <div class="grid grid-2">
+                    <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+                        <h3><i class="fas fa-envelope"></i> ME CONTACTER</h3>
+                        <p>Pour toute question, collaboration ou opportunité professionnelle, n'hésitez pas à me contacter.</p>
+                        <div style="text-align: center; margin: 1.5rem 0;">
+                            <a href="mailto:loris.amelaine@proton.me" class="link">
+                                <i class="fas fa-envelope"></i> loris.amelaine@proton.me
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
+                        <h3><i class="fab fa-linkedin"></i> LIENS SOCIAUX</h3>
+                        <p>Retrouvez-moi sur LinkedIn et GitHub pour suivre mes projets.</p>
+                        <div style="text-align: center; margin: 1.5rem 0; display: flex; justify-content: center; gap: 1rem;">
+                            <a href="https://www.linkedin.com/in/loris-amelaine" class="button" target="_blank" style="padding: 0.5rem 1rem;">
+                                <i class="fab fa-linkedin"></i> LinkedIn
+                            </a>
+                            <a href="https://github.com/6ere6" class="button" target="_blank" style="padding: 0.5rem 1rem;">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        &copy; 2025 Loris Amelaine - Portfolio.
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, easing: 'ease-in-out', once: true });
+
+        // Typed Text Effect
+        const typedTextElement = document.getElementById('typed-text');
+        const textToType = [
+            "Cybersecurity Learner.",
+            "Aspiring Penetration Tester.",
+            "Network Security Explorer.",
+            "Forensic Analysis Enjoyer.",
+        ];
+        let textIndex = 0;
+        let charIndex = 0;
+
+        function type() {
+            if (charIndex < textToType[textIndex].length) {
+                typedTextElement.textContent += textToType[textIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(type, 80);
+            } else {
+                setTimeout(erase, 2000);
+            }
+        }
+
+        function erase() {
+            if (charIndex > 0) {
+                typedTextElement.textContent = textToType[textIndex].substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(erase, 40);
+            } else {
+                textIndex = (textIndex + 1) % textToType.length;
+                setTimeout(type, 500);
+            }
+        }
+        type();
+
+        // Header Scroll Effect & Back to Top
+        let lastScrollTop = 0;
+        const header = document.querySelector('.header-ui');
+        const backToTop = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (scrollTop > lastScrollTop && scrollTop > 60) {
+                header.classList.add('scroll-down');
+                header.classList.remove('scroll-up');
+            } else {
+                header.classList.remove('scroll-down');
+                header.classList.add('scroll-up');
+            }
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+
+            if (scrollTop > 400) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        }, false);
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Theme Switcher Logic
+        const themeSelector = document.getElementById('color-theme-selector');
+        const root = document.documentElement;
+
+        themeSelector.addEventListener('change', (e) => {
+            const selectedTheme = e.target.value;
+            root.setAttribute('data-theme', selectedTheme);
+            localStorage.setItem('theme', selectedTheme);
+        });
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            root.setAttribute('data-theme', savedTheme);
+            themeSelector.value = savedTheme;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="cyber-purple">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accès Protégé | Loris Amelaine - Ressources BTS</title>
+    <link href="https://fonts.cdnfonts.com/css/pp-neue-montreal" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #1b1c21;
+            --bg-glass: rgba(27, 28, 33, 0.75);
+            --border-glass: 1px solid rgba(255, 255, 255, 0.1);
+            --shadow-glass: 0 8px 20px rgba(0, 0, 0, 0.3);
+            --text-primary: #f5f5f5;
+            --text-secondary: #c9c9c9;
+            --primary-color: #7b4397;
+            --accent-color: #f1719b;
+            --error-color: #ff4d4d;
+            --success-color: #4CAF50;
+            --font-main: 'PP Neue Montreal', sans-serif;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --glow: 0 0 10px color-mix(in srgb, var(--accent-color) 60%, transparent);
+        }
+
+        /* Reset et fond */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #2d1b69 50%, var(--bg-dark) 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Animation de fond subtile */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(123, 67, 151, 0.1) 0.5px, transparent 1px),
+                radial-gradient(circle at 80% 70%, rgba(241, 113, 155, 0.1) 0.5px, transparent 1px);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Conteneur principal (centré) */
+        .protection-container {
+            width: 90%;
+            max-width: 450px;
+            background: var(--bg-glass);
+            backdrop-filter: blur(12px);
+            border: var(--border-glass);
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            box-shadow: var(--shadow-glass);
+            border-top: 3px solid var(--primary-color);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto; /* Centrage horizontal */
+        }
+
+        /* Titre stylisé */
+        h1 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            transition: var(--transition);
+        }
+
+        h1 i {
+            transition: var(--transition);
+            font-size: 1.5rem;
+        }
+
+        /* Texte descriptif */
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Champ de mot de passe */
+        #password-input {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            margin-bottom: 1.5rem;
+            border: none;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.2);
+            color: var(--text-primary);
+            font-size: 1rem;
+            text-align: center;
+            transition: var(--transition);
+            outline: none;
+            border: var(--border-glass);
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        #password-input:focus {
+            border-color: var(--accent-color);
+            box-shadow: var(--glow), inset 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        #password-input::placeholder {
+            color: color-mix(in srgb, var(--text-secondary) 70%, transparent);
+            letter-spacing: 0.2em;
+        }
+
+        /* Bouton d'accès */
+        .cta-button {
+            width: 100%;
+            padding: 0.85rem 1.5rem;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow-glass);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow), var(--shadow-glass);
+        }
+
+        .cta-button:active {
+            transform: translateY(0);
+        }
+
+        .cta-button i {
+            transition: var(--transition);
+        }
+
+        .cta-button:hover i {
+            transform: scale(1.1);
+        }
+
+        /* Message de feedback */
+        #message {
+            color: var(--accent-color);
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            min-height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        #message i {
+            font-size: 1.1rem;
+        }
+
+        /* Lien de retour */
+        .back-link {
+            display: block;
+            margin-top: 1rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .back-link:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
+
+        /* Animation de chargement */
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+
+        .loading {
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Effet "shake" pour erreur */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
+        }
+
+        .shake {
+            animation: shake 0.5s;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .protection-container {
+                padding: 2rem 1.5rem;
+                margin: 0;
+                width: 100%;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="protection-container">
+        <h1>
+            <i class="fas fa-lock"></i>
+            Accès Protégé
+        </h1>
+        <p>Veuillez entrer le code d'accès pour consulter les procédures techniques du BTS SIO.</p>
+
+        <form id="access-form">
+            <input
+                type="password"
+                id="password-input"
+                placeholder="••••••••••••"
+                required
+                autofocus
+                autocomplete="off"
+                spellcheck="false"
+            >
+            <button type="submit" class="cta-button">
+                <i class="fas fa-key"></i>
+                Accéder aux Ressources
+            </button>
+        </form>
+
+        <div id="message"></div>
+        <a href="index.html" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            Retour au portfolio
+        </a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('access-form');
+            const passwordInput = document.getElementById('password-input');
+            const message = document.getElementById('message');
+            const correctCode = "85"; // ⚠️ Remplace par ton code réel
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const input = passwordInput.value.trim();
+
+                if (input === correctCode) {
+                    // Succès
+                    message.innerHTML = `
+                        <i class="fas fa-check-circle" style="color: var(--success-color);"></i>
+                        Code correct ! Redirection...
+                    `;
+                    message.style.color = "var(--success-color)";
+                    setTimeout(() => {
+                        window.location.href = 'ressources-bts.html';
+                    }, 1200);
+                } else {
+                    // Erreur
+                    message.innerHTML = `
+                        <i class="fas fa-exclamation-triangle" style="color: var(--error-color);"></i>
+                        Code incorrect. Veuillez réessayer.
+                    `;
+                    message.style.color = "var(--error-color)";
+                    passwordInput.classList.add('shake');
+                    passwordInput.value = "";
+                    setTimeout(() => {
+                        passwordInput.classList.remove('shake');
+                        passwordInput.focus();
+                    }, 500);
+                }
+            });
+
+            // Effet visuel au focus
+            passwordInput.addEventListener('focus', () => {
+                passwordInput.style.boxShadow = "var(--glow), inset 0 1px 3px rgba(0, 0, 0, 0.2)";
+            });
+
+            passwordInput.addEventListener('blur', () => {
+                passwordInput.style.boxShadow = "inset 0 1px 3px rgba(0, 0, 0, 0.2)";
+            });
+        });
+    </script>
+</body>
+</html>
