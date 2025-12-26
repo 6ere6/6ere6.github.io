@@ -1,138 +1,23 @@
 <!DOCTYPE html>
 <html lang="fr" data-theme="cyber-purple">
 <head>
-
-    <!-- Encodage et viewport (déjà présent) -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Balises méta SEO de base -->
-    <meta name="description" content="Loris Amelaine - Portfolio Cybersécurité. Étudiant en BTS SIO spécialisé en pentesting, SIEM, DevSecOps et analyse forensique. Découvrez mes projets, compétences et certifications en cybersécurité à Nevers, Bourgogne.">
-    <meta name="keywords" content="cybersécurité, pentest, BTS SIO, Loris Amelaine, portfolio, DevSecOps, stage, alternance, analyse forensique, SIEM, Nmap, Metasploit, Kali Linux, Nevers, Bourgogne, étudiant cybersécurité, audit sécurité, protection données">
+    <meta name="description" content="Loris Amelaine - Portfolio Cybersécurité. Étudiant en BTS SIO spécialisé en pentesting, SIEM, DevSecOps et analyse forensique.">
+    <meta name="keywords" content="cybersécurité, pentest, BTS SIO, Loris Amelaine, portfolio, DevSecOps, SIEM, forensic">
     <meta name="author" content="Loris Amelaine">
     <meta name="robots" content="index, follow">
-
-    <!-- Balises Open Graph (Facebook, LinkedIn) -->
-    <meta property="og:title" content="Loris Amelaine | Portfolio Cybersécurité - Pentesting & DevSecOps">
-    <meta property="og:description" content="Étudiant en BTS SIO à Nevers, spécialisé en cybersécurité, pentesting, DevSecOps et analyse forensique. Découvrez mes projets, compétences et certifications.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://loris.amelaine.fr">
-    <meta property="og:image" content="https://loris.amelaine.fr/assets/img/og-image.jpg">
-    <meta property="og:site_name" content="Loris Amelaine - Portfolio Cybersécurité">
-    <meta property="og:locale" content="fr_FR">
-
-    <!-- Balises Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Loris Amelaine | Portfolio Cybersécurité - Pentesting & DevSecOps">
-    <meta name="twitter:description" content="Étudiant en BTS SIO à Nevers, spécialisé en cybersécurité, pentesting, DevSecOps et analyse forensique. Découvrez mes projets et compétences.">
-    <meta name="twitter:image" content="https://loris.amelaine.fr/assets/img/og-image.jpg">
-    <meta name="twitter:site" content="@ton_compte_twitter">
-    <meta name="twitter:creator" content="@ton_compte_twitter">
-
-    <!-- Balise canonical (évite le contenu dupliqué) -->
     <link rel="canonical" href="https://loris.amelaine.fr">
-
-    <!-- Lien vers le sitemap (pour les moteurs de recherche) -->
-    <link rel="sitemap" type="application/xml" title="Sitemap" href="https://loris.amelaine.fr/sitemap.xml">
-
-    <!-- Favicon (pour l'onglet du navigateur) -->
     <link rel="icon" type="image/png" href="/assets/img/favicon.png">
     <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
-
-    <!-- Pré-chargement des polices et ressources critiques -->
-    <link rel="preload" href="https://fonts.cdnfonts.com/css/pp-neue-montreal" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.cdnfonts.com/css/pp-neue-montreal"></noscript>
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
-
-    <!-- Balise pour les applications mobiles (PWA) -->
-    <meta name="theme-color" content="#7b4397">
-    <meta name="mobile-web-app-capable" content="yes">
-
-    <!-- Balise pour iOS (PWA) -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Loris Amelaine">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Loris Amelaine - Portfolio Cybersécurité. Étudiant en BTS SIO spécialisé en pentesting, SIEM et DevSecOps.">
-    <meta name="keywords" content="cybersécurité, pentest, BTS SIO, Loris Amelaine, portfolio, DevSecOps, stage, alternance">
-    <title>Loris Amelaine | Cybersécurité</title>
     <link href="https://fonts.cdnfonts.com/css/pp-neue-montreal" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-      <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Loris Amelaine - Portfolio Cybersécurité. Étudiant en BTS SIO spécialisé en pentesting, SIEM, DevSecOps et analyse forensique. Découvrez mes projets, compétences et certifications en cybersécurité à Nevers, Bourgogne.">
-    <meta name="keywords" content="cybersécurité, pentest, BTS SIO, Loris Amelaine, portfolio, DevSecOps, stage, alternance, analyse forensique, SIEM, Nmap, Metasploit, Kali Linux, Nevers, Bourgogne, étudiant cybersécurité, audit sécurité, protection données">
-    <meta name="author" content="Loris Amelaine">
-    <meta name="robots" content="index, follow">
-    <meta property="og:title" content="Loris Amelaine | Portfolio Cybersécurité - Pentesting & DevSecOps">
-    <meta property="og:description" content="Étudiant en BTS SIO à Nevers, spécialisé en cybersécurité, pentesting, DevSecOps et analyse forensique. Découvrez mes projets, compétences et certifications.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://loris.amelaine.fr">
-    <meta property="og:image" content="https://loris.amelaine.fr/assets/img/og-image.jpg">
-    <meta property="og:site_name" content="Loris Amelaine - Portfolio Cybersécurité">
-    <meta property="og:locale" content="fr_FR">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Loris Amelaine | Portfolio Cybersécurité - Pentesting & DevSecOps">
-    <meta name="twitter:description" content="Étudiant en BTS SIO à Nevers, spécialisé en cybersécurité, pentesting, DevSecOps et analyse forensique. Découvrez mes projets et compétences.">
-    <meta name="twitter:image" content="https://loris.amelaine.fr/assets/img/og-image.jpg">
-    <meta name="twitter:site" content="@ton_compte_twitter">
-    <meta name="twitter:creator" content="@ton_compte_twitter">
-    <link rel="canonical" href="https://loris.amelaine.fr">
-    <link rel="sitemap" type="application/xml" title="Sitemap" href="https://loris.amelaine.fr/sitemap.xml">
-    <link rel="icon" type="image/png" href="/assets/img/favicon.png">
-    <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
-    <meta name="theme-color" content="#7b4397">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Loris Amelaine">
     <title>Loris Amelaine | Cybersécurité</title>
-    <link href="https://fonts.cdnfonts.com/css/pp-neue-montreal" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Loris Amelaine | Cybersécurité</title>
-
-<!-- ================= SEO ================= -->
-<meta name="description" content="Loris Amelaine - Portfolio Cybersécurité. Étudiant en BTS SIO spécialisé en pentesting, SIEM, DevSecOps et analyse forensique.">
-<meta name="keywords" content="cybersécurité, pentest, BTS SIO, Loris Amelaine, portfolio, DevSecOps, SIEM, forensic">
-<meta name="author" content="Loris Amelaine">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://loris.amelaine.fr">
-
-<!-- ================= OPEN GRAPH ================= -->
-<meta property="og:title" content="Loris Amelaine | Portfolio Cybersécurité">
-<meta property="og:description" content="Étudiant en BTS SIO spécialisé en cybersécurité, pentesting et DevSecOps.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://loris.amelaine.fr">
-<meta property="og:image" content="https://loris.amelaine.fr/assets/img/og-image.jpg">
-<meta property="og:locale" content="fr_FR">
-
-<!-- ================= TWITTER ================= -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Loris Amelaine | Cybersécurité">
-<meta name="twitter:description" content="Portfolio cybersécurité">
-<meta name="twitter:image" content="https://loris.amelaine.fr/assets/img/og-image.jpg">
-
-<!-- ================= PWA ================= -->
-<meta name="theme-color" content="#7b4397">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-
-<!-- ================= ASSETS ================= -->
-<link rel="icon" href="/assets/img/favicon.png">
-<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
-<link href="https://fonts.cdnfonts.com/css/pp-neue-montreal" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         :root {
             --bg-dark: #1b1c21;
-            --bg-glass: rgba(27, 28, 33, 0.65);
+            --bg-glass: rgba(27, 28, 33, 0.7);
             --border-glass: 1px solid rgba(255, 255, 255, 0.1);
             --shadow-glass: 0 8px 20px rgba(0, 0, 0, 0.2);
             --text-primary: #f5f5f5;
@@ -145,8 +30,10 @@
             --font-main: 'PP Neue Montreal', sans-serif;
             --font-mono: 'Fira Code', monospace;
             --transition: all 0.3s ease;
+            --flow-speed: 20s;
         }
 
+        /* ===== THÈMES ===== */
         [data-theme="cyber-purple"] {
             --primary-color: #7b4397;
             --accent-color: #f1719b;
@@ -167,6 +54,21 @@
             --accent-color: #ff9900;
             --bg-gradient-middle: #4a1c1d;
         }
+        [data-theme="cyber-blue"] {
+            --primary-color: #00a2ff;
+            --accent-color: #00f7ff;
+            --bg-gradient-middle: #003366;
+        }
+        [data-theme="synthwave"] {
+            --primary-color: #ff00aa;
+            --accent-color: #00fff2;
+            --bg-gradient-middle: #2d004a;
+        }
+        [data-theme="dark-orange"] {
+            --primary-color: #ff6b00;
+            --accent-color: #ffd700;
+            --bg-gradient-middle: #4a2c00;
+        }
 
         * {
             margin: 0;
@@ -184,16 +86,626 @@
             transition: background 0.8s ease;
         }
 
-        #canvas-container {
+        /* ===== HEADER ===== */
+        .header-ui {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.15;
+            right: 0;
+            z-index: 1000;
+            background: var(--bg-glass);
+            backdrop-filter: blur(10px);
+            border-bottom: var(--border-glass);
+            padding: 0.75rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
         }
-/* Terminal */
+        .header-ui.scroll-down {
+            transform: translateY(-100%);
+        }
+        .header-ui.scroll-up {
+            transform: translateY(0);
+        }
+        .logo {
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: var(--transition);
+        }
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--accent-color);
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: var(--accent-color);
+            background: color-mix(in srgb, var(--primary-color) 20%, transparent);
+        }
+        .nav-links a:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+        .nav-links a.active {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        /* ===== HEURE EN TEMPS RÉEL ===== */
+        .clock {
+            color: var(--accent-color);
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            background: rgba(123, 67, 151, 0.2);
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+
+        /* ===== SÉLECTEUR DE THÈME ===== */
+        .theme-selector {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--bg-glass);
+            border-radius: 8px;
+            padding: 0.5rem;
+            border: var(--border-glass);
+        }
+        .theme-option {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+        .theme-option:hover {
+            transform: scale(1.2);
+            border-color: var(--accent-color);
+        }
+        .theme-option.cyber-purple { background: #7b4397; }
+        .theme-option.neon-blue { background: #0077ff; }
+        .theme-option.matrix-green { background: #00b000; }
+        .theme-option.fire-red { background: #cc2936; }
+        .theme-option.cyber-blue { background: #00a2ff; }
+        .theme-option.synthwave { background: #ff00aa; }
+        .theme-option.dark-orange { background: #ff6b00; }
+
+        .status {
+            color: var(--accent-color);
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        /* ===== CONTENU PRINCIPAL ===== */
+        .scroll-content {
+            margin-top: 60px;
+            padding: 1rem;
+        }
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* ===== SECTIONS ===== */
+        .section {
+            padding: 3rem 0;
+            position: relative;
+        }
+        .section-title {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+            display: inline-block;
+            transition: var(--transition);
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            transition: var(--transition);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem 0;
+        }
+        .hero-content {
+            max-width: 800px;
+        }
+        .hero-title {
+            font-size: 3.5rem;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            transition: var(--transition);
+        }
+        .hero-subtitle {
+            font-family: var(--font-mono);
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            height: 30px;
+            transition: var(--transition);
+        }
+        .hero-description {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            line-height: 1.7;
+        }
+        .cta-container {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .cta-button {
+            padding: 0.75rem 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 12px rgba(123, 67, 151, 0.3);
+            transform: scale(1);
+        }
+        .cta-button:hover {
+            background: var(--accent-color);
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(241, 113, 155, 0.4);
+        }
+
+        /* ===== LIENS STYLISÉS ===== */
+        .fancy-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            padding: 0.25rem 0;
+        }
+        .fancy-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+        .fancy-link:hover {
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+        .fancy-link:hover::after {
+            width: 100%;
+        }
+        .fancy-link i {
+            transition: var(--transition);
+        }
+        .fancy-link:hover i {
+            transform: translateX(3px);
+        }
+
+        /* ===== CARTES (GLASSMORPHISME) ===== */
+        .glass-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(10px);
+            border: var(--border-glass);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+            border-left: 3px solid var(--primary-color);
+            display: flex;
+            flex-direction: column;
+        }
+        .glass-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(241, 113, 155, 0.2);
+            border-left: 3px solid var(--accent-color);
+        }
+        .glass-card h3 {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: var(--transition);
+        }
+        .glass-card h3 i {
+            transition: var(--transition);
+        }
+        .glass-card:hover h3 i {
+            color: var(--accent-color);
+            transform: scale(1.2);
+            text-shadow: 0 0 8px var(--accent-color);
+        }
+        .glass-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.65;
+            flex-grow: 1;
+        }
+
+        /* ===== OUTILS MAÎTRISÉS – BANDEAU FLOW ===== */
+        .tools-banner-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            padding: 1rem 0;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            margin: 1rem 0;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .tools-banner {
+            display: flex;
+            gap: 1.5rem;
+            animation: flow var(--flow-speed) linear infinite;
+            padding: 1rem 0;
+            will-change: transform;
+        }
+
+        .tools-banner:hover {
+            animation-play-state: paused;
+        }
+
+        .tool-item {
+            flex-shrink: 0;
+            width: 200px;
+            height: 240px;
+            background: var(--bg-glass);
+            border: var(--border-glass);
+            border-radius: 14px;
+            backdrop-filter: blur(12px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.2rem;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .tool-item:hover {
+            transform: scale(1.08) translateY(-8px);
+            box-shadow: 0 12px 24px rgba(241, 113, 155, 0.3);
+            z-index: 10;
+            border: 1px solid var(--accent-color);
+        }
+
+        .tool-item.favorite::before {
+            content: "★";
+            position: absolute;
+            top: 0.8rem;
+            right: 0.8rem;
+            color: gold;
+            font-size: 1.4rem;
+            text-shadow: 0 0 8px gold;
+            animation: pulse 1.5s infinite;
+        }
+
+        .tool-item img {
+            width: 90px;
+            height: 90px;
+            object-fit: contain;
+            margin-bottom: 0.8rem;
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .tool-item:hover img {
+            transform: scale(1.15) rotate(5deg);
+            filter: drop-shadow(0 0 8px var(--accent-color));
+        }
+
+        .tool-item span {
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-align: center;
+            color: var(--text-primary);
+            transition: color 0.3s ease;
+        }
+
+        .tool-item:hover span {
+            color: var(--accent-color);
+        }
+
+        @keyframes flow {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        /* Boutons de navigation */
+        .tools-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .tools-nav button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .tools-nav button:hover {
+            background: var(--accent-color);
+            transform: scale(1.15);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ===== CERTIFICATIONS ===== */
+        .certification-card {
+            background: rgba(27, 28, 33, 0.7);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--accent-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 350px;
+            transition: var(--transition);
+        }
+        .certification-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(241, 113, 155, 0.2);
+        }
+        .certification-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .certification-logos {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            align-items: center;
+            justify-content: center;
+        }
+        .certification-logo {
+            height: 60px;
+            width: auto;
+            max-width: 100px;
+            filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.3));
+            transition: var(--transition);
+        }
+        .certification-card h3 {
+            color: var(--accent-color);
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+        .certification-organization {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 0.25rem;
+        }
+        .certification-date {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+        .certification-description {
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+        .certification-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-top: auto;
+        }
+
+        /* ===== GRILLES ===== */
+        .grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        /* ===== TIMELINE ===== */
+        .timeline {
+            position: relative;
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
+            transition: var(--transition);
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+        .timeline-date {
+            position: absolute;
+            left: -100px;
+            width: 90px;
+            text-align: right;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+        .timeline-content {
+            background: var(--bg-glass);
+            border: var(--border-glass);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-left: 10px;
+            transition: var(--transition);
+        }
+        .timeline-content:hover {
+            transform: translateX(5px);
+            box-shadow: 0 6px 12px rgba(241, 113, 155, 0.2);
+        }
+        .timeline-content h4 {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            transition: var(--transition);
+        }
+        .timeline-content p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ===== NOTIFICATIONS ===== */
+        .notification-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .notification {
+            background: var(--bg-glass);
+            border: var(--border-glass);
+            border-left: 4px solid var(--accent-color);
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            max-width: 350px;
+            opacity: 0;
+            transform: translateX(20px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .notification.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .notification.success {
+            border-left-color: #4CAF50;
+        }
+        .notification.error {
+            border-left-color: #f44336;
+        }
+        .notification.warning {
+            border-left-color: #ff9800;
+        }
+        .notification.info {
+            border-left-color: var(--accent-color);
+        }
+        .notification-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .notification-title {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        .notification-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 0;
+            line-height: 1;
+        }
+        .notification-close:hover {
+            color: var(--accent-color);
+        }
+
+        /* ===== TERMINAL ===== */
         .terminal-toggle {
             position: fixed;
             left: 0;
@@ -222,7 +734,6 @@
             content: "❯";
             font-family: var(--font-mono);
         }
-
         .terminal {
             position: fixed;
             left: -500px;
@@ -297,574 +808,8 @@
             outline: none;
             font-family: var(--font-mono);
         }
-        /* Header */
-        .header-ui {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: var(--bg-glass);
-            backdrop-filter: blur(10px);
-            border-bottom: var(--border-glass);
-            padding: 0.75rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: var(--transition);
-        }
 
-        .header-ui.scroll-down {
-            transform: translateY(-100%);
-        }
-
-        .header-ui.scroll-up {
-            transform: translateY(0);
-        }
-
-        .logo {
-            font-weight: 600;
-            color: var(--primary-color);
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            transition: var(--transition);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.85rem;
-            transition: var(--transition);
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background: var(--accent-color);
-            transform: scaleX(0);
-            transform-origin: bottom right;
-            transition: transform 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent-color);
-            background: color-mix(in srgb, var(--primary-color) 20%, transparent);
-        }
-
-        .nav-links a:hover::after {
-            transform: scaleX(1);
-            transform-origin: bottom left;
-        }
-
-        .nav-links a.active {
-            color: var(--accent-color);
-            font-weight: 600;
-        }
-
-        /* Styles du sélecteur de thème */
-        .header-tools {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-        #theme-switcher {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        #theme-switcher i {
-            color: var(--primary-color);
-            font-size: 1rem;
-            transition: var(--transition);
-        }
-
-        #color-theme-selector {
-            background: var(--bg-glass);
-            color: var(--text-primary);
-            border: var(--border-glass);
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            font-family: var(--font-main);
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: var(--transition);
-            appearance: none;
-            outline: none;
-        }
-
-        #color-theme-selector:hover {
-            border-color: var(--accent-color);
-        }
-
-        .status {
-            color: var(--accent-color);
-            font-size: 0.8rem;
-            transition: var(--transition);
-        }
-
-        /* Contenu principal */
-        .scroll-content {
-            margin-top: 60px;
-            padding: 1rem;
-        }
-
-        .main-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-
-        /* Sections */
-        .section {
-            padding: 2.5rem 0;
-            position: relative;
-        }
-
-        .section-title {
-            color: var(--primary-color);
-            font-size: 1.8rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-bottom: 0.5rem;
-            display: inline-block;
-            transition: var(--transition);
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-            transition: var(--transition);
-        }
-
-        /* Hero Section */
-        .hero-section {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 2rem 0;
-        }
-
-        .hero-content {
-            max-width: 800px;
-        }
-
-        .hero-title {
-            font-size: 3.5rem;
-            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 1rem;
-            line-height: 1.2;
-            transition: var(--transition);
-        }
-
-        .hero-subtitle {
-            font-family: var(--font-mono);
-            color: var(--accent-color);
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            height: 30px;
-            transition: var(--transition);
-        }
-
-        .hero-description {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto 2rem;
-            line-height: 1.7;
-        }
-
-        .cta-container {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .cta-button {
-            padding: 0.75rem 1.5rem;
-            background: var(--primary-color);
-            color: white;
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: 600;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            box-shadow: 0 4px 12px rgba(123, 67, 151, 0.3);
-            transform: scale(1);
-        }
-
-        .cta-button:hover {
-            background: var(--accent-color);
-            transform: scale(1.05);
-            box-shadow: 0 6px 16px rgba(241, 113, 155, 0.4);
-        }
-
-        /* Cartes (glassmorphism) */
-        .glass-card {
-            background: var(--bg-glass);
-            backdrop-filter: blur(10px);
-            border: var(--border-glass);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            transition: var(--transition);
-            border-left: 3px solid var(--primary-color);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .glass-card:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 10px 25px rgba(241, 113, 155, 0.2);
-            border-left: 3px solid var(--accent-color);
-        }
-
-        .glass-card h3 {
-            color: var(--primary-color);
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            transition: var(--transition);
-        }
-
-        .glass-card h3 i {
-            transition: var(--transition);
-        }
-
-        .glass-card:hover h3 i {
-            color: var(--accent-color);
-            transform: scale(1.2);
-            text-shadow: 0 0 8px var(--accent-color);
-        }
-
-        .glass-card p {
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-            line-height: 1.65;
-            flex-grow: 1;
-        }
-
-        /* Grilles */
-        .grid {
-            display: grid;
-            gap: 1.5rem;
-        }
-
-        .grid-2 {
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        }
-
-        .grid-3 {
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        }
-
-        /* Outils */
-        .tools-showcase {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-
-        .tool-item {
-            background: rgba(27, 28, 33, 0.4);
-            border: var(--border-glass);
-            border-radius: 10px;
-            padding: 1.25rem 0.5rem;
-            text-align: center;
-            transition: var(--transition);
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .tool-item:hover {
-            background: rgba(27, 28, 33, 0.6);
-            transform: translateY(-5px) scale(1.05);
-            border-color: var(--accent-color);
-            box-shadow: 0 0 15px rgba(241, 113, 155, 0.3);
-        }
-
-        .tool-item img.tool-icon {
-            width: 40px;
-            height: 40px;
-            object-fit: contain;
-            margin-bottom: 0.5rem;
-            transition: var(--transition);
-        }
-
-        .tool-item i {
-            font-size: 2rem;
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
-            transition: var(--transition);
-        }
-
-        .tool-item:hover i, .tool-item:hover img.tool-icon {
-            transform: scale(1.2);
-            filter: drop-shadow(0 0 8px var(--accent-color));
-        }
-
-        .tool-item span {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            display: block;
-        }
-
-        /* Timeline */
-        .timeline {
-            position: relative;
-            margin: 1.5rem 0;
-            padding-left: 1.5rem;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
-            transition: var(--transition);
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 1.5rem;
-            padding-left: 1.5rem;
-        }
-
-        .timeline-date {
-            position: absolute;
-            left: -100px;
-            width: 90px;
-            text-align: right;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-        }
-
-        .timeline-content {
-            background: var(--bg-glass);
-            border: var(--border-glass);
-            border-radius: 8px;
-            padding: 1rem;
-            margin-left: 10px;
-            transition: var(--transition);
-        }
-
-        .timeline-content:hover {
-            transform: translateX(5px);
-            box-shadow: 0 6px 12px rgba(241, 113, 155, 0.2);
-        }
-
-        .timeline-content h4 {
-            color: var(--primary-color);
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-            transition: var(--transition);
-        }
-
-        .timeline-content p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-bottom: 0.5rem;
-        }
-
-        /* Expérience Pro */
-        .experience-item {
-            background: var(--bg-glass);
-            border: var(--border-glass);
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            transition: var(--transition);
-            border-left: 3px solid var(--accent-color);
-        }
-
-        .experience-item:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 10px 25px rgba(241, 113, 155, 0.2);
-        }
-
-        .experience-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 0.75rem;
-        }
-
-        .experience-title {
-            color: var(--primary-color);
-            font-size: 1.2rem;
-            font-weight: 600;
-            transition: var(--transition);
-        }
-
-        .experience-date {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            background: rgba(123, 67, 151, 0.2);
-            padding: 0.25rem 0.5rem;
-            border-radius: 12px;
-            transition: var(--transition);
-        }
-
-        .experience-company {
-            color: var(--text-secondary);
-            font-size: 1rem;
-            margin-bottom: 0.75rem;
-            font-weight: 500;
-        }
-
-        .experience-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .experience-tag {
-            background: rgba(123, 67, 151, 0.2);
-            padding: 0.25rem 0.75rem;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            color: var(--accent-color);
-            font-family: var(--font-mono);
-            transition: var(--transition);
-        }
-
-        .experience-tag:hover {
-            background: rgba(241, 113, 155, 0.2);
-            transform: scale(1.1);
-        }
-
-        /* Tags */
-        .tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin: 1rem 0;
-        }
-
-        .tag {
-            background: rgba(123, 67, 151, 0.2);
-            padding: 0.25rem 0.75rem;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            color: var(--accent-color);
-            font-family: var(--font-mono);
-            transition: var(--transition);
-        }
-
-        .tag:hover {
-            background: rgba(241, 113, 155, 0.2);
-            transform: scale(1.1);
-        }
-
-        /* Boutons et liens */
-        .button {
-            padding: 0.6rem 1.2rem;
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            text-decoration: none;
-        }
-
-        .button:hover {
-            background: var(--accent-color);
-            transform: scale(1.05);
-            box-shadow: 0 6px 16px rgba(241, 113, 155, 0.4);
-        }
-
-        .link {
-            color: var(--accent-color);
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            position: relative;
-        }
-
-        .link::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: var(--accent-color);
-            transition: width 0.3s ease;
-        }
-
-        .link:hover {
-            color: var(--primary-color);
-            text-decoration: none;
-        }
-
-        .link:hover::after {
-            width: 100%;
-        }
-
-        /* Pied de page */
-        .footer {
-            text-align: center;
-            padding: 2rem 0;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .footer::before {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 1px;
-            background: var(--accent-color);
-            margin: 0 auto 1rem;
-            transition: var(--transition);
-        }
-
-        /* Back to Top */
+        /* ===== BACK TO TOP ===== */
         #back-to-top {
             position: fixed;
             bottom: 20px;
@@ -884,17 +829,41 @@
             justify-content: center;
             box-shadow: 0 4px 12px rgba(123, 67, 151, 0.3);
         }
-
         #back-to-top.visible {
             opacity: 1;
         }
-
         #back-to-top:hover {
             transform: scale(1.2);
             box-shadow: 0 6px 16px rgba(241, 113, 155, 0.4);
         }
 
-        /* Responsive */
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        .footer::before {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 1px;
+            background: var(--accent-color);
+            margin: 0 auto 1rem;
+            transition: var(--transition);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1200px) {
+            .tool-item {
+                width: 180px;
+                height: 220px;
+            }
+            :root {
+                --flow-speed: 25s;
+            }
+        }
         @media (max-width: 1024px) {
             .hero-title {
                 font-size: 3rem;
@@ -902,8 +871,11 @@
             .section-title {
                 font-size: 1.6rem;
             }
+            .tool-item {
+                width: 170px;
+                height: 210px;
+            }
         }
-
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -935,8 +907,14 @@
             .header-tools {
                 gap: 0.5rem;
             }
+            .tool-item {
+                width: 150px;
+                height: 190px;
+            }
+            :root {
+                --flow-speed: 30s;
+            }
         }
-
         @media (max-width: 480px) {
             .hero-title {
                 font-size: 2rem;
@@ -944,105 +922,46 @@
             .tools-showcase {
                 grid-template-columns: repeat(2, 1fr);
             }
-            .glass-card, .experience-item {
+            .glass-card, .experience-item, .certification-card {
                 padding: 1rem;
             }
-        }
-
-        /* Styles pour les cartes de certification */
-        .certification-card {
-            display: flex;
-            flex-direction: column;
-            padding: 1.5rem;
-            min-height: 300px;
-        }
-
-        .certification-header {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .certification-logos {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .certification-logo {
-            height: 50px;
-            width: auto;
-            max-width: 100px;
-            filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.3));
-        }
-
-        .certification-card h3 {
-            color: var(--accent-color);
-            font-size: 1.4rem;
-            margin-bottom: 0.5rem;
-            text-align: center;
-        }
-
-        .certification-organization {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            font-weight: 600;
-            text-align: center;
-            margin-bottom: 0.25rem;
-        }
-
-        .certification-date {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            text-align: center;
-            margin-bottom: 1rem;
-            font-style: italic;
-        }
-
-        .certification-description {
-            color: var(--text-primary);
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 1rem;
-            flex-grow: 1;
-        }
-
-        .certification-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            justify-content: center;
-            margin-top: auto;
+            .tool-item {
+                width: 130px;
+                height: 170px;
+            }
+            :root {
+                --flow-speed: 35s;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- ================= TERMINAL ================= -->
-<button class="terminal-toggle" id="terminal-toggle"></button>
+    <!-- Terminal -->
+    <button class="terminal-toggle" id="terminal-toggle"></button>
+    <div class="terminal" id="terminal">
+        <div class="terminal-header">
+            <span class="terminal-title">loris@cybernexus:~$</span>
+            <button class="terminal-close" id="terminal-close">✕</button>
+        </div>
+        <div class="terminal-content" id="terminal-content">
+            <p>Bienvenue dans le terminal interactif.</p>
+            <p>Tapez <span style="color: var(--accent-color)">help</span> pour voir les commandes disponibles.</p>
+        </div>
+        <div class="terminal-input-container">
+            <span class="terminal-prompt">loris@cybernexus:~$</span>
+            <input type="text" class="terminal-input" id="terminal-input" autocomplete="off">
+        </div>
+    </div>
 
-<div class="terminal" id="terminal">
-    <div class="terminal-header">
-        <span class="terminal-title">loris@cybernexus:~$</span>
-        <button class="terminal-close" id="terminal-close">✕</button>
-    </div>
-    <div class="terminal-content" id="terminal-content">
-        <p>Bienvenue dans le terminal interactif.</p>
-        <p>Tapez <span style="color: var(--accent-color)">help</span></p>
-    </div>
-    <div class="terminal-input-container">
-        <span class="terminal-prompt">loris@cybernexus:~$</span>
-        <input type="text" class="terminal-input" id="terminal-input">
-    </div>
-</div>
     <div id="canvas-container"></div>
+
+    <!-- Header -->
     <header class="header-ui">
         <div class="logo">LORIS.AMELAINE.FR</div>
         <nav class="nav-links">
             <a href="#home" class="active">ACCUEIL</a>
             <a href="#about">À PROPOS</a>
+            <a href="#tools-mastered">OUTILS</a>
             <a href="#skills">COMPÉTENCES</a>
             <a href="#experience">EXPÉRIENCE</a>
             <a href="#projects">PROJETS</a>
@@ -1052,23 +971,29 @@
             <a href="#contact">CONTACT</a>
         </nav>
         <div class="header-tools">
-            <div id="theme-switcher">
-                <i class="fas fa-palette" title="Changer de Thème"></i>
-                <select id="color-theme-selector">
-                    <option value="cyber-purple" selected>Cyber Purple</option>
-                    <option value="neon-blue">Neon Blue</option>
-                    <option value="matrix-green">Matrix Green</option>
-                    <option value="fire-red">Fire Red</option>
-                </select>
+            <div class="theme-selector">
+                <div class="theme-option cyber-purple" data-theme="cyber-purple" title="Cyber Purple"></div>
+                <div class="theme-option neon-blue" data-theme="neon-blue" title="Neon Blue"></div>
+                <div class="theme-option matrix-green" data-theme="matrix-green" title="Matrix Green"></div>
+                <div class="theme-option fire-red" data-theme="fire-red" title="Fire Red"></div>
+                <div class="theme-option cyber-blue" data-theme="cyber-blue" title="Cyber Blue"></div>
+                <div class="theme-option synthwave" data-theme="synthwave" title="Synthwave"></div>
+                <div class="theme-option dark-orange" data-theme="dark-orange" title="Dark Orange"></div>
             </div>
+            <div class="clock" id="clock">00:00:00</div>
             <div class="status">>> EN LIGNE</div>
         </div>
     </header>
 
+    <!-- Notifications -->
+    <div class="notification-container" id="notification-container"></div>
+
     <button id="back-to-top" title="Retour en haut"><i class="fas fa-arrow-up"></i></button>
 
+    <!-- Contenu principal -->
     <main class="scroll-content">
         <div class="main-content">
+            <!-- Hero Section -->
             <section class="hero-section" id="home" data-aos="fade-in">
                 <div class="hero-content">
                     <h1 class="hero-title">LORIS AMELAINE</h1>
@@ -1080,7 +1005,7 @@
                     </div>
                     <div class="cta-container">
                         <a href="#about" class="cta-button">Découvrir</a>
-                        <a href="assets/img/CV Loris amelaine.pdf" class="cta-button" download>
+                        <a href="assets/img/CV Loris amelaine.pdf" class="cta-button" download id="download-cv">
                             <i class="fas fa-download"></i> Mon CV
                         </a>
                         <a href="#contact" class="cta-button">Me Contacter</a>
@@ -1088,113 +1013,44 @@
                 </div>
             </section>
 
+            <!-- À Propos -->
             <section class="section" id="about" data-aos="fade-up">
                 <h2 class="section-title">// À PROPOS</h2>
                 <div class="glass-card">
                     <p>Étudiant en <strong>Réseau et Cybersécurité</strong> au Lycée Raoul Follereau (Nevers), je me spécialise dans la <strong>détection d'intrusions</strong>, l'<strong>analyse forensique</strong> et l'<strong>automatisation des tests de sécurité</strong>.</p>
                     <p>Mon approche combine <strong>rigueur technique</strong> et <strong>créativité</strong> pour résoudre des problèmes complexes, avec un focus sur les solutions <strong>open-source</strong> et <strong>scalables</strong>.</p>
                 </div>
+            </section>
 
-                <h3 style="margin: 2rem 0 1rem; color: var(--text-primary); font-size: 1.4rem;">OUTILS & TECHNOLOGIES</h3>
-                <div class="tools-showcase" data-aos="fade-up">
-                    <div class="tool-item">
-                        <img src="assets/img/nmap.png" alt="Logo Nmap" class="tool-icon">
-                        <span>Nmap</span>
+            <!-- Outils Maîtrisés (Bandeau Flow) -->
+            <section class="section tools-mastered-section" id="tools-mastered" data-aos="fade-up">
+                <h2 class="tools-mastered-title">// Outils Maîtrisés</h2>
+
+                <div class="search-filter-container">
+                    <input type="text" id="tools-search-mastered" placeholder="Rechercher un outil...">
+                    <select class="filter-select-mastered" id="tools-filter-mastered">
+                        <option value="all">Tous</option>
+                        <option value="pentest">Pentest</option>
+                        <option value="forensic">Forensic</option>
+                        <option value="network">Réseau</option>
+                        <option value="devops">DevOps</option>
+                        <option value="database">Base de données</option>
+                    </select>
+                </div>
+
+                <!-- Bandeau Flow des outils -->
+                <div class="tools-banner-container">
+                    <div class="tools-banner" id="tools-banner">
+                        <!-- Les outils seront ajoutés dynamiquement ici -->
                     </div>
-                    <div class="tool-item">
-                        <img src="assets/img/metasploit.png" alt="Logo Metasploit" class="tool-icon">
-                        <span>Metasploit</span>
-                    </div>
-                    <div class="tool-item">
-                        <img src="assets/img/snort.png" alt="Logo Snort" class="tool-icon">
-                        <span>Snort</span>
-                    </div>
-                    <div class="tool-item">
-                        <img src="assets/img/postgresql.png" alt="Logo PostgreSQL" class="tool-icon">
-                        <span>PostgreSQL</span>
-                    </div>
-                    <div class="tool-item">
-                        <img src="assets/img/elastic.png" alt="Logo Elasticsearch" class="tool-icon">
-                        <span>Elastic Stack</span>
-                    </div>
-                    <div class="tool-item">
-                        <img src="assets/img/wireshark.png" alt="Logo Wireshark" class="tool-icon">
-                        <span>Wireshark</span>
-                    </div>
-                    <div class="tool-item">
-                        <img src="assets/img/docker.png" alt="Logo Docker" class="tool-icon">
-                        <span>Docker</span>
-                    </div>
-                    <div class="tool-item">
-                        <img src="assets/img/kali.png" alt="Logo Kali Linux" class="tool-icon">
-                        <span>Kali Linux</span>
-                    </div>
-                    <div class="tool-item">
-                        <img src="assets/img/autopsy.png" alt="Logo Autopsy" class="tool-icon">
-                        <span>Autopsy</span>
-                    </div>
-                    <div class="tool-item">
-                        <img src="assets/img/aircrack.png" alt="Logo Aircrack-ng" class="tool-icon">
-                        <span>Aircrack-ng</span>
-                    </div>
-                    <div class="tool-item">
-                        <img src="assets/img/graylog.png" alt="Logo Graylog" class="tool-icon">
-                        <span>Graylog</span>
-                    </div>
-                    <div class="tool-item">
-                        <img src="assets/img/vscode.png" alt="Logo VSCode" class="tool-icon">
-                        <span>VSCode</span>
-                    </div>
-                    <div class="tool-item">
-                        <img src="assets/img/git.png" alt="Logo Git" class="tool-icon">
-                        <span>Git</span>
-                    </div>
-                    <div class="tool-item">
-                        <img src="assets/img/jonh.png" alt="Logo John the Ripper" class="tool-icon">
-                        <span>John the Ripper</span>
-                    </div>
+                </div>
+                <div class="tools-nav">
+                    <button id="tools-prev"><i class="fas fa-chevron-left"></i></button>
+                    <button id="tools-next"><i class="fas fa-chevron-right"></i></button>
                 </div>
             </section>
 
-            <section class="section" id="experience" data-aos="fade-up">
-                <h2 class="section-title">// EXPÉRIENCE PROFESSIONNELLE</h2>
-                <div class="grid grid-2">
-                    <div class="experience-item" data-aos="fade-up" data-aos-delay="100">
-                        <div class="experience-header">
-                            <h4 class="experience-title">Stage en Maintenance et Cybersécurité</h4>
-                            <div class="experience-date">2024 - 2025</div>
-                        </div>
-                        <div class="experience-company">Fédération des Centres Sociaux de la Nièvre</div>
-                        <p>Participation à des audits de sécurité et rédaction de rapports techniques.</p>
-                        <div class="experience-tags">
-                            <span class="experience-tag">Snort</span>
-                            <span class="experience-tag">Nmap</span>
-                            <span class="experience-tag">Audit</span>
-                            <span class="experience-tag">Rapport</span>
-                        </div>
-                        <div style="text-align: center; margin-top: 1rem;">
-                            <a href="/assets/img/Rapport de stage AMELAINE Loris.pdf" class="link" target="_blank">
-                                <i class="fas fa-file-pdf"></i> Voir le rapport
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="experience-item" data-aos="fade-up" data-aos-delay="200">
-                        <div class="experience-header">
-                            <h4 class="experience-title">BTS SIO (En cours)</h4>
-                            <div class="experience-date">2024 - 2026</div>
-                        </div>
-                        <div class="experience-company">Lycée Raoul Follereau, Nevers</div>
-                        <p>Spécialisation en <strong>Solutions d'Infrastructure, Systèmes et Réseaux (SISR)</strong>, avec un focus sur la cybersécurité et les solutions SISR.</p>
-                        <div class="experience-tags">
-                            <span class="experience-tag">SISR</span>
-                            <span class="experience-tag">Cybersécurité</span>
-                            <span class="experience-tag">Réseau</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
+            <!-- Compétences -->
             <section class="section" id="skills" data-aos="fade-up">
                 <h2 class="section-title">// COMPÉTENCES TECHNIQUES</h2>
                 <div class="grid grid-2">
@@ -1231,6 +1087,47 @@
                 </div>
             </section>
 
+            <!-- Expérience -->
+            <section class="section" id="experience" data-aos="fade-up">
+                <h2 class="section-title">// EXPÉRIENCE PROFESSIONNELLE</h2>
+                <div class="grid grid-2">
+                    <div class="experience-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="experience-header">
+                            <h4 class="experience-title">Stage en Maintenance et Cybersécurité</h4>
+                            <div class="experience-date">2024 - 2025</div>
+                        </div>
+                        <div class="experience-company">Fédération des Centres Sociaux de la Nièvre</div>
+                        <p>Participation à des audits de sécurité et rédaction de rapports techniques.</p>
+                        <div class="experience-tags">
+                            <span class="experience-tag">Snort</span>
+                            <span class="experience-tag">Nmap</span>
+                            <span class="experience-tag">Audit</span>
+                            <span class="experience-tag">Rapport</span>
+                        </div>
+                        <div style="text-align: center; margin-top: 1rem;">
+                            <a href="/assets/img/Rapport de stage AMELAINE Loris.pdf" class="fancy-link" target="_blank">
+                                <i class="fas fa-file-pdf"></i> Voir le rapport
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="experience-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="experience-header">
+                            <h4 class="experience-title">BTS SIO (En cours)</h4>
+                            <div class="experience-date">2024 - 2026</div>
+                        </div>
+                        <div class="experience-company">Lycée Raoul Follereau, Nevers</div>
+                        <p>Spécialisation en <strong>Solutions d'Infrastructure, Systèmes et Réseaux (SISR)</strong>, avec un focus sur la cybersécurité et les solutions SISR.</p>
+                        <div class="experience-tags">
+                            <span class="experience-tag">SISR</span>
+                            <span class="experience-tag">Cybersécurité</span>
+                            <span class="experience-tag">Réseau</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projets -->
             <section class="section" id="projects" data-aos="fade-up">
                 <h2 class="section-title">// PROJETS ET RÉALISATIONS</h2>
                 <div class="grid grid-2">
@@ -1239,7 +1136,7 @@
                         <p>Application console développée en C# pour encapsuler et simplifier l'exécution de scans réseau (wrapper Nmap) et l'analyse de vulnérabilités pour un diagnostic rapide.</p>
                         <p><strong>Technologies :</strong> C#, .NET, Nmap, Interface Console.</p>
                         <div style="margin-top: auto; text-align: right;">
-                            <a href="projet-scanflow.html" class="button" style="background: var(--accent-color); color: var(--bg-dark);">
+                            <a href="projet-scanflow.html" class="fancy-link">
                                 <i class="fas fa-arrow-right"></i> Détails du Projet
                             </a>
                         </div>
@@ -1267,10 +1164,11 @@
                 </div>
             </section>
 
+            <!-- Certifications -->
             <section class="section" id="certifications" data-aos="fade-up">
                 <h2 class="section-title">// CERTIFICATIONS ET BADGES</h2>
                 <div class="grid grid-2">
-                    <div class="glass-card certification-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="certification-card" data-aos="fade-up" data-aos-delay="100">
                         <div class="certification-header">
                             <div class="certification-logos">
                                 <img src="assets/img/ansii.png" alt="Logo ANSSI" class="certification-logo" loading="lazy">
@@ -1281,8 +1179,7 @@
                         <p class="certification-organization">ANSSI / OpenClassrooms</p>
                         <p class="certification-date">2024</p>
                         <p class="certification-description">
-                            Formation aux bases de la cybersécurité et tests d'intrusion.
-                            Apprentissage des bonnes pratiques, des outils (Nmap, Metasploit) et des méthodologies d'audit.
+                            Formation aux bases de la cybersécurité et tests d'intrusion. Apprentissage des bonnes pratiques, des outils (Nmap, Metasploit) et des méthodologies d'audit.
                         </p>
                         <div class="certification-tags">
                             <span class="tag">Cybersécurité</span>
@@ -1291,7 +1188,7 @@
                         </div>
                     </div>
 
-                    <div class="glass-card certification-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="certification-card" data-aos="fade-up" data-aos-delay="200">
                         <div class="certification-header">
                             <div class="certification-logos">
                                 <img src="assets/img/ebios.png" alt="Logo Club EBIOS" class="certification-logo" loading="lazy">
@@ -1301,8 +1198,7 @@
                         <p class="certification-organization">Club EBIOS</p>
                         <p class="certification-date">2025</p>
                         <p class="certification-description">
-                            Introduction à la méthode EBIOS Risk Manager.
-                            Formation à distance d'une durée de 3 heures, validée avec succès.
+                            Introduction à la méthode EBIOS Risk Manager. Formation à distance d'une durée de 3 heures, validée avec succès.
                         </p>
                         <div class="certification-tags">
                             <span class="tag">Gestion des Risques</span>
@@ -1313,6 +1209,7 @@
                 </div>
             </section>
 
+            <!-- Parcours -->
             <section class="section" id="parcours" data-aos="fade-up">
                 <h2 class="section-title">// PARCOURS ACADÉMIQUE</h2>
                 <div class="timeline">
@@ -1333,6 +1230,7 @@
                 </div>
             </section>
 
+            <!-- Contact -->
             <section class="section" id="contact" data-aos="fade-up">
                 <h2 class="section-title">// CONTACT</h2>
                 <div class="grid grid-2">
@@ -1340,7 +1238,7 @@
                         <h3><i class="fas fa-envelope"></i> ME CONTACTER</h3>
                         <p>Pour toute question, collaboration ou opportunité professionnelle, n'hésitez pas à me contacter.</p>
                         <div style="text-align: center; margin: 1.5rem 0;">
-                            <a href="mailto:loris.amelaine@proton.me" class="link">
+                            <a href="mailto:loris.amelaine@proton.me" class="fancy-link" id="contact-email">
                                 <i class="fas fa-envelope"></i> loris.amelaine@proton.me
                             </a>
                         </div>
@@ -1350,10 +1248,10 @@
                         <h3><i class="fab fa-linkedin"></i> LIENS SOCIAUX</h3>
                         <p>Retrouvez-moi sur LinkedIn et GitHub pour suivre mes projets.</p>
                         <div style="text-align: center; margin: 1.5rem 0; display: flex; justify-content: center; gap: 1rem;">
-                            <a href="https://www.linkedin.com/in/loris-amelaine" class="button" target="_blank" style="padding: 0.5rem 1rem;">
+                            <a href="https://www.linkedin.com/in/loris-amelaine" class="fancy-link" target="_blank">
                                 <i class="fab fa-linkedin"></i> LinkedIn
                             </a>
-                            <a href="https://github.com/6ere6" class="button" target="_blank" style="padding: 0.5rem 1rem;">
+                            <a href="https://github.com/6ere6" class="fancy-link" target="_blank">
                                 <i class="fab fa-github"></i> GitHub
                             </a>
                         </div>
@@ -1371,7 +1269,7 @@
     <script>
         AOS.init({ duration: 800, easing: 'ease-in-out', once: true });
 
-        // Typed Text Effect
+        // Effet de texte tapé
         const typedTextElement = document.getElementById('typed-text');
         const textToType = [
             "Cybersecurity Learner.",
@@ -1381,12 +1279,6 @@
         ];
         let textIndex = 0;
         let charIndex = 0;
-// ===== TERMINAL INTERACTIF =====
-        const terminal = document.getElementById('terminal');
-        const terminalToggle = document.getElementById('terminal-toggle');
-        const terminalClose = document.getElementById('terminal-close');
-        const terminalInput = document.getElementById('terminal-input');
-        const terminalContent = document.getElementById('terminal-content');
 
         function type() {
             if (charIndex < textToType[textIndex].length) {
@@ -1410,7 +1302,18 @@
         }
         type();
 
-        // Header Scroll Effect & Back to Top
+        // Horloge en temps réel
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Gestion du scroll et du bouton "Back to Top"
         let lastScrollTop = 0;
         const header = document.querySelector('.header-ui');
         const backToTop = document.getElementById('back-to-top');
@@ -1438,22 +1341,138 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // Theme Switcher Logic
-        const themeSelector = document.getElementById('color-theme-selector');
+        // Sélecteur de thème visuel
+        const themeOptions = document.querySelectorAll('.theme-option');
         const root = document.documentElement;
 
-        themeSelector.addEventListener('change', (e) => {
-            const selectedTheme = e.target.value;
-            root.setAttribute('data-theme', selectedTheme);
-            localStorage.setItem('theme', selectedTheme);
+        themeOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                const theme = option.getAttribute('data-theme');
+                root.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+                showNotification("Thème changé", `Thème "${theme}" appliqué.`, "success", 3000);
+            });
         });
 
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme) {
             root.setAttribute('data-theme', savedTheme);
-            themeSelector.value = savedTheme;
         }
-         // Gestion des commandes
+
+        // Outils maîtrisés
+        const toolsMastered = [
+            { name: "Nmap", img: "assets/img/nmap.png", category: "pentest", favorite: true, description: "Scanner de ports et de vulnérabilités réseau." },
+            { name: "Metasploit", img: "assets/img/metasploit.png", category: "pentest", description: "Framework pour le développement et l'exécution d'exploits." },
+            { name: "Snort", img: "assets/img/snort.png", category: "network", description: "Système de détection d'intrusion (IDS)." },
+            { name: "PostgreSQL", img: "assets/img/postgresql.png", category: "database", description: "Base de données relationnelle open-source." },
+            { name: "Elastic Stack", img: "assets/img/elastic.png", category: "devops", favorite: true, description: "Suite pour la recherche, l'analyse et la visualisation de données." },
+            { name: "Wireshark", img: "assets/img/wireshark.png", category: "network", description: "Analyseur de protocoles réseau." },
+            { name: "Docker", img: "assets/img/docker.png", category: "devops", description: "Plateforme de conteneurisation." },
+            { name: "Kali Linux", img: "assets/img/kali.png", category: "pentest", favorite: true, description: "Distribution Linux pour les tests d'intrusion." },
+            { name: "Autopsy", img: "assets/img/autopsy.png", category: "forensic", description: "Outil d'analyse forensique numérique." },
+            { name: "Aircrack-ng", img: "assets/img/aircrack.png", category: "network", description: "Suite pour l'analyse de la sécurité Wi-Fi." },
+            { name: "Graylog", img: "assets/img/graylog.png", category: "devops", description: "Plateforme de gestion de logs." },
+            { name: "VSCode", img: "assets/img/vscode.png", category: "devops", description: "Éditeur de code source." },
+            { name: "Git", img: "assets/img/git.png", category: "devops", description: "Système de contrôle de version." },
+            { name: "John the Ripper", img: "assets/img/jonh.png", category: "pentest", description: "Outil de craquage de mots de passe." }
+        ];
+
+        const searchInputMastered = document.getElementById('tools-search-mastered');
+        const filterSelectMastered = document.getElementById('tools-filter-mastered');
+        let filteredToolsMastered = [...toolsMastered];
+
+        // Filtrer les outils
+        function filterToolsMastered() {
+            const searchTerm = searchInputMastered.value.toLowerCase();
+            const category = filterSelectMastered.value;
+
+            filteredToolsMastered = toolsMastered.filter(tool => {
+                const matchesSearch = tool.name.toLowerCase().includes(searchTerm);
+                const matchesCategory = category === 'all' || tool.category === category;
+                return matchesSearch && matchesCategory;
+            });
+
+            renderToolsBanner();
+        }
+
+        // Écouteurs d'événements pour les filtres
+        searchInputMastered.addEventListener('input', filterToolsMastered);
+        filterSelectMastered.addEventListener('change', filterToolsMastered);
+
+        // Bandeau Flow des outils
+        const toolsBanner = document.getElementById('tools-banner');
+        const toolsPrev = document.getElementById('tools-prev');
+        const toolsNext = document.getElementById('tools-next');
+
+        // Générer les éléments du bandeau
+        function renderToolsBanner() {
+            toolsBanner.innerHTML = '';
+            filteredToolsMastered.forEach(tool => {
+                const toolItem = document.createElement('div');
+                toolItem.className = `tool-item ${tool.favorite ? 'favorite' : ''}`;
+                toolItem.innerHTML = `
+                    <img src="${tool.img}" alt="${tool.name}">
+                    <span>${tool.name}</span>
+                `;
+                toolItem.addEventListener('click', () => {
+                    showNotification("Outil sélectionné", `
+                        <strong>${tool.name}</strong><br>
+                        <em>${tool.description}</em><br>
+                        Catégorie: ${tool.category}
+                    `, "info", 5000);
+                });
+                toolsBanner.appendChild(toolItem);
+            });
+            // Dupliquer les éléments pour un défilement cyclique fluide
+            toolsBanner.innerHTML += toolsBanner.innerHTML;
+        }
+
+        // Navigation manuelle
+        let isScrolling = false;
+        let currentTranslateX = 0;
+        const toolItemWidth = 220; // Largeur d'un outil + marge
+
+        toolsPrev.addEventListener('click', () => {
+            if (isScrolling) return;
+            isScrolling = true;
+            currentTranslateX += toolItemWidth;
+            toolsBanner.style.transition = 'transform 0.5s ease';
+            toolsBanner.style.transform = `translateX(${currentTranslateX}px)`;
+            setTimeout(() => {
+                isScrolling = false;
+            }, 500);
+        });
+
+        toolsNext.addEventListener('click', () => {
+            if (isScrolling) return;
+            isScrolling = true;
+            currentTranslateX -= toolItemWidth;
+            toolsBanner.style.transition = 'transform 0.5s ease';
+            toolsBanner.style.transform = `translateX(${currentTranslateX}px)`;
+            setTimeout(() => {
+                isScrolling = false;
+            }, 500);
+        });
+
+        // Initialisation
+        renderToolsBanner();
+
+        // Terminal interactif
+        const terminal = document.getElementById('terminal');
+        const terminalToggle = document.getElementById('terminal-toggle');
+        const terminalClose = document.getElementById('terminal-close');
+        const terminalInput = document.getElementById('terminal-input');
+        const terminalContent = document.getElementById('terminal-content');
+
+        terminalToggle.addEventListener('click', () => {
+            terminal.classList.toggle('active');
+            terminalInput.focus();
+        });
+
+        terminalClose.addEventListener('click', () => {
+            terminal.classList.remove('active');
+        });
+
         terminalInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
                 const command = terminalInput.value.trim();
@@ -1462,7 +1481,6 @@
                 if (command) {
                     terminalContent.innerHTML += `<p><span class="terminal-prompt">loris@cybernexus:~$</span> ${command}</p>`;
 
-                    // Commandes disponibles
                     if (command.toLowerCase() === 'help') {
                         terminalContent.innerHTML += `
                             <p>Commandes disponibles :</p>
@@ -1473,7 +1491,10 @@
                             <p>- <span style="color: var(--accent-color)">contact</span> : Mes coordonnées</p>
                             <p>- <span style="color: var(--accent-color)">clear</span> : Efface le terminal</p>
                             <p>- <span style="color: var(--accent-color)">time</span> : Affiche l'heure</p>
-                            <p>- <span style="color: var(--accent-color)">ip</span> : Affiche votre IP</p>
+                            <p>- <span style="color: var(--accent-color)">ip</span> : Affiche un message générique</p>
+                            <p>- <span style="color: var(--accent-color)">theme [nom]</span> : Change de thème</p>
+                            <p>- <span style="color: var(--accent-color)">tools</span> : Liste les outils maîtrisés</p>
+                            <p>- <span style="color: var(--accent-color)">favorites</span> : Affiche les outils favoris</p>
                         `;
                     } else if (command.toLowerCase() === 'about') {
                         terminalContent.innerHTML += `
@@ -1488,6 +1509,7 @@
                             <p>- Analyse forensique (Autopsy, Volatility)</p>
                             <p>- Automatisation (Python, Bash, Ansible)</p>
                             <p>- Réseaux (Cisco, pfSense, Wireshark)</p>
+                            <p>- Déploiement SIEM (Graylog, Snort)</p>
                         `;
                     } else if (command.toLowerCase() === 'projects') {
                         terminalContent.innerHTML += `
@@ -1503,18 +1525,30 @@
                             terminalContent.innerHTML += `
                                 <p><span style="color: var(--accent-color)">ScanFlow Utility (C#)</span></p>
                                 <p>Outil console pour automatiser les scans réseau avec Nmap.</p>
+                                <p>Fonctionnalités :</p>
+                                <p>- Scans personnalisables</p>
+                                <p>- Génération de rapports</p>
+                                <p>- Interface utilisateur intuitive</p>
                                 <p>Lien : <a href="projet-scanflow.html" style="color: var(--accent-color)">projet-scanflow.html</a></p>
                             `;
                         } else if (projectNum === '2') {
                             terminalContent.innerHTML += `
                                 <p><span style="color: var(--accent-color)">Déploiement SIEM (Graylog)</span></p>
                                 <p>Architecture complète pour la surveillance des logs.</p>
+                                <p>Technologies :</p>
+                                <p>- Graylog pour la centralisation</p>
+                                <p>- Snort pour la détection d'intrusions</p>
+                                <p>- Elasticsearch pour le stockage</p>
                                 <p>Lien : <a href="projet-siem.html" style="color: var(--accent-color)">projet-siem.html</a></p>
                             `;
                         } else if (projectNum === '3') {
                             terminalContent.innerHTML += `
                                 <p><span style="color: var(--accent-color)">Authentification 802.1X</span></p>
                                 <p>Système d'authentification réseau sécurisé.</p>
+                                <p>Implémentation :</p>
+                                <p>- Serveur RADIUS (NPS)</p>
+                                <p>- Commutateurs Cisco</p>
+                                <p>- Politique de sécurité renforcée</p>
                                 <p>Lien : <a href="projet-8021x.html" style="color: var(--accent-color)">projet-8021x.html</a></p>
                             `;
                         } else {
@@ -1530,17 +1564,42 @@
                     } else if (command.toLowerCase() === 'time') {
                         const now = new Date();
                         const timeString = now.toLocaleTimeString();
-                        terminalContent.innerHTML += `<p>Heure actuelle : <span style="color: var(--accent-color)">${timeString}</span></p>`;
+                        const dateString = now.toLocaleDateString();
+                        terminalContent.innerHTML += `
+                            <p>Date et heure actuelles :</p>
+                            <p><span style="color: var(--accent-color)">${dateString} ${timeString}</span></p>
+                        `;
                     } else if (command.toLowerCase() === 'ip') {
-                        terminalContent.innerHTML += `<p>Votre IP : <span style="color: var(--accent-color)" id="terminal-ip">Chargement...</span></p>`;
-                        fetch('https://api.ipify.org?format=json')
-                            .then(response => response.json())
-                            .then(data => {
-                                document.getElementById('terminal-ip').textContent = data.ip;
-                            })
-                            .catch(() => {
-                                document.getElementById('terminal-ip').textContent = "Indisponible";
-                            });
+                        terminalContent.innerHTML += `<p>Votre adresse IP est masquée pour des raisons de confidentialité.</p>`;
+                    } else if (command.toLowerCase().startsWith('theme')) {
+                        const themeName = command.split(' ')[1];
+                        const validThemes = ['cyber-purple', 'neon-blue', 'matrix-green', 'fire-red', 'cyber-blue', 'synthwave', 'dark-orange'];
+                        if (validThemes.includes(themeName)) {
+                            root.setAttribute('data-theme', themeName);
+                            localStorage.setItem('theme', themeName);
+                            terminalContent.innerHTML += `<p>Thème changé pour <span style="color: var(--accent-color)">${themeName}</span>.</p>`;
+                        } else {
+                            terminalContent.innerHTML += `<p>Thème inconnu. Thèmes disponibles : ${validThemes.join(', ')}.</p>`;
+                        }
+                    } else if (command.toLowerCase() === 'tools') {
+                        terminalContent.innerHTML += `<p>Outils maîtrisés (${toolsMastered.length}) :</p>`;
+                        const categories = {};
+                        toolsMastered.forEach(tool => {
+                            if (!categories[tool.category]) {
+                                categories[tool.category] = [];
+                            }
+                            categories[tool.category].push(tool);
+                        });
+
+                        for (const [category, tools] of Object.entries(categories)) {
+                            terminalContent.innerHTML += `<p><strong>${category}:</strong> ${tools.map(t => t.name).join(', ')}</p>`;
+                        }
+                    } else if (command.toLowerCase() === 'favorites') {
+                        const favorites = toolsMastered.filter(tool => tool.favorite);
+                        terminalContent.innerHTML += `<p>Outils favoris (${favorites.length}) :</p>`;
+                        favorites.forEach(tool => {
+                            terminalContent.innerHTML += `<p>- ${tool.name} (${tool.category}) ${tool.favorite ? '<span style="color: gold">★</span>' : ''}</p>`;
+                        });
                     } else if (command.toLowerCase() === 'clear') {
                         terminalContent.innerHTML = '';
                     } else {
@@ -1551,16 +1610,164 @@
                 }
             }
         });
-            // Ouvrir/fermer le terminal
-        terminalToggle.addEventListener('click', () => {
-            terminal.classList.toggle('active');
-            terminalInput.focus();
+
+        // Notifications
+        function showNotification(title, message, type = "info", duration = 5000) {
+            const notificationContainer = document.getElementById("notification-container");
+            const notification = document.createElement("div");
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <div class="notification-header">
+                    <span class="notification-title">${title}</span>
+                    <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
+                </div>
+                <p>${message}</p>
+            `;
+            notificationContainer.appendChild(notification);
+
+            setTimeout(() => {
+                notification.classList.add("visible");
+            }, 10);
+
+            setTimeout(() => {
+                notification.classList.remove("visible");
+                setTimeout(() => {
+                    notification.remove();
+                }, 400);
+            }, duration);
+        }
+
+        // Événements pour les notifications
+        document.getElementById('download-cv').addEventListener('click', () => {
+            showNotification("Téléchargement", "Votre CV est en cours de téléchargement.", "success");
         });
 
-        terminalClose.addEventListener('click', () => {
-            terminal.classList.remove('active');
+        document.getElementById('contact-email').addEventListener('click', (e) => {
+            e.preventDefault();
+            showNotification("Contact", "Redirection vers votre client email...", "info");
+            setTimeout(() => {
+                window.location.href = "mailto:loris.amelaine@proton.me";
+            }, 1000);
         });
 
+        // Ajout d'un effet de particule en arrière-plan
+        document.addEventListener('DOMContentLoaded', function() {
+            const canvas = document.createElement('canvas');
+            canvas.id = 'particle-canvas';
+            canvas.style.position = 'fixed';
+            canvas.style.top = '0';
+            canvas.style.left = '0';
+            canvas.style.width = '100%';
+            canvas.style.height = '100%';
+            canvas.style.zIndex = '-2';
+            canvas.style.pointerEvents = 'none';
+            document.body.prepend(canvas);
+
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            const particleCount = 50;
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 3 + 1;
+                    this.speedX = Math.random() * 0.5 - 0.25;
+                    this.speedY = Math.random() * 0.5 - 0.25;
+                    this.color = `hsl(${Math.random() * 60 + 240}, 70%, 60%)`;
+                    this.opacity = Math.random() * 0.6 + 0.2;
+                }
+
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+
+                    if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                    if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+                }
+
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color;
+                    ctx.globalAlpha = this.opacity;
+                    ctx.fill();
+                    ctx.globalAlpha = 1;
+                }
+            }
+
+            function initParticles() {
+                particles = [];
+                for (let i = 0; i < particleCount; i++) {
+                    particles.push(new Particle());
+                }
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(particle => {
+                    particle.update();
+                    particle.draw();
+                });
+                requestAnimationFrame(animateParticles);
+            }
+
+            initParticles();
+            animateParticles();
+
+            // Changement de couleur des particules en fonction du thème
+            function updateParticleColors() {
+                const theme = root.getAttribute('data-theme');
+                let hue;
+                switch(theme) {
+                    case 'neon-blue': hue = 200; break;
+                    case 'matrix-green': hue = 120; break;
+                    case 'fire-red': hue = 0; break;
+                    case 'cyber-blue': hue = 210; break;
+                    case 'synthwave': hue = 300; break;
+                    case 'dark-orange': hue = 30; break;
+                    default: hue = 270; // cyber-purple
+                }
+                particles.forEach(p => {
+                    p.color = `hsl(${hue + Math.random() * 30 - 15}, 70%, 60%)`;
+                });
+            }
+
+            // Mise à jour des couleurs au changement de thème
+            const observer = new MutationObserver(updateParticleColors);
+            observer.observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+        });
+
+        // Animation des cartes au survol
+        document.querySelectorAll('.glass-card, .experience-item, .certification-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-5px) scale(1.02)';
+                card.style.boxShadow = '0 10px 25px rgba(241, 113, 155, 0.2)';
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+                card.style.boxShadow = '';
+            });
+        });
+
+        // Notification de bienvenue
+        window.addEventListener('load', () => {
+            showNotification(
+                "Portfolio chargé",
+                "Bienvenue ! Utilisez le terminal ou faites défiler pour explorer.",
+                "info",
+                6000
+            );
+        });
     </script>
 </body>
 </html>
