@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Projet Snort 3 - Détection d'attaques TCP, Ping Flood, DDoS et Brute Force SSH en temps réel.">
+    <meta name="keywords" content="Snort, IDS, cybersécurité, détection d'intrusion, DDoS, Brute Force, Kali Linux, TCP, Ping Flood">
+    <meta name="author" content="Loris Amelaine">
+    <title>Projet Snort 3 - Détection d'attaques | Loris Amelaine</title>
+    <link rel="icon" type="image/png" href="assets/img/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Rajdhani:wght@600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-light: #f8f8f8;
+            --text-dark: #ffffff;
+            --text-light: #0a0a0a;
+            --primary-color: #f1719b;
+            --secondary-color: #f6f6f7;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --glass-effect: rgba(255, 255, 255, 0.05);
+            --shadow-color: rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Conteneur principal */
+        .project-container {
+            padding: 150px 60px 100px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* En-tête du projet */
+        .project-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .project-header h1 {
+            font-size: clamp(35px, 6vw, 60px);
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--text-dark), var(--primary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .project-header p {
+            font-size: 18px;
+            opacity: 0.8;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Section vidéo */
+        .video-section {
+            margin: 80px 0;
+            text-align: center;
+        }
+
+        .video-section h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            aspect-ratio: 16/9;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Section technique */
+        .technical-section {
+            margin: 80px 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .technical-content h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: var(--text-dark);
+        }
+
+        .technical-content h3 {
+            font-size: 24px;
+            margin: 30px 0 15px;
+            color: var(--primary-color);
+        }
+
+        .technical-content p, .technical-content ul {
+            font-size: 16px;
+            line-height: 1.8;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .technical-content ul {
+            padding-left: 20px;
+        }
+
+        .technical-content li {
+            margin-bottom: 10px;
+        }
+
+        /* Section "Pourquoi ce projet ?" */
+        .why-section {
+            margin: 80px 0;
+            background: var(--glass-effect);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 50px;
+        }
+
+        .why-section h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            text-align: center;
+            color: var(--text-dark);
+        }
+
+        .why-section p {
+            font-size: 16px;
+            line-height: 1.8;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        /* Section "Technologies utilisées" */
+        .tech-section {
+            margin: 80px 0;
+        }
+
+        .tech-section h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            text-align: center;
+            color: var(--text-dark);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .tech-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .tech-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .tech-card i {
+            font-size: 40px;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .tech-card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        /* Bouton de retour */
+        .back-button {
+            display: block;
+            width: fit-content;
+            margin: 60px auto 0;
+            padding: 15px 35px;
+            background: var(--text-dark);
+            color: var(--bg-dark);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px var(--shadow-color);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 60px;
+            background: var(--bg-dark);
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        footer p {
+            opacity: 0.6;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .project-container {
+                padding: 120px 30px 60px;
+            }
+
+            .technical-section {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            nav {
+                padding: 15px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">LORIS-AMELAINE.FR</div>
+        <ul class="nav-links">
+            <li><a href="index.html">ACCUEIL</a></li>
+            <li><a href="index.html#works">PROJETS</a></li>
+            <li><a href="index.html#contact">CONTACT</a></li>
+        </ul>
+    </nav>
+
+    <!-- Conteneur principal -->
+    <div class="project-container">
+        <!-- En-tête du projet -->
+        <div class="project-header">
+            <h1>Projet Snort 3 - Détection d'attaques en temps réel</h1>
+            <p>
+                Ce projet consiste en la configuration d'un serveur <strong>Snort 3</strong> pour détecter et logger des attaques courantes :
+                <strong>TCP, Ping Flood, DDoS, et Brute Force SSH</strong>.
+                La démonstration montre les attaques lancées depuis une machine <strong>Kali Linux</strong> et les réponses du serveur Snort en temps réel.
+            </p>
+        </div>
+
+        <!-- Section vidéo -->
+        <div class="video-section">
+            <h2><i class="fas fa-video"></i> Démonstration en vidéo</h2>
+            <div class="video-container">
+                <!-- Remplace l'URL par celle de ta vidéo YouTube -->
+                <iframe src="https://www.youtube.com/embed/WqjyoTxV4sk?start=30&rel=0" allowfullscreen></iframe>
+
+            </div>
+        </div>
+
+        <!-- Section technique -->
+        <div class="technical-section">
+            <div class="technical-content">
+                <h2><i class="fas fa-cog"></i> Configuration technique</h2>
+                <p>
+                    Snort 3 est configuré pour analyser le trafic réseau et générer des alertes en cas de comportement malveillant.
+                    Voici les règles personnalisées implémentées :
+                </p>
+                <ul>
+                    <li><strong>Détection des scans TCP</strong> (ex. Nmap)</li>
+                    <li><strong>Détection des attaques Ping Flood</strong> (DDoS)</li>
+                    <li><strong>Détection des tentatives de Brute Force SSH</strong></li>
+                    <li><strong>Journalisation des paquets suspects</strong> dans un fichier de log</li>
+                </ul>
+                <h3>Exemple de règle Snort :</h3>
+                <pre style="background: rgba(0, 0, 0, 0.3); padding: 15px; border-radius: 8px; overflow-x: auto;">
+alert tcp any any -> any any (msg:"TCP Scan Detected"; sid:1000001; rev:1;)
+alert icmp any any -> any any (msg:"Ping Flood Attack"; threshold:type threshold, track by_src, count 100, seconds 1; sid:1000002; rev:1;)
+alert tcp any any -> any 22 (msg:"SSH Brute Force Attempt"; flow:to_server,established; content:"SSH-2.0"; fast_pattern; threshold:type limit, track by_src, count 5, seconds 60; sid:1000003; rev:1;)
+                </pre>
+            </div>
+            <div class="technical-content">
+                <h2><i class="fas fa-terminal"></i> Environnement de test</h2>
+                <p>
+                    Les attaques sont simulées depuis une machine <strong>Kali Linux</strong> avec les outils suivants :
+                </p>
+                <ul>
+                    <li><strong>Nmap</strong> : pour les scans TCP</li>
+                    <li><strong>Hping3</strong> : pour les attaques Ping Flood</li>
+                    <li><strong>Hydra</strong> : pour le Brute Force SSH</li>
+                </ul>
+                <h3>Topologie réseau :</h3>
+                <p>
+                    <img src="assets/img/topologie-snort.png" alt="Topologie réseau Snort" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color);">
+                    <!-- Remplace par une image de ta topologie si disponible -->
+                </p>
+            </div>
+        </div>
+
+        <!-- Section "Pourquoi ce projet ?" -->
+        <div class="why-section">
+            <h2><i class="fas fa-question-circle"></i> Pourquoi ce projet ?</h2>
+            <p>
+                Ce projet m'a permis de :
+            </p>
+            <ul>
+                <li>Comprendre le fonctionnement d'un <strong>IDS (Intrusion Detection System)</strong> moderne.</li>
+                <li>Apprendre à écrire des <strong>règles Snort</strong> pour détecter des attaques spécifiques.</li>
+                <li>Simuler des attaques réelles et observer les réactions du système en temps réel.</li>
+                <li>Renforcer mes compétences en <strong>analyse de logs</strong> et en <strong>réponse aux incidents</strong>.</li>
+            </ul>
+            <p>
+                Ce projet s'inscrit dans ma démarche pour maîtriser les outils essentiels de la cybersécurité offensive et défensive.
+            </p>
+        </div>
+
+        <!-- Section "Technologies utilisées" -->
+        <div class="tech-section">
+            <h2><i class="fas fa-tools"></i> Technologies utilisées</h2>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Snort 3</h3>
+                    <p>IDS open-source pour la détection d'intrusions.</p>
+                </div>
+                <div class="tech-card">
+                    <i class="fas fa-server"></i>
+                    <h3>Kali Linux</h3>
+                    <p>Distribution pour les tests d'intrusion.</p>
+                </div>
+                <div class="tech-card">
+                    <i class="fas fa-network-wired"></i>
+                    <h3>Règles personnalisées</h3>
+                    <p>Création de règles pour détecter des attaques spécifiques.</p>
+                </div>
+                <div class="tech-card">
+                    <i class="fas fa-file-alt"></i>
+                    <h3>Logs Snort</h3>
+                    <p>Analyse des alertes générées en temps réel.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bouton de retour -->
+        <a href="index.html#works" class="back-button">
+            <i class="fas fa-arrow-left"></i> Retour aux projets
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Loris Amelaine - Tous droits réservés.</p>
+    </footer>
+</body>
+</html>
