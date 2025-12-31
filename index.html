@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Loris Amelaine - Portfolio. Étudiant en BTS SIO spécialisé en pentesting, SIEM, DevSecOps et analyse forensique.">
+    <meta name="description" content="Loris Amelaine - Portfolio Cybersécurité. Étudiant en BTS SIO spécialisé en pentesting, SIEM, DevSecOps et analyse forensique.">
     <meta name="keywords" content="cybersécurité, pentest, BTS SIO, Loris Amelaine, portfolio, DevSecOps, SIEM, forensic, TryHackMe, Advent of Cyber 2025">
     <meta name="author" content="Loris Amelaine">
     <title>Loris Amelaine </title>
@@ -35,6 +35,82 @@
         html {
             scroll-behavior: smooth;
         }
+        /*dévut radar*/
+        .radar-chart-4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 530px;
+    height: 530px;
+    margin: 0 auto;
+    padding: 55px;
+    box-sizing: content-box;
+}
+
+.radar-chart-4 svg {
+    width: 100%;
+    height: 100%;
+}
+
+.radar-chart-4 dl {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.radar-chart-4 dl > div {
+    position: absolute;
+    color: #f05fb4;
+    font-size: .6em;
+    text-align: center;
+}
+
+.radar-chart-4 dl > div:nth-child(1) {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.radar-chart-4 dl > div:nth-child(2) {
+    top: 18%;
+    right: 14%;
+    transform: translateX(50%);
+}
+
+.radar-chart-4 dl > div:nth-child(3) {
+    bottom: 36%;
+    right: 6%;
+    transform: translateX(50%);
+}
+
+.radar-chart-4 dl > div:nth-child(4) {
+    bottom: 3%;
+    right: 32%;
+    transform: translateX(50%);
+}
+
+.radar-chart-4 dl > div:nth-child(5) {
+    bottom: 3%;
+    left: 32%;
+    transform: translateX(-50%);
+}
+
+.radar-chart-4 dl > div:nth-child(6) {
+    bottom: 36%;
+    left: 6%;
+    transform: translateX(-50%);
+}
+
+.radar-chart-4 dl > div:nth-child(7) {
+    top: 18%;
+    left: 14%;
+    transform: translateX(-50%);
+}
+
+.radar-chart-4 dd {
+    margin: 0;
+}
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -1439,6 +1515,73 @@
                 <p>Compétences acquises : <strong>Exploitation avec cURL</strong>, <strong>Phishing Detection</strong>, <strong>Malware Analysis</strong>, <strong>SOC Alert Triage</strong>, <strong>Registry Forensics</strong>, <strong>Social Engineering</strong>.</p>
             </div>
         </div>
+<br>
+<br>
+<br>
+<br>
+<!-- c'est le radar a garder -->
+        <div class="radar-chart-4">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 200 200">
+        <g stroke="#dce5eb">
+            <path d="M 100 100 L 100.0 0.0"/>
+            <path d="M 100 100 L 178.2 37.7"/>
+            <path d="M 100 100 L 197.5 122.3"/>
+            <path d="M 100 100 L 143.4 190.1"/>
+            <path d="M 100 100 L 56.6 190.1"/>
+            <path d="M 100 100 L 2.5 122.3"/>
+            <path d="M 100 100 L 21.8 37.7"/>
+        </g>
+        <g stroke="#dce5eb" fill="none">
+            <path d="M 100.0 0.0 L 178.2 37.7 L 197.5 122.3 L 143.4 190.1 L 56.6 190.1 L 2.5 122.3 L 21.8 37.7 L 100.0 0.0"/>
+            <path d="M 100.0 14.3 L 167.0 46.6 L 183.6 119.1 L 137.2 177.2 L 62.8 177.2 L 16.4 119.1 L 33.0 46.6 L 100.0 14.3"/>
+            <path d="M 100.0 28.6 L 155.8 55.5 L 169.6 115.9 L 131.0 164.4 L 69.0 164.4 L 30.4 115.9 L 44.2 55.5 L 100.0 28.6"/>
+            <path d="M 100.0 42.9 L 144.7 64.4 L 155.7 112.7 L 124.8 151.5 L 75.2 151.5 L 44.3 112.7 L 55.3 64.4 L 100.0 42.9"/>
+            <path d="M 100.0 57.1 L 133.5 73.3 L 141.8 109.5 L 118.6 138.6 L 81.4 138.6 L 58.2 109.5 L 66.5 73.3 L 100.0 57.1"/>
+            <path d="M 100.0 71.4 L 122.3 82.2 L 127.9 106.4 L 112.4 125.7 L 87.6 125.7 L 72.1 106.4 L 77.7 82.2 L 100.0 71.4"/>
+            <path d="M 100.0 85.7 L 111.2 91.1 L 113.9 103.2 L 106.2 112.9 L 93.8 112.9 L 86.1 103.2 L 88.8 91.1 L 100.0 85.7"/>
+        </g>
+        <path d="M 100.0 50.0 L 154.7 56.4 L 148.7 111.1 L 134.7 172.1 L 87.0 127.0 L 41.5 113.4 L 53.1 62.6 L 100.0 50.0" fill="#2589d030" stroke="#f1719b"/>
+        <g fill="#f1719b">
+            <circle cx="100.0" cy="50.0" r="3"/>
+            <circle cx="154.7" cy="56.4" r="3"/>
+            <circle cx="148.7" cy="111.1" r="3"/>
+            <circle cx="134.7" cy="172.1" r="3"/>
+            <circle cx="87.0" cy="127.0" r="3"/>
+            <circle cx="41.5" cy="113.4" r="3"/>
+            <circle cx="53.1" cy="62.6" r="3"/>
+        </g>
+    </svg>
+    <dl>
+        <div>
+            <dt>RED</dt>
+            <dd>TEAMING</dd>
+        </div>
+        <div>
+            <dt>REPONSE AUX</dt>
+            <dd>INCIDENTS</dd>
+        </div>
+        <div>
+            <dt>EXPLOITATION</dt>
+            <dd></dd>
+        </div>
+        <div>
+            <dt>PENTESTING</dt>
+            <dd></dd>
+        </div>
+        <div>
+            <dt>ANALYSE DE </dt>
+            <dd>MALWARE</dd>
+        </div>
+        <div>
+            <dt>AUTOMATISATION</dt>
+            <dd></dd>
+        </div>
+        <div>
+            <dt>FORENSIQUE</dt>
+            <dd></dd>
+        </div>
+    </dl>
+</div>
     </section>
 
     <!-- Projets Section -->
@@ -1553,9 +1696,9 @@
             <!-- Certification Advent of Cyber 2025 (TryHackMe) -->
             <div class="certification-card fade-in card-3d">
                 <div class="certification-logos">
-                    <img src="assets/img/tryhackme.png" alt="TryHackMe" class="certification-logo">
+                    <img src="assets/img/thm.png" alt="TryHackMe" class="certification-logo">
                 </div>
-                <h3>Advent of Cyber 2025</h3>
+                <h3>AOC 2025</h3>
                 <p>Certification obtenue en 2025 sur TryHackMe. Maîtrise des défis quotidiens de cybersécurité, incluant l'analyse forensique, le pentesting, et la sécurisation des infrastructures.</p>
                 <div class="project-tags" style="justify-content: center; margin-top: 20px;">
                     <span class="tag">TryHackMe</span>
@@ -1593,7 +1736,7 @@
                 <div class="timeline-date">2023</div>
                 <div class="timeline-content card-3d">
                     <h4>Baccalauréat STMG</h4>
-                    <p>Option Sciences d'Information et de gestion</p>
+                    <p>Option Sciences et Technologies du Management et de la Gestion.</p>
                 </div>
             </div>
         </div>
@@ -1918,8 +2061,14 @@
                 card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
             });
         });
+         // Heure en temps réel
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+        }
     </script>
 </body>
 </html>
-
-
