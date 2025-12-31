@@ -683,6 +683,12 @@
         }
 
         /* ===== PROJETS SECTION ===== */
+       .project-link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
         .projects-section {
             padding: 150px 60px;
             background: var(--bg-dark);
@@ -1247,7 +1253,7 @@
     <button class="terminal-toggle" id="terminal-toggle"></button>
     <div class="terminal" id="terminal">
         <div class="terminal-header">
-            <span class="terminal-title">loris@cybernexus:~$</span>
+            <span class="terminal-title">loris@portfolio:~$</span>
             <button class="terminal-close" id="terminal-close">✕</button>
         </div>
         <div class="terminal-content" id="terminal-content">
@@ -1255,7 +1261,7 @@
             <p>Tapez <span style="color: #f78fb2">help</span> pour voir les commandes disponibles.</p>
         </div>
         <div class="terminal-input-container">
-            <span class="terminal-prompt">invité@portfolio:~$</span>
+            <span class="terminal-prompt">loris@portfolio:~$</span>
             <input type="text" class="terminal-input" id="terminal-input" autocomplete="off">
         </div>
     </div>
@@ -1344,6 +1350,14 @@
                     <img src="assets/img/git.png" alt="Git">
                     <img src="assets/img/graylog.png" alt="Graylog">
                     <img src="assets/img/elastic.png" alt="Elastic Stack">
+                    <img src="assets/img/powershell.png" alt="Powershell">
+                    <img src="assets/img/hydra.png" alt="Hydra">
+                    <img src="assets/img/openvpn.png" alt="openVpn">
+                    <img src="assets/img/mongodb.png" alt="Mongodb">
+                    <img src="assets/img/pfsense.png" alt="pfSense">
+                    <img src="assets/img/ubuntu.png" alt="ubuntu">
+                    <img src="assets/img/linux.png" alt="linux">
+                    <img src="assets/img/cisco-packet-tracer.png" alt="Cisco PT">
                 </div>
                 <div class="marquee-item">
                     <img src="assets/img/nmap.png" alt="Nmap">
@@ -1356,6 +1370,14 @@
                     <img src="assets/img/git.png" alt="Git">
                     <img src="assets/img/graylog.png" alt="Graylog">
                     <img src="assets/img/elastic.png" alt="Elastic Stack">
+                    <img src="assets/img/powershell.png" alt="Powershell">
+                    <img src="assets/img/hydra.png" alt="Hydra">
+                    <img src="assets/img/openvpn.png" alt="openVpn">
+                    <img src="assets/img/mongodb.png" alt="Mongodb">
+                    <img src="assets/img/pfsense.png" alt="pfSense">
+                    <img src="assets/img/ubuntu.png" alt="ubuntu">
+                    <img src="assets/img/linux.png" alt="linux">
+                    <img src="assets/img/cisco-packet-tracer.png" alt="Cisco PT">
                 </div>
             </div>
         </div>
@@ -1427,56 +1449,69 @@
         </div>
         <div class="projects-grid">
             <!-- ScanFlow Utility -->
-            <div class="project-card fade-in card-3d">
-                <div class="project-image">
-                    <img src="assets/img/scanflow.png" alt="ScanFlow Utility">
-                </div>
-                <div class="project-info">
-                    <h3>ScanFlow Utility (C#)</h3>
-                    <p>Application console développée en C# pour encapsuler et simplifier l'exécution de scans réseau (wrapper Nmap) et l'analyse de vulnérabilités pour un diagnostic rapide.</p>
-                    <div class="project-tags">
-                        <span class="tag">C#</span>
-                        <span class="tag">Nmap</span>
-                        <span class="tag">Automatisation</span>
-                        <span class="tag">Sécurité Réseau</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Déploiement IDS/SIEM -->
-            <div class="project-card fade-in card-3d">
-                <div class="project-image">
-                    <img src="assets/img/siem.png" alt="Déploiement SIEM">
-                </div>
-                <div class="project-info">
-                    <h3>Déploiement IDS/SIEM</h3>
-                    <p>Mise en place d'une architecture de sécurité complète intégrant <strong>Snort</strong> (IDS) et <strong>Graylog</strong> (SIEM) pour la surveillance des logs et la détection en temps réel sur le réseau virtuel.</p>
-                    <div class="project-tags">
-                        <span class="tag">Snort</span>
-                        <span class="tag">Graylog</span>
-                        <span class="tag">Virtualisation</span>
-                        <span class="tag">SIEM</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Authentification 802.1x -->
-            <div class="project-card fade-in card-3d">
-                <div class="project-image">
-                    <img src="assets/img/8021x.png" alt="Authentification 802.1x">
-                </div>
-                <div class="project-info">
-                    <h3>Authentification Réseau 802.1x</h3>
-                    <p>Configuration de serveurs RADIUS (NPS) et de commutateurs Cisco pour l'authentification dynamique des utilisateurs, garantissant l'accès au réseau uniquement aux terminaux autorisés.</p>
-                    <div class="project-tags">
-                        <span class="tag">802.1x</span>
-                        <span class="tag">RADIUS/NPS</span>
-                        <span class="tag">Cisco</span>
-                        <span class="tag">Sécurité Réseau</span>
-                    </div>
-                </div>
+            <a href="projet-scanflow.html" class="project-link">
+    <div class="project-card fade-in card-3d">
+        <div class="project-image">
+            <img src="assets/img/scanflow.png" alt="ScanFlow Utility">
+        </div>
+        <div class="project-info">
+            <h3>ScanFlow Utility (C#)</h3>
+            <p>Application console développée en C# pour encapsuler et simplifier l'exécution de scans réseau (wrapper Nmap) et l'analyse de vulnérabilités pour un diagnostic rapide.</p>
+            <div class="project-tags">
+                <span class="tag">C#</span>
+                <span class="tag">Nmap</span>
+                <span class="tag">Automatisation</span>
+                <span class="tag">Sécurité Réseau</span>
             </div>
         </div>
+    </div>
+</a>
+
+
+            <!-- Déploiement IDS/SIEM -->
+            <a href="projet-snort.html" class="project-link">
+    <div class="project-card fade-in card-3d">
+        <div class="project-image">
+            <img src="assets/img/projet-snort.png" alt="Déploiement SIEM">
+        </div>
+        <div class="project-info">
+            <h3>Déploiement IDS/SIEM (Snort 3)</h3>
+            <p>Mise en place d'une architecture de sécurité complète intégrant <strong>Snort 3</strong> (IDS) pour la détection d'attaques TCP, Ping Flood, DDoS et Brute Force SSH, avec journalisation en temps réel.</p>
+            <div class="project-tags">
+                <span class="tag">Snort 3</span>
+                <span class="tag">IDS</span>
+                <span class="tag">DDoS</span>
+                <span class="tag">Kali Linux</span>
+            </div>
+        </div>
+    </div>
+</a>
+
+
+<!-- OpenVPN Client-to-Site -->
+<a href="projet-openvpn.html" class="project-link">
+    <div class="project-card fade-in card-3d">
+        <div class="project-image">
+            <!-- Image de couverture : Remplace "assets/img/openvpn-pfsense.png" par ton image -->
+            <img src="assets/img/openvpn-pfsense.png" alt="OpenVPN Client-to-Site avec pfSense">
+        </div>
+        <div class="project-info">
+            <h3>Tunnel VPN Client-to-Site (OpenVPN + pfSense)</h3>
+            <p>
+                Configuration d'un tunnel VPN sécurisé avec OpenVPN et pfSense pour un accès distant sécurisé.
+                Déploiement d'une autorité de certification, règles de pare-feu, et export de la configuration client.
+            </p>
+            <div class="project-tags">
+                <span class="tag">OpenVPN</span>
+                <span class="tag">pfSense</span>
+                <span class="tag">VPN</span>
+                <span class="tag">Certificats</span>
+                <span class="tag">Réseau</span>
+            </div>
+        </div>
+    </div>
+</a>
+
     </section>
 
     <!-- Certifications Section -->
@@ -1580,8 +1615,10 @@
                     <i class="fab fa-github"></i> GitHub
                 </a>
                 <a href="https://tryhackme.com/p/ceres" class="contact-link card-3d" target="_blank">
-                    <i class="fas fa-shield-alt"></i> TryHackMe
-                </a>
+    <img src="assets/img/thm.png" alt="TryHackMe" style="width: 80px; height: 40px; filter: invert(1); vertical-align: middle; margin-right: 8px;">
+    TryHackMe
+</a>
+
             </div>
         </div>
     </section>
@@ -1599,9 +1636,9 @@
                     <a href="https://github.com/6ere6" class="social-link card-3d" target="_blank">
                         <i class="fab fa-github"></i>
                     </a>
-                    <a href="https://tryhackme.com/p/LorisAmelaine" class="social-link card-3d" target="_blank">
-                        <i class="fas fa-shield-alt"></i>
-                    </a>
+                    <a href="https://tryhackme.com/p/ceres" class="social-link card-3d" target="_blank">
+    <img src="assets/img/thm.png" alt="TryHackMe" style="width: 60px; height: 30px; filter: invert(1);">
+</a>
                 </div>
             </div>
             <div class="footer-links">
@@ -1684,7 +1721,7 @@
                             <p>- <span style="color: #f1719b">help</span> : Affiche cette aide</p>
                             <p>- <span style="color: #f1719b">about</span> : À propos de moi</p>
                             <p>- <span style="color: #f1719b">skills</span> : Mes compétences</p>
-                            <p>- <span style="color: #f179b">projects</span> : Mes projets</p>
+                            <p>- <span style="color: #f179b">projet</span> : Mes projets</p>
                             <p>- <span style="color: #f1719b">contact</span> : Mes coordonnées</p>
                             <p>- <span style="color: #f1719b">clear</span> : Efface le terminal</p>
                             <p>- <span style="color: #f1719b">time</span> : Affiche l'heure</p>
@@ -1706,17 +1743,17 @@
                             <p>- Réseaux (Cisco, pfSense, Wireshark)</p>
                             <p>- Déploiement SIEM (Graylog, Snort)</p>
                         `;
-                    } else if (command.toLowerCase() === 'projects') {
+                    } else if (command.toLowerCase() === 'projet') {
                         terminalContent.innerHTML += `
                             <p>Projets récents :</p>
                             <p>1. ScanFlow Utility (C#/Nmap)</p>
                             <p>2. Déploiement SIEM (Graylog/Snort)</p>
                             <p>3. Authentification 802.1X (RADIUS/Cisco)</p>
-                            <p>Tapez <span style="color: #f1719b">project [num]</span> pour plus de détails.</p>
+                            <p>Tapez <span style="color: #f1719b">projet [num]</span> pour plus de détails.</p>
                         `;
-                    } else if (command.toLowerCase().startsWith('project')) {
-                        const projectNum = command.split(' ')[1];
-                        if (projectNum === '1') {
+                    } else if (command.toLowerCase().startsWith('projet')) {
+                        const projetNum = command.split(' ')[1];
+                        if (projetNum === '1') {
                             terminalContent.innerHTML += `
                                 <p><span style="color: #f1719b">ScanFlow Utility (C#)</span></p>
                                 <p>Outil console pour automatiser les scans réseau avec Nmap.</p>
@@ -1726,7 +1763,7 @@
                                 <p>- Interface utilisateur intuitive</p>
                                 <p>Lien : <a href="projet-scanflow.html" style="color: #f1719b">projet-scanflow.html</a></p>
                             `;
-                        } else if (projectNum === '2') {
+                        } else if (projetNum === '2') {
                             terminalContent.innerHTML += `
                                 <p><span style="color: #f1719b">Déploiement SIEM (Graylog)</span></p>
                                 <p>Architecture complète pour la surveillance des logs.</p>
@@ -1734,20 +1771,20 @@
                                 <p>- Graylog pour la centralisation</p>
                                 <p>- Snort pour la détection d'intrusions</p>
                                 <p>- Elasticsearch pour le stockage</p>
-                                <p>Lien : <a href="projet-siem.html" style="color: #f1719b">projet-siem.html</a></p>
+                                <p>Lien : <a href="projet-snort.html" style="color: #f1719b">projet-snort.html</a></p>
                             `;
-                        } else if (projectNum === '3') {
+                        } else if (projetNum === '3') {
                             terminalContent.innerHTML += `
-                                <p><span style="color: #f1719b">Authentification 802.1X</span></p>
-                                <p>Système d'authentification réseau sécurisé.</p>
+                                <p><span style="color: #f1719b">Pare-feu et tunel vpn</span></p>
+                                <p>VPN</p>
                                 <p>Implémentation :</p>
-                                <p>- Serveur RADIUS (NPS)</p>
-                                <p>- Commutateurs Cisco</p>
-                                <p>- Politique de sécurité renforcée</p>
-                                <p>Lien : <a href="projet-8021x.html" style="color: #f1719b">projet-8021x.html</a></p>
+                                <p>- Par-feu PF-SENSE</p>
+                                <p>- OPENVPN</p>
+                                <p>- Regles par-feu</p>
+                                <p>Lien : <a href="projet-openvpn.html" style="color: #f1719b">projet-openvpn.html</a></p>
                             `;
                         } else {
-                            terminalContent.innerHTML += `<p>Projet non trouvé. Tapez <span style="color: #f1719b">projects</span> pour voir la liste.</p>`;
+                            terminalContent.innerHTML += `<p>Projet non trouvé. Tapez <span style="color: #f1719b">projet</span> pour voir la liste.</p>`;
                         }
                     } else if (command.toLowerCase() === 'contact') {
                         terminalContent.innerHTML += `
@@ -1755,7 +1792,7 @@
                             <p>- Email : <a href="mailto:loris.amelaine@proton.me" style="color: #f1719b">loris.amelaine@proton.me</a></p>
                             <p>- LinkedIn : <a href="https://linkedin.com/in/loris-amelaine" style="color: #f1719b" target="_blank">linkedin.com/in/loris-amelaine</a></p>
                             <p>- GitHub : <a href="https://github.com/6ere6" style="color: #f1719b" target="_blank">github.com/6ere6</a></p>
-                            <p>- TryHackMe : <a href="https://tryhackme.com/p/LorisAmelaine" style="color: #f1719b" target="_blank">tryhackme.com/p/LorisAmelaine</a></p>
+                            <p>- TryHackMe : <a href="https://tryhackme.com/p/ceres" style="color: #f1719b" target="_blank">tryhackme.com/p/ceres</a></p>
                         `;
                     } else if (command.toLowerCase() === 'time') {
                         const now = new Date();
@@ -1771,16 +1808,16 @@
                             <p>- Nmap, Metasploit, Snort, Wireshark</p>
                             <p>- Kali Linux, Autopsy, Docker, Git</p>
                             <p>- Graylog, Elastic Stack, Ansible</p>
+                            
                             <p>Tapez <span style="color: #f1719b">tool [nom]</span> pour plus de détails.</p>
                         `;
                     } else if (command.toLowerCase() === 'thm') {
                         terminalContent.innerHTML += `
                             <p>Mon profil TryHackMe :</p>
-                            <p><a href="https://tryhackme.com/p/LorisAmelaine" style="color: #f1719b" target="_blank">https://tryhackme.com/p/LorisAmelaine</a></p>
+                            <p><a href="https://tryhackme.com/p/ceres" style="color: #f1719b" target="_blank">https://tryhackme.com/p/ceres</a></p>
                             <p>Certifications :</p>
                             <p>- Advent of Cyber 2025</p>
-                            <p>- Offensive Pentesting, Web Hacking, Forensic</p>
-                            <p>- Top 5% des utilisateurs (2025)</p>
+                            
                         `;
                     } else if (command.toLowerCase() === 'clear') {
                         terminalContent.innerHTML = '';
