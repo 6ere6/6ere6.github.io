@@ -4,26 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accès Protégé | Loris Amelaine - Ressources BTS</title>
-    <link href="https://fonts.cdnfonts.com/css/pp-neue-montreal" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-dark: #1b1c21;
-            --bg-glass: rgba(27, 28, 33, 0.75);
-            --border-glass: 1px solid rgba(255, 255, 255, 0.1);
-            --shadow-glass: 0 8px 20px rgba(0, 0, 0, 0.3);
-            --text-primary: #f5f5f5;
-            --text-secondary: #c9c9c9;
-            --primary-color: #7b4397;
-            --accent-color: #f1719b;
-            --error-color: #ff4d4d;
-            --success-color: #4CAF50;
-            --font-main: 'PP Neue Montreal', sans-serif;
-            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            --glow: 0 0 10px color-mix(in srgb, var(--accent-color) 60%, transparent);
+            --bg-dark: #3a1f42;
+            --bg-glass: rgba(10, 10, 18, 0.85);
+            --border-glass: 1px solid rgba(123, 67, 151, 0.3);
+            --shadow-glass: 0 8px 25px rgba(0, 0, 0, 0.4);
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --primary-color: #1a0d20;
+            --accent-color: #eb83d1;
+            --accent-hover: #e273d0;
+            --error-color: #ff5555;
+            --success-color: #4dff88;
+            --font-main: 'Rajdhani', sans-serif;
+            --font-code: 'Fira Code', monospace;
+            --transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --glow: 0 0 15px color-mix(in srgb, var(--accent-color) 50%, transparent);
+            --glow-strong: 0 0 25px color-mix(in srgb, var(--accent-color) 70%, transparent);
         }
 
-        /* Reset et fond */
         * {
             margin: 0;
             padding: 0;
@@ -32,7 +34,7 @@
 
         body {
             font-family: var(--font-main);
-            background: linear-gradient(135deg, var(--bg-dark) 0%, #2d1b69 50%, var(--bg-dark) 100%);
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #0c0c0c 50%, var(--bg-dark) 100%);
             color: var(--text-primary);
             min-height: 100vh;
             display: flex;
@@ -41,9 +43,11 @@
             padding: 1rem;
             overflow: hidden;
             position: relative;
+            font-smooth: always;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Animation de fond subtile */
+        /* Effet de fond animé */
         body::before {
             content: "";
             position: absolute;
@@ -52,96 +56,121 @@
             width: 100%;
             height: 100%;
             background:
-                radial-gradient(circle at 20% 30%, rgba(123, 67, 151, 0.1) 0.5px, transparent 1px),
-                radial-gradient(circle at 80% 70%, rgba(241, 113, 155, 0.1) 0.5px, transparent 1px);
+                radial-gradient(circle at 10% 20%, rgba(123, 67, 151, 0.15) 0.5px, transparent 1px),
+                radial-gradient(circle at 90% 80%, rgba(199, 125, 255, 0.1) 0.5px, transparent 1px);
             z-index: -1;
             pointer-events: none;
+            animation: floatingGradient 20s infinite ease-in-out;
         }
 
-        /* Conteneur principal (centré) */
+        @keyframes floatingGradient {
+            0%, 100% { background-position: 0% 0%, 100% 100%; }
+            50% { background-position: 100% 0%, 0% 100%; }
+        }
+
+        /* Conteneur principal */
         .protection-container {
             width: 90%;
-            max-width: 450px;
+            max-width: 500px;
             background: var(--bg-glass);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(16px);
             border: var(--border-glass);
-            border-radius: 16px;
+            border-radius: 20px;
             padding: 2.5rem 2rem;
             text-align: center;
             box-shadow: var(--shadow-glass);
-            border-top: 3px solid var(--primary-color);
-            transition: var(--transition);
+            border-top: 4px solid var(--accent-color);
             position: relative;
             overflow: hidden;
-            margin: 0 auto; /* Centrage horizontal */
+            transform: perspective(1000px) rotateX(5deg);
+            transition: var(--transition);
+            margin: 0 auto;
+        }
+
+        .protection-container:hover {
+            transform: perspective(1000px) rotateX(0) translateY(-5px);
+            box-shadow: var(--glow-strong), var(--shadow-glass);
+            border-top: 4px solid var(--accent-hover);
         }
 
         /* Titre stylisé */
         h1 {
-            color: var(--primary-color);
-            font-size: 2rem;
-            margin-bottom: 1.25rem;
+            color: var(--accent-color);
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.75rem;
-            transition: var(--transition);
+            gap: 1rem;
+            font-weight: 600;
+            letter-spacing: -0.05em;
+            text-shadow: 0 2px 10px rgba(199, 125, 255, 0.3);
         }
 
         h1 i {
-            transition: var(--transition);
-            font-size: 1.5rem;
+            font-size: 1.8rem;
+            animation: float 3s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         /* Texte descriptif */
         p {
             color: var(--text-secondary);
             margin-bottom: 2rem;
-            font-size: 0.95rem;
-            line-height: 1.5;
+            font-size: 1rem;
+            line-height: 1.6;
+            font-weight: 400;
         }
 
         /* Champ de mot de passe */
         #password-input {
             width: 100%;
-            padding: 0.85rem 1rem;
-            margin-bottom: 1.5rem;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.75rem;
             border: none;
-            border-radius: 8px;
-            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            background: rgba(20, 20, 30, 0.6);
             color: var(--text-primary);
-            font-size: 1rem;
+            font-size: 1.1rem;
             text-align: center;
             transition: var(--transition);
             outline: none;
             border: var(--border-glass);
-            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+            font-family: var(--font-code);
+            letter-spacing: 0.3em;
         }
 
         #password-input:focus {
             border-color: var(--accent-color);
-            box-shadow: var(--glow), inset 0 1px 3px rgba(0, 0, 0, 0.2);
+            box-shadow: var(--glow), inset 0 2px 5px rgba(0, 0, 0, 0.2);
+            transform: scale(1.02);
         }
 
         #password-input::placeholder {
-            color: color-mix(in srgb, var(--text-secondary) 70%, transparent);
+            color: color-mix(in srgb, var(--text-secondary) 60%, transparent);
             letter-spacing: 0.2em;
+            font-family: var(--font-code);
         }
 
         /* Bouton d'accès */
         .cta-button {
             width: 100%;
-            padding: 0.85rem 1.5rem;
-            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
             color: white;
             text-decoration: none;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
             box-shadow: var(--shadow-glass);
-            font-size: 1rem;
+            font-size: 1.1rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -149,62 +178,89 @@
             position: relative;
             overflow: hidden;
             margin-bottom: 1rem;
+            font-family: var(--font-main);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .cta-button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
         }
 
         .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--glow), var(--shadow-glass);
+            transform: translateY(-3px);
+            box-shadow: var(--glow-strong), var(--shadow-glass);
         }
 
         .cta-button:active {
-            transform: translateY(0);
+            transform: translateY(1px);
         }
 
         .cta-button i {
             transition: var(--transition);
-        }
-
-        .cta-button:hover i {
-            transform: scale(1.1);
+            font-size: 1.2rem;
         }
 
         /* Message de feedback */
         #message {
             color: var(--accent-color);
-            margin: 1rem 0;
-            font-size: 0.9rem;
-            min-height: 24px;
+            margin: 1rem auto;
+            font-size: 1rem;
+            min-height: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
+            font-family: var(--font-code);
+            text-align: center;
         }
 
         #message i {
-            font-size: 1.1rem;
+            font-size: 1.25rem;
         }
 
         /* Lien de retour */
         .back-link {
-            display: block;
-            margin-top: 1rem;
+            display: inline-flex;
+            align-items: center;
+            margin-top: 1.5rem;
             color: var(--text-secondary);
-            font-size: 0.85rem;
+            font-size: 0.95rem;
             text-decoration: none;
             transition: var(--transition);
-            text-align: center;
+            font-family: var(--font-main);
+            gap: 0.5rem;
         }
 
         .back-link:hover {
             color: var(--accent-color);
-            text-decoration: underline;
+            transform: translateX(-3px);
+        }
+
+        .back-link i {
+            transition: var(--transition);
+        }
+
+        .back-link:hover i {
+            transform: translateX(-5px);
         }
 
         /* Animation de chargement */
         @keyframes pulse {
-            0% { opacity: 0.7; }
-            50% { opacity: 1; }
-            100% { opacity: 0.7; }
+            0% { opacity: 0.6; transform: scale(0.95); }
+            50% { opacity: 1; transform: scale(1.05); }
+            100% { opacity: 0.6; transform: scale(0.95); }
         }
 
         .loading {
@@ -214,24 +270,34 @@
         /* Effet "shake" pour erreur */
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-5px); }
-            40%, 80% { transform: translateX(5px); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
         }
 
         .shake {
-            animation: shake 0.5s;
+            animation: shake 0.6s;
         }
 
         /* Responsive */
-        @media (max-width: 480px) {
+        @media (max-width: 600px) {
             .protection-container {
+                width: 95%;
                 padding: 2rem 1.5rem;
-                margin: 0;
-                width: 100%;
             }
 
             h1 {
-                font-size: 1.75rem;
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            h1 {
+                font-size: 1.6rem;
+            }
+
+            #password-input {
+                padding: 0.85rem 1rem;
+                font-size: 1rem;
             }
         }
     </style>
@@ -240,23 +306,23 @@
     <div class="protection-container">
         <h1>
             <i class="fas fa-lock"></i>
-            Accès Protégé
+            Accès Sécurisé
         </h1>
-        <p>Veuillez entrer le code d'accès pour consulter les procédures techniques du BTS SIO.</p>
+        <p>Entrez le code confidentiel pour accéder aux ressources techniques du BTS SIO.</p>
 
         <form id="access-form">
             <input
                 type="password"
                 id="password-input"
-                placeholder=""
+                placeholder="••••••••••••"
                 required
                 autofocus
                 autocomplete="off"
                 spellcheck="false"
             >
             <button type="submit" class="cta-button">
-                <i class="fas fa-key"></i>
-                Accéder aux Ressources
+                <i class="fas fa-arrow-right"></i>
+                Déverrouiller
             </button>
         </form>
 
@@ -282,12 +348,12 @@
                     // Succès
                     message.innerHTML = `
                         <i class="fas fa-check-circle" style="color: var(--success-color);"></i>
-                        Code correct ! Redirection...
+                        Accès autorisé. Redirection en cours...
                     `;
                     message.style.color = "var(--success-color)";
                     setTimeout(() => {
                         window.location.href = 'ressources-bts.html';
-                    }, 1200);
+                    }, 1500);
                 } else {
                     // Erreur
                     message.innerHTML = `
@@ -300,20 +366,19 @@
                     setTimeout(() => {
                         passwordInput.classList.remove('shake');
                         passwordInput.focus();
-                    }, 500);
+                    }, 600);
                 }
             });
 
-            // Effet visuel au focus
+            // Effets visuels
             passwordInput.addEventListener('focus', () => {
-                passwordInput.style.boxShadow = "var(--glow), inset 0 1px 3px rgba(0, 0, 0, 0.2)";
+                passwordInput.style.boxShadow = "var(--glow), inset 0 2px 5px rgba(0, 0, 0, 0.2)";
             });
 
             passwordInput.addEventListener('blur', () => {
-                passwordInput.style.boxShadow = "inset 0 1px 3px rgba(0, 0, 0, 0.2)";
+                passwordInput.style.boxShadow = "inset 0 2px 5px rgba(0, 0, 0, 0.2)";
             });
         });
     </script>
 </body>
 </html>
-
