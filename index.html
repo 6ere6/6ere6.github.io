@@ -6,7 +6,7 @@
     <meta name="description" content="Loris Amelaine - Portfolio Cybersécurité. Étudiant en BTS SIO spécialisé en pentesting, SIEM, DevSecOps et analyse forensique.">
     <meta name="keywords" content="cybersécurité, pentest, BTS SIO, Loris Amelaine, portfolio, DevSecOps, SIEM, forensic, TryHackMe, Advent of Cyber 2025">
     <meta name="author" content="Loris Amelaine">
-    <title>Loris Amelaine </title>
+    <title>Loris Amelaine</title>
     <link rel="icon" type="image/png" href="assets/img/favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Rajdhani:wght@600&display=swap" rel="stylesheet">
@@ -26,6 +26,69 @@
             --shadow-color-light: rgba(10, 10, 10, 0.1);
         }
 
+        /* NOUVEAU : Style pour le compteur de visites */
+        .visitor-counter {
+            position: fixed;
+            top: 25px;
+            left: 300px;
+            z-index: 1001;
+            display: flex;
+            gap: 15px;
+            background: var(--glass-effect);
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+            color: var(--text-dark);
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .counter-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .user-icon-container {
+            position: relative;
+        }
+
+        .active-dot {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            border: 1px solid var(--bg-dark);
+        }
+
+        .active-dot::before {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #10b981;
+            opacity: 0.5;
+            animation: ping 1.5s infinite;
+        }
+
+        @keyframes ping {
+            0% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 0.5; }
+        }
+
+        .fas.fa-eye, .fas.fa-users {
+            font-size: 14px;
+            color: var(--primary-color);
+        }
+
+        /* Reste de ton CSS existant (inchangé) */
         * {
             margin: 0;
             padding: 0;
@@ -34,91 +97,6 @@
 
         html {
             scroll-behavior: smooth;
-        }
-        /*dévut radar*/
-        .radar-chart-4 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    width: 530px;
-    height: 530px;
-    margin: 0 auto;
-    padding: 55px;
-    box-sizing: content-box;
-}
-
-.radar-chart-4 svg {
-    width: 100%;
-    height: 100%;
-}
-
-.radar-chart-4 dl {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-}
-
-.radar-chart-4 dl > div {
-    position: absolute;
-    color: #f05fb4;
-    font-size: .6em;
-    text-align: center;
-}
-
-.radar-chart-4 dl > div:nth-child(1) {
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.radar-chart-4 dl > div:nth-child(2) {
-    top: 18%;
-    right: 14%;
-    transform: translateX(50%);
-}
-
-.radar-chart-4 dl > div:nth-child(3) {
-    bottom: 36%;
-    right: 6%;
-    transform: translateX(50%);
-}
-
-.radar-chart-4 dl > div:nth-child(4) {
-    bottom: 3%;
-    right: 32%;
-    transform: translateX(50%);
-}
-
-.radar-chart-4 dl > div:nth-child(5) {
-    bottom: 3%;
-    left: 32%;
-    transform: translateX(-50%);
-}
-
-.radar-chart-4 dl > div:nth-child(6) {
-    bottom: 36%;
-    left: 6%;
-    transform: translateX(-50%);
-}
-
-.radar-chart-4 dl > div:nth-child(7) {
-    top: 18%;
-    left: 14%;
-    transform: translateX(-50%);
-}
-
-.radar-chart-4 dd {
-    margin: 0;
-}
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--bg-dark);
-            color: var(--text-dark);
-            overflow-x: hidden;
-            line-height: 1.6;
-            transition: background 0.5s ease, color 0.5s ease;
         }
 
         /* ===== HEURE EN TEMPS RÉEL ===== */
@@ -171,7 +149,14 @@
         }
 
         /* ===== AUTRES STYLES INCHANGÉS ===== */
-        /* (Conserve tous les autres styles CSS existants) */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+            transition: background 0.5s ease, color 0.5s ease;
+        }
 
         /* ===== BARRE DE CHARGEMENT ===== */
         .loading-bar {
@@ -759,11 +744,11 @@
         }
 
         /* ===== PROJETS SECTION ===== */
-       .project-link {
-    text-decoration: none;
-    color: inherit;
-    cursor: pointer;
-}
+        .project-link {
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+        }
 
         .projects-section {
             padding: 150px 60px;
@@ -1316,6 +1301,83 @@
         ::-webkit-scrollbar-thumb:hover {
             background: rgba(241, 113, 155, 0.8);
         }
+
+        /* ===== RADAR CHART ===== */
+        .radar-chart-4 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            width: 530px;
+            height: 530px;
+            margin: 0 auto;
+            padding: 55px;
+            box-sizing: content-box;
+        }
+
+        .radar-chart-4 svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .radar-chart-4 dl {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .radar-chart-4 dl > div {
+            position: absolute;
+            color: #f05fb4;
+            font-size: .6em;
+            text-align: center;
+        }
+
+        .radar-chart-4 dl > div:nth-child(1) {
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .radar-chart-4 dl > div:nth-child(2) {
+            top: 18%;
+            right: 14%;
+            transform: translateX(50%);
+        }
+
+        .radar-chart-4 dl > div:nth-child(3) {
+            bottom: 36%;
+            right: 6%;
+            transform: translateX(50%);
+        }
+
+        .radar-chart-4 dl > div:nth-child(4) {
+            bottom: 3%;
+            right: 32%;
+            transform: translateX(50%);
+        }
+
+        .radar-chart-4 dl > div:nth-child(5) {
+            bottom: 3%;
+            left: 32%;
+            transform: translateX(-50%);
+        }
+
+        .radar-chart-4 dl > div:nth-child(6) {
+            bottom: 36%;
+            left: 6%;
+            transform: translateX(-50%);
+        }
+
+        .radar-chart-4 dl > div:nth-child(7) {
+            top: 18%;
+            left: 14%;
+            transform: translateX(-50%);
+        }
+
+        .radar-chart-4 dd {
+            margin: 0;
+        }
     </style>
 </head>
 <body>
@@ -1324,6 +1386,21 @@
 
     <!-- Heure en temps réel -->
     <div class="real-time-clock" id="clock">00:00:00</div>
+
+    <!-- NOUVEAU : Compteur de visites -->
+    <div class="visitor-counter">
+        <div class="counter-item">
+            <span id="total-visits">...</span>
+            <i class="fas fa-eye"></i>
+        </div>
+        <div class="counter-item">
+            <span id="active-visitors">...</span>
+            <div class="user-icon-container">
+                <i class="fas fa-users"></i>
+                <span class="active-dot" id="active-dot" style="display: none;"></span>
+            </div>
+        </div>
+    </div>
 
     <!-- Terminal Interactif -->
     <button class="terminal-toggle" id="terminal-toggle"></button>
@@ -1515,73 +1592,73 @@
                 <p>Compétences acquises : <strong>Exploitation avec cURL</strong>, <strong>Phishing Detection</strong>, <strong>Malware Analysis</strong>, <strong>SOC Alert Triage</strong>, <strong>Registry Forensics</strong>, <strong>Social Engineering</strong>.</p>
             </div>
         </div>
-<br>
-<br>
-<br>
-<br>
-<!-- c'est le radar a garder -->
+        <br>
+        <br>
+        <br>
+        <br>
+        <!-- Radar Chart -->
         <div class="radar-chart-4">
-    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 200 200">
-        <g stroke="#dce5eb">
-            <path d="M 100 100 L 100.0 0.0"/>
-            <path d="M 100 100 L 178.2 37.7"/>
-            <path d="M 100 100 L 197.5 122.3"/>
-            <path d="M 100 100 L 143.4 190.1"/>
-            <path d="M 100 100 L 56.6 190.1"/>
-            <path d="M 100 100 L 2.5 122.3"/>
-            <path d="M 100 100 L 21.8 37.7"/>
-        </g>
-        <g stroke="#dce5eb" fill="none">
-            <path d="M 100.0 0.0 L 178.2 37.7 L 197.5 122.3 L 143.4 190.1 L 56.6 190.1 L 2.5 122.3 L 21.8 37.7 L 100.0 0.0"/>
-            <path d="M 100.0 14.3 L 167.0 46.6 L 183.6 119.1 L 137.2 177.2 L 62.8 177.2 L 16.4 119.1 L 33.0 46.6 L 100.0 14.3"/>
-            <path d="M 100.0 28.6 L 155.8 55.5 L 169.6 115.9 L 131.0 164.4 L 69.0 164.4 L 30.4 115.9 L 44.2 55.5 L 100.0 28.6"/>
-            <path d="M 100.0 42.9 L 144.7 64.4 L 155.7 112.7 L 124.8 151.5 L 75.2 151.5 L 44.3 112.7 L 55.3 64.4 L 100.0 42.9"/>
-            <path d="M 100.0 57.1 L 133.5 73.3 L 141.8 109.5 L 118.6 138.6 L 81.4 138.6 L 58.2 109.5 L 66.5 73.3 L 100.0 57.1"/>
-            <path d="M 100.0 71.4 L 122.3 82.2 L 127.9 106.4 L 112.4 125.7 L 87.6 125.7 L 72.1 106.4 L 77.7 82.2 L 100.0 71.4"/>
-            <path d="M 100.0 85.7 L 111.2 91.1 L 113.9 103.2 L 106.2 112.9 L 93.8 112.9 L 86.1 103.2 L 88.8 91.1 L 100.0 85.7"/>
-        </g>
-        <path d="M 100.0 50.0 L 154.7 56.4 L 148.7 111.1 L 134.7 172.1 L 87.0 127.0 L 41.5 113.4 L 53.1 62.6 L 100.0 50.0" fill="#2589d030" stroke="#f1719b"/>
-        <g fill="#f1719b">
-            <circle cx="100.0" cy="50.0" r="3"/>
-            <circle cx="154.7" cy="56.4" r="3"/>
-            <circle cx="148.7" cy="111.1" r="3"/>
-            <circle cx="134.7" cy="172.1" r="3"/>
-            <circle cx="87.0" cy="127.0" r="3"/>
-            <circle cx="41.5" cy="113.4" r="3"/>
-            <circle cx="53.1" cy="62.6" r="3"/>
-        </g>
-    </svg>
-    <dl>
-        <div>
-            <dt>RED</dt>
-            <dd>TEAMING</dd>
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 200 200">
+                <g stroke="#dce5eb">
+                    <path d="M 100 100 L 100.0 0.0"/>
+                    <path d="M 100 100 L 178.2 37.7"/>
+                    <path d="M 100 100 L 197.5 122.3"/>
+                    <path d="M 100 100 L 143.4 190.1"/>
+                    <path d="M 100 100 L 56.6 190.1"/>
+                    <path d="M 100 100 L 2.5 122.3"/>
+                    <path d="M 100 100 L 21.8 37.7"/>
+                </g>
+                <g stroke="#dce5eb" fill="none">
+                    <path d="M 100.0 0.0 L 178.2 37.7 L 197.5 122.3 L 143.4 190.1 L 56.6 190.1 L 2.5 122.3 L 21.8 37.7 L 100.0 0.0"/>
+                    <path d="M 100.0 14.3 L 167.0 46.6 L 183.6 119.1 L 137.2 177.2 L 62.8 177.2 L 16.4 119.1 L 33.0 46.6 L 100.0 14.3"/>
+                    <path d="M 100.0 28.6 L 155.8 55.5 L 169.6 115.9 L 131.0 164.4 L 69.0 164.4 L 30.4 115.9 L 44.2 55.5 L 100.0 28.6"/>
+                    <path d="M 100.0 42.9 L 144.7 64.4 L 155.7 112.7 L 124.8 151.5 L 75.2 151.5 L 44.3 112.7 L 55.3 64.4 L 100.0 42.9"/>
+                    <path d="M 100.0 57.1 L 133.5 73.3 L 141.8 109.5 L 118.6 138.6 L 81.4 138.6 L 58.2 109.5 L 66.5 73.3 L 100.0 57.1"/>
+                    <path d="M 100.0 71.4 L 122.3 82.2 L 127.9 106.4 L 112.4 125.7 L 87.6 125.7 L 72.1 106.4 L 77.7 82.2 L 100.0 71.4"/>
+                    <path d="M 100.0 85.7 L 111.2 91.1 L 113.9 103.2 L 106.2 112.9 L 93.8 112.9 L 86.1 103.2 L 88.8 91.1 L 100.0 85.7"/>
+                </g>
+                <path d="M 100.0 50.0 L 154.7 56.4 L 148.7 111.1 L 134.7 172.1 L 87.0 127.0 L 41.5 113.4 L 53.1 62.6 L 100.0 50.0" fill="#2589d030" stroke="#f1719b"/>
+                <g fill="#f1719b">
+                    <circle cx="100.0" cy="50.0" r="3"/>
+                    <circle cx="154.7" cy="56.4" r="3"/>
+                    <circle cx="148.7" cy="111.1" r="3"/>
+                    <circle cx="134.7" cy="172.1" r="3"/>
+                    <circle cx="87.0" cy="127.0" r="3"/>
+                    <circle cx="41.5" cy="113.4" r="3"/>
+                    <circle cx="53.1" cy="62.6" r="3"/>
+                </g>
+            </svg>
+            <dl>
+                <div>
+                    <dt>RED</dt>
+                    <dd>TEAMING</dd>
+                </div>
+                <div>
+                    <dt>REPONSE AUX</dt>
+                    <dd>INCIDENTS</dd>
+                </div>
+                <div>
+                    <dt>EXPLOITATION</dt>
+                    <dd></dd>
+                </div>
+                <div>
+                    <dt>PENTESTING</dt>
+                    <dd></dd>
+                </div>
+                <div>
+                    <dt>ANALYSE DE </dt>
+                    <dd>MALWARE</dd>
+                </div>
+                <div>
+                    <dt>AUTOMATISATION</dt>
+                    <dd></dd>
+                </div>
+                <div>
+                    <dt>FORENSIQUE</dt>
+                    <dd></dd>
+                </div>
+            </dl>
         </div>
-        <div>
-            <dt>REPONSE AUX</dt>
-            <dd>INCIDENTS</dd>
-        </div>
-        <div>
-            <dt>EXPLOITATION</dt>
-            <dd></dd>
-        </div>
-        <div>
-            <dt>PENTESTING</dt>
-            <dd></dd>
-        </div>
-        <div>
-            <dt>ANALYSE DE </dt>
-            <dd>MALWARE</dd>
-        </div>
-        <div>
-            <dt>AUTOMATISATION</dt>
-            <dd></dd>
-        </div>
-        <div>
-            <dt>FORENSIQUE</dt>
-            <dd></dd>
-        </div>
-    </dl>
-</div>
     </section>
 
     <!-- Projets Section -->
@@ -1593,68 +1670,62 @@
         <div class="projects-grid">
             <!-- ScanFlow Utility -->
             <a href="projet-scanflow.html" class="project-link">
-    <div class="project-card fade-in card-3d">
-        <div class="project-image">
-            <img src="assets/img/scanflow.png" alt="ScanFlow Utility">
-        </div>
-        <div class="project-info">
-            <h3>ScanFlow Utility (C#)</h3>
-            <p>Application console développée en C# pour encapsuler et simplifier l'exécution de scans réseau (wrapper Nmap) et l'analyse de vulnérabilités pour un diagnostic rapide.</p>
-            <div class="project-tags">
-                <span class="tag">C#</span>
-                <span class="tag">Nmap</span>
-                <span class="tag">Automatisation</span>
-                <span class="tag">Sécurité Réseau</span>
-            </div>
-        </div>
-    </div>
-</a>
-
+                <div class="project-card fade-in card-3d">
+                    <div class="project-image">
+                        <img src="assets/img/scanflow.png" alt="ScanFlow Utility">
+                    </div>
+                    <div class="project-info">
+                        <h3>ScanFlow Utility (C#)</h3>
+                        <p>Application console développée en C# pour encapsuler et simplifier l'exécution de scans réseau (wrapper Nmap) et l'analyse de vulnérabilités pour un diagnostic rapide.</p>
+                        <div class="project-tags">
+                            <span class="tag">C#</span>
+                            <span class="tag">Nmap</span>
+                            <span class="tag">Automatisation</span>
+                            <span class="tag">Sécurité Réseau</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
 
             <!-- Déploiement IDS/SIEM -->
             <a href="projet-snort.html" class="project-link">
-    <div class="project-card fade-in card-3d">
-        <div class="project-image">
-            <img src="assets/img/projet-snort.png" alt="Déploiement SIEM">
-        </div>
-        <div class="project-info">
-            <h3>Déploiement IDS/SIEM (Snort 3)</h3>
-            <p>Mise en place d'une architecture de sécurité complète intégrant <strong>Snort 3</strong> (IDS) pour la détection d'attaques TCP, Ping Flood, DDoS et Brute Force SSH, avec journalisation en temps réel.</p>
-            <div class="project-tags">
-                <span class="tag">Snort 3</span>
-                <span class="tag">IDS</span>
-                <span class="tag">DDoS</span>
-                <span class="tag">Kali Linux</span>
-            </div>
-        </div>
-    </div>
-</a>
+                <div class="project-card fade-in card-3d">
+                    <div class="project-image">
+                        <img src="assets/img/projet-snort.png" alt="Déploiement SIEM">
+                    </div>
+                    <div class="project-info">
+                        <h3>Déploiement IDS/SIEM (Snort 3)</h3>
+                        <p>Mise en place d'une architecture de sécurité complète intégrant <strong>Snort 3</strong> (IDS) pour la détection d'attaques TCP, Ping Flood, DDoS et Brute Force SSH, avec journalisation en temps réel.</p>
+                        <div class="project-tags">
+                            <span class="tag">Snort 3</span>
+                            <span class="tag">IDS</span>
+                            <span class="tag">DDoS</span>
+                            <span class="tag">Kali Linux</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
 
-
-<!-- OpenVPN Client-to-Site -->
-<a href="projet-openvpn.html" class="project-link">
-    <div class="project-card fade-in card-3d">
-        <div class="project-image">
-            <!-- Image de couverture : Remplace "assets/img/openvpn-pfsense.png" par ton image -->
-            <img src="assets/img/openvpn-pfsense.png" alt="OpenVPN Client-to-Site avec pfSense">
+            <!-- OpenVPN Client-to-Site -->
+            <a href="projet-openvpn.html" class="project-link">
+                <div class="project-card fade-in card-3d">
+                    <div class="project-image">
+                        <img src="assets/img/openvpn-pfsense.png" alt="OpenVPN Client-to-Site avec pfSense">
+                    </div>
+                    <div class="project-info">
+                        <h3>Tunnel VPN Client-to-Site (OpenVPN + pfSense)</h3>
+                        <p>Configuration d'un tunnel VPN sécurisé avec OpenVPN et pfSense pour un accès distant sécurisé. Déploiement d'une autorité de certification, règles de pare-feu, et export de la configuration client.</p>
+                        <div class="project-tags">
+                            <span class="tag">OpenVPN</span>
+                            <span class="tag">pfSense</span>
+                            <span class="tag">VPN</span>
+                            <span class="tag">Certificats</span>
+                            <span class="tag">Réseau</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
         </div>
-        <div class="project-info">
-            <h3>Tunnel VPN Client-to-Site (OpenVPN + pfSense)</h3>
-            <p>
-                Configuration d'un tunnel VPN sécurisé avec OpenVPN et pfSense pour un accès distant sécurisé.
-                Déploiement d'une autorité de certification, règles de pare-feu, et export de la configuration client.
-            </p>
-            <div class="project-tags">
-                <span class="tag">OpenVPN</span>
-                <span class="tag">pfSense</span>
-                <span class="tag">VPN</span>
-                <span class="tag">Certificats</span>
-                <span class="tag">Réseau</span>
-            </div>
-        </div>
-    </div>
-</a>
-
     </section>
 
     <!-- Certifications Section -->
@@ -1758,10 +1829,9 @@
                     <i class="fab fa-github"></i> GitHub
                 </a>
                 <a href="https://tryhackme.com/p/ceres" class="contact-link card-3d" target="_blank">
-    <img src="assets/img/thm.png" alt="TryHackMe" style="width: 80px; height: 40px; filter: invert(1); vertical-align: middle; margin-right: 8px;">
-    TryHackMe
-</a>
-
+                    <img src="assets/img/thm.png" alt="TryHackMe" style="width: 80px; height: 40px; filter: invert(1); vertical-align: middle; margin-right: 8px;">
+                    TryHackMe
+                </a>
             </div>
         </div>
     </section>
@@ -1780,8 +1850,8 @@
                         <i class="fab fa-github"></i>
                     </a>
                     <a href="https://tryhackme.com/p/ceres" class="social-link card-3d" target="_blank">
-    <img src="assets/img/thm.png" alt="TryHackMe" style="width: 60px; height: 30px; filter: invert(1);">
-</a>
+                        <img src="assets/img/thm.png" alt="TryHackMe" style="width: 60px; height: 30px; filter: invert(1);">
+                    </a>
                 </div>
             </div>
             <div class="footer-links">
@@ -1834,6 +1904,41 @@
         setInterval(updateClock, 1000);
         updateClock();
 
+        /* NOUVEAU : Compteur de visites */
+        const sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+
+        function initTotalVisits() {
+            let totalVisits = localStorage.getItem('portfolio_total_visits');
+            if (!totalVisits) {
+                totalVisits = 1;
+                localStorage.setItem('portfolio_total_visits', totalVisits);
+            } else {
+                totalVisits = parseInt(totalVisits) + 1;
+                localStorage.setItem('portfolio_total_visits', totalVisits);
+            }
+            document.getElementById('total-visits').textContent = totalVisits.toLocaleString();
+        }
+
+        function updateActiveVisitors() {
+            const simulatedActiveVisitors = Math.floor(Math.random() * 5) + 1;
+            document.getElementById('active-visitors').textContent = simulatedActiveVisitors;
+            const activeDot = document.getElementById('active-dot');
+            if (simulatedActiveVisitors > 0) {
+                activeDot.style.display = 'block';
+            } else {
+                activeDot.style.display = 'none';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initTotalVisits();
+            updateActiveVisitors();
+            setInterval(updateActiveVisitors, 30000);
+            setInterval(() => {
+                localStorage.setItem(`active_${sessionId}`, Date.now().toString());
+            }, 60000);
+        });
+
         // Terminal Interactif
         const terminal = document.getElementById('terminal');
         const terminalToggle = document.getElementById('terminal-toggle');
@@ -1856,7 +1961,7 @@
                 terminalInput.value = '';
 
                 if (command) {
-                    terminalContent.innerHTML += `<p><span class="terminal-prompt">user:~$</span> ${command}</p>`;
+                    terminalContent.innerHTML += `<p><span class="terminal-prompt">loris@portfolio:~$</span> ${command}</p>`;
 
                     if (command.toLowerCase() === 'help') {
                         terminalContent.innerHTML += `
@@ -1870,14 +1975,26 @@
                             <p>- <span style="color: #f1719b">time</span> : Affiche l'heure</p>
                             <p>- <span style="color: #f1719b">tools</span> : Liste les outils maîtrisés</p>
                             <p>- <span style="color: #f1719b">thm</span> : Affiche mon profil TryHackMe</p>
+                            <!-- NOUVEAU : Commande stats -->
+                            <p>- <span style="color: #f1719b">stats</span> : Affiche les statistiques de visites</p>
                         `;
-                    } else if (command.toLowerCase() === 'about') {
+                    }
+                    else if (command.toLowerCase() === 'stats') {
+                        const totalVisits = localStorage.getItem('portfolio_total_visits') || '0';
+                        terminalContent.innerHTML += `
+                            <p>Statistiques du portfolio :</p>
+                            <p>- Visites totales : <span style="color: #f1719b">${parseInt(totalVisits).toLocaleString()}</span></p>
+                            <p>- Visiteurs actifs (simulé) : <span style="color: #f1719b">${Math.floor(Math.random() * 5) + 1}</span></p>
+                        `;
+                    }
+                    else if (command.toLowerCase() === 'about') {
                         terminalContent.innerHTML += `
                             <p>Loris Amelaine - Étudiant en BTS SIO SISR (Nevers).</p>
                             <p>Spécialisé en cybersécurité, pentesting et DevSecOps.</p>
                             <p>Passionné par l'analyse forensique et l'automatisation des tests de sécurité.</p>
                         `;
-                    } else if (command.toLowerCase() === 'skills') {
+                    }
+                    else if (command.toLowerCase() === 'skills') {
                         terminalContent.innerHTML += `
                             <p>Compétences principales :</p>
                             <p>- Pentesting (Burp Suite, Metasploit, Nmap)</p>
@@ -1886,7 +2003,8 @@
                             <p>- Réseaux (Cisco, pfSense, Wireshark)</p>
                             <p>- Déploiement SIEM (Graylog, Snort)</p>
                         `;
-                    } else if (command.toLowerCase() === 'projet') {
+                    }
+                    else if (command.toLowerCase() === 'projet') {
                         terminalContent.innerHTML += `
                             <p>Projets récents :</p>
                             <p>1. ScanFlow Utility (C#/Nmap)</p>
@@ -1894,7 +2012,8 @@
                             <p>3. Authentification 802.1X (RADIUS/Cisco)</p>
                             <p>Tapez <span style="color: #f1719b">projet [num]</span> pour plus de détails.</p>
                         `;
-                    } else if (command.toLowerCase().startsWith('projet')) {
+                    }
+                    else if (command.toLowerCase().startsWith('projet')) {
                         const projetNum = command.split(' ')[1];
                         if (projetNum === '1') {
                             terminalContent.innerHTML += `
@@ -1906,7 +2025,8 @@
                                 <p>- Interface utilisateur intuitive</p>
                                 <p>Lien : <a href="projet-scanflow.html" style="color: #f1719b">projet-scanflow.html</a></p>
                             `;
-                        } else if (projetNum === '2') {
+                        }
+                        else if (projetNum === '2') {
                             terminalContent.innerHTML += `
                                 <p><span style="color: #f1719b">Déploiement SIEM (Graylog)</span></p>
                                 <p>Architecture complète pour la surveillance des logs.</p>
@@ -1916,20 +2036,23 @@
                                 <p>- Elasticsearch pour le stockage</p>
                                 <p>Lien : <a href="projet-snort.html" style="color: #f1719b">projet-snort.html</a></p>
                             `;
-                        } else if (projetNum === '3') {
+                        }
+                        else if (projetNum === '3') {
                             terminalContent.innerHTML += `
-                                <p><span style="color: #f1719b">Pare-feu et tunel vpn</span></p>
+                                <p><span style="color: #f1719b">Pare-feu et tunnel VPN</span></p>
                                 <p>VPN</p>
                                 <p>Implémentation :</p>
-                                <p>- Par-feu PF-SENSE</p>
+                                <p>- Pare-feu PF-SENSE</p>
                                 <p>- OPENVPN</p>
-                                <p>- Regles par-feu</p>
+                                <p>- Règles pare-feu</p>
                                 <p>Lien : <a href="projet-openvpn.html" style="color: #f1719b">projet-openvpn.html</a></p>
                             `;
-                        } else {
+                        }
+                        else {
                             terminalContent.innerHTML += `<p>Projet non trouvé. Tapez <span style="color: #f1719b">projet</span> pour voir la liste.</p>`;
                         }
-                    } else if (command.toLowerCase() === 'contact') {
+                    }
+                    else if (command.toLowerCase() === 'contact') {
                         terminalContent.innerHTML += `
                             <p>Contactez-moi :</p>
                             <p>- Email : <a href="mailto:loris.amelaine@proton.me" style="color: #f1719b">loris.amelaine@proton.me</a></p>
@@ -1937,7 +2060,8 @@
                             <p>- GitHub : <a href="https://github.com/6ere6" style="color: #f1719b" target="_blank">github.com/6ere6</a></p>
                             <p>- TryHackMe : <a href="https://tryhackme.com/p/ceres" style="color: #f1719b" target="_blank">tryhackme.com/p/ceres</a></p>
                         `;
-                    } else if (command.toLowerCase() === 'time') {
+                    }
+                    else if (command.toLowerCase() === 'time') {
                         const now = new Date();
                         const timeString = now.toLocaleTimeString();
                         const dateString = now.toLocaleDateString();
@@ -1945,26 +2069,28 @@
                             <p>Date et heure actuelles :</p>
                             <p><span style="color: #f1719b">${dateString} ${timeString}</span></p>
                         `;
-                    } else if (command.toLowerCase() === 'tools') {
+                    }
+                    else if (command.toLowerCase() === 'tools') {
                         terminalContent.innerHTML += `
                             <p>Outils maîtrisés :</p>
                             <p>- Nmap, Metasploit, Snort, Wireshark</p>
                             <p>- Kali Linux, Autopsy, Docker, Git</p>
                             <p>- Graylog, Elastic Stack, Ansible</p>
-                            
                             <p>Tapez <span style="color: #f1719b">tool [nom]</span> pour plus de détails.</p>
                         `;
-                    } else if (command.toLowerCase() === 'thm') {
+                    }
+                    else if (command.toLowerCase() === 'thm') {
                         terminalContent.innerHTML += `
                             <p>Mon profil TryHackMe :</p>
                             <p><a href="https://tryhackme.com/p/ceres" style="color: #f1719b" target="_blank">https://tryhackme.com/p/ceres</a></p>
                             <p>Certifications :</p>
                             <p>- Advent of Cyber 2025</p>
-                            
                         `;
-                    } else if (command.toLowerCase() === 'clear') {
+                    }
+                    else if (command.toLowerCase() === 'clear') {
                         terminalContent.innerHTML = '';
-                    } else {
+                    }
+                    else {
                         terminalContent.innerHTML += `<p>Commande inconnue. Tapez <span style="color: #f1719b">help</span> pour voir les commandes disponibles.</p>`;
                     }
 
@@ -2005,7 +2131,6 @@
             }
         }
 
-        // Démarrer l'animation
         setTimeout(type, 1000);
 
         // Gestion du scroll pour la navigation
@@ -2017,7 +2142,6 @@
                 navbar.classList.remove('scrolled');
             }
 
-            // Animations au scroll
             const elements = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right, .scale-in');
             elements.forEach(element => {
                 const elementTop = element.getBoundingClientRect().top;
@@ -2028,7 +2152,6 @@
             });
         });
 
-        // Initialiser les animations pour les éléments visibles au chargement
         window.addEventListener('DOMContentLoaded', () => {
             const elements = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right, .scale-in');
             elements.forEach(element => {
@@ -2040,7 +2163,6 @@
             });
         });
 
-        // Effets 3D et animations avancées
         const cards = document.querySelectorAll('.card-3d');
         cards.forEach(card => {
             card.addEventListener('mousemove', (e) => {
@@ -2061,14 +2183,6 @@
                 card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
             });
         });
-         // Heure en temps réel
-        function updateClock() {
-            const now = new Date();
-            const hours = now.getHours().toString().padStart(2, '0');
-            const minutes = now.getMinutes().toString().padStart(2, '0');
-            const seconds = now.getSeconds().toString().padStart(2, '0');
-            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
-        }
     </script>
 </body>
 </html>
