@@ -26,6 +26,68 @@
             --shadow-color-light: rgba(10, 10, 10, 0.1);
         }
 
+        /* Fix pour le texte "Portfolio de Loris" sur Opéra */
+        .hero h1 {
+            font-size: clamp(40px, 8vw, 80px);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 30px;
+            letter-spacing: -2px;
+            color: var(--text-dark); /* Fallback lisible pour tous les navigateurs */
+            display: inline-block; /* Fix pour Opéra */
+            text-shadow: 0 2px 6px rgba(0,0,0,0.6), 0 6px 20px rgba(241,113,155,0.08);
+            position: relative;
+        }
+
+        /* Visually-hidden for screen readers */
+        .sr-only {
+            position: absolute !important;
+            width: 1px !important;
+            height: 1px !important;
+            padding: 0 !important;
+            margin: -1px !important;
+            overflow: hidden !important;
+            clip: rect(0, 0, 0, 0) !important;
+            white-space: nowrap !important;
+            border: 0 !important;
+        }
+
+        /* SVG fallback style (hidden by default) */
+        .svg-title {
+            display: none;
+            width: 100%;
+            height: auto;
+        }
+
+        .svg-title .svg-line {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            fill: url(#h1Gradient);
+            font-size: clamp(40px, 8vw, 80px);
+        }
+
+        /* Appliquer le gradient et la transparence UNIQUEMENT si le navigateur supporte background-clip:text */
+        @supports (-webkit-background-clip: text) or (background-clip: text) {
+            .hero h1 .line,
+            .hero h1 .line .crafted-title,
+            .hero h1 .line .lasting-title {
+                background: linear-gradient(90deg, #ffffff 20%, #ff9ecb 80%);
+                -webkit-background-clip: text;
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
+                color: transparent; /* s'assurer que seule la couleur du background est visible */
+                -webkit-text-stroke: 0.6px rgba(0,0,0,0.18); /* trait plus prononcé pour contraster */
+                text-shadow: 0 6px 20px rgba(241,113,155,0.12); /* halo rose subtil */
+                display: inline-block;
+            }
+        }
+
+        /* Si background-clip n'est PAS supporté, afficher le SVG fallback et cacher le texte */
+        @supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+            .hero h1 .text-content { visibility: hidden; }
+            .hero h1 .svg-title { display: block; }
+        }
+
         /* Animation pour le point vert */
         @keyframes ping {
             0% { transform: scale(1); opacity: 0.5; }
@@ -396,18 +458,6 @@
             color: var(--primary-color);
         }
 
-        .hero h1 {
-            font-size: clamp(40px, 8vw, 80px);
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 30px;
-            letter-spacing: -2px;
-            background: linear-gradient(90deg, var(--text-dark), var(--primary-color));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
         .hero h1 .line {
             display: block;
             animation: fadeInUp 1s ease-out both;
@@ -502,23 +552,64 @@
         /* ===== SCROLL INDICATOR ===== */
         .scroll-indicator {
             position: absolute;
-            bottom: 50px;
+            bottom: 46px;
             left: 50%;
             transform: translateX(-50%);
-            animation: bounce 2s infinite;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 62px; /* bigger */
+            height: 62px; /* bigger */
+            border-radius: 50%;
+            background: rgba(241,113,155,0.12); /* subtle pink halo */
+            cursor: pointer;
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+            animation: bounce 1.8s infinite;
+            z-index: 20;
+            box-shadow: 0 8px 24px rgba(241,113,155,0.08);
+        }
+
+        .scroll-indicator:focus {
+            outline: none;
+            box-shadow: 0 0 0 10px rgba(241,113,155,0.14);
+        }
+
+        .scroll-indicator:hover {
+            transform: translateX(-50%) translateY(-6px) scale(1.03);
+        }
+
+        .scroll-arrow {
+            width: 28px; /* larger arrow */
+            height: 28px;
+            fill: #ffffff; /* strong contrast */
+            display: block;
+            transition: transform 0.18s ease, opacity 0.18s ease;
+            filter: drop-shadow(0 6px 14px rgba(0,0,0,0.35));
         }
 
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-            40% { transform: translateX(-50%) translateY(-15px); }
-            60% { transform: translateX(-50%) translateY(-7px); }
+            40% { transform: translateX(-50%) translateY(-18px); }
+            60% { transform: translateX(-50%) translateY(-9px); }
         }
 
-        .scroll-indicator span {
-            display: block;
-            width: 1px;
-            height: 60px;
-            background: linear-gradient(to bottom, transparent, var(--primary-color), transparent);
+        .scroll-indicator:active, .scroll-indicator:focus {
+            transform: translateX(-50%) translateY(-2px) scale(0.98);
+        }
+
+        /* Pulsate the arrow subtly to increase visibility */
+        .scroll-arrow { animation: arrow-pulse 2.6s infinite; }
+        @keyframes arrow-pulse {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            50% { transform: translateY(-4px) scale(1.02); opacity: 0.98; }
+            100% { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 640px) {
+            .scroll-indicator { bottom: 28px; width: 48px; height: 48px; box-shadow: 0 6px 18px rgba(241,113,155,0.06); }
+            .scroll-arrow { width: 22px; height: 22px; }
+            .scroll-indicator { animation: none; }
         }
 
         /* ===== À PROPOS SECTION ===== */
@@ -812,30 +903,51 @@
             background: var(--glass-effect);
             border: 1px solid var(--border-color);
             border-radius: 20px;
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            /* Restrict transitions to GPU-friendly properties */
+            transition: transform 260ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 260ms ease, background 260ms ease;
             position: relative;
             overflow: visible; /* Permet aux liens de dépasser */
             transform-style: flat; /* Désactive les effets 3D pour les enfants */
+            will-change: transform;
+            backface-visibility: hidden;
         }
 
         .certification-card::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(241, 113, 155, 0.1) 0%, transparent 70%);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(241, 113, 155, 0.08) 0%, transparent 70%);
             opacity: 0;
             transition: opacity 0.6s ease;
+            pointer-events: none; /* don't block mouse events */
+            border-radius: inherit; /* match card rounding */
         }
 
         .certification-card:hover {
-            transform: translateY(-10px) rotateY(10deg);
-            background: rgba(255, 255, 255, 0.05);
+            /* Lighter, faster hover animation for better performance */
+            transform: translateY(-6px);
+            background: rgba(255, 255, 255, 0.06);
             border-color: var(--primary-color);
-            box-shadow: 0 15px 30px var(--shadow-color);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.28);
         }
+
+        /* Make the whole card clickable via a transparent overlay */
+        .certification-card { position: relative; }
+        .card-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            background: transparent;
+            cursor: pointer;
+            display: block; /* ensure it fills the card */
+            text-decoration: none;
+        }
+
+        /* Ensure the visible certificate button remains above the overlay for affordance */
+        .certificate-link { position: relative; z-index: 3001; pointer-events: auto; }
 
         .certification-card:hover::before {
             opacity: 1;
@@ -846,20 +958,26 @@
             justify-content: center;
             gap: 20px;
             margin-bottom: 30px;
+            pointer-events: none; /* logos shouldn't intercept clicks */
         }
 
         .certification-logo {
             height: 50px;
             width: auto;
-            opacity: 0.8;
-            transition: all 0.5s ease;
+            opacity: 0.85;
+            /* Only animate transform/opacity/filter for better performance */
+            transition: transform 220ms ease, opacity 220ms ease, filter 220ms ease;
             filter: grayscale(100%);
+            pointer-events: none; /* ensure icons don't block the link */
+            will-change: transform, opacity;
+            backface-visibility: hidden;
+            transform: translateZ(0);
         }
 
         .certification-card:hover .certification-logo {
             opacity: 1;
             filter: grayscale(0%);
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
 
         .certification-card h3 {
@@ -907,7 +1025,8 @@
             transition: all 0.3s ease;
             cursor: pointer;
             position: relative;
-            z-index: 10; /* Assure que le lien reste au-dessus */
+            z-index: 3000; /* Assure que le lien reste au-dessus */
+            pointer-events: auto;
         }
 
         .certificate-link:hover {
@@ -915,6 +1034,13 @@
             border-color: var(--primary-color);
             color: var(--primary-color);
             transform: translateY(-2px);
+        }
+
+        /* Disabled certificate link */
+        .certificate-link.disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            pointer-events: none;
         }
 
         /* Désactive les transformations 3D sur le lien */
@@ -1084,6 +1210,8 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
         }
 
         .contact-section p {
@@ -1149,6 +1277,8 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
         }
 
         .footer-brand p {
@@ -1470,8 +1600,25 @@
         <div class="hero-content">
             <div class="hero-subtitle">>> CYBERSECURITY LEARNER</div>
             <h1>
-                <span class="line crafted-title">Portfolio</span>
-                <span class="line"><span class="crafted-title">de</span> <span class="lasting-title">L0r1s</span></span>
+                <span class="text-content">
+                    <span class="line crafted-title">Portfolio</span>
+                    <span class="line"><span class="crafted-title">de</span> <span class="lasting-title">L0r1s</span></span>
+                </span>
+
+                <!-- SVG fallback pour navigateurs sans support de background-clip:text -->
+                <svg class="svg-title" viewBox="0 0 800 180" role="img" aria-hidden="true" focusable="false">
+                    <defs>
+                        <linearGradient id="h1Gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#ffffff" />
+                            <stop offset="100%" stop-color="#ff9ecb" />
+                        </linearGradient>
+                    </defs>
+                    <text x="50%" y="45%" text-anchor="middle" class="svg-line svg-line-1">Portfolio</text>
+                    <text x="50%" y="83%" text-anchor="middle" class="svg-line svg-line-2">de L0r1s</text>
+                </svg>
+
+                <!-- Texte pour lecteurs d'écran -->
+                <span class="sr-only">Portfolio de L0r1s</span>
             </h1>
             <div class="typed-text">
                 <span id="typed-output"></span><span class="cursor">|</span>
@@ -1484,9 +1631,11 @@
                 <a href="#contact" class="btn-secondary">Me Contacter</a>
             </div>
         </div>
-        <div class="scroll-indicator">
-            <span></span>
-        </div>
+        <a href="#about" class="scroll-indicator" aria-label="Descendre" title="Descendre">
+            <svg class="scroll-arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M7 10l5 5 5-5z" />
+            </svg>
+        </a>
     </section>
 
     <!-- À Propos Section -->
@@ -1542,7 +1691,7 @@
                     <img src="assets/img/nmap.png" alt="Nmap">
                     <img src="assets/img/metasploit.png" alt="Metasploit">
                     <img src="assets/img/snort.png" alt="Snort">
-                    <img src="assets/img/wireshark.png" alt="Wireshark">
+                    <img src="assets/img/ww" alt="Wireshark">
                     <img src="assets/img/kali.png" alt="Kali Linux">
                     <img src="assets/img/autopsy.png" alt="Autopsy">
                     <img src="assets/img/docker.png" alt="Docker">
@@ -1761,7 +1910,7 @@
         </div>
         <div class="certifications-grid">
             <!-- Certification ANSSI -->
-            <div class="certification-card fade-in card-3d">
+            <div class="certification-card fade-in">
                 <div class="certification-logos">
                     <img src="assets/img/ansii.png" alt="ANSSI" class="certification-logo">
                     <img src="assets/img/openclass.png" alt="OpenClassrooms" class="certification-logo">
@@ -1780,13 +1929,15 @@
                     <span class="tag">Pentesting</span>
                     <span class="tag">ANSSI</span>
                 </div>
-                <a href="#" class="certificate-link" onclick="openPdfModal('assets/pdf/certificat-anssi.pdf'); return false;">
+                <!-- overlay link so clicking anywhere opens the cert -->
+                <a class="card-overlay" href="assets/pdf/Certificat - Loris amelaine - 16_12_2025.pdf" onclick="openPdfModal('assets/pdf/Certificat - Loris amelaine - 16_12_2025.pdf'); return false;" aria-label="Ouvrir le certificat ANSSI"></a>
+                <a href="assets/pdf/Certificat - Loris amelaine - 16_12_2025.pdf" class="certificate-link" onclick="openPdfModal('assets/pdf/Certificat - Loris amelaine - 16_12_2025.pdf'); return false;" target="_blank" rel="noopener" aria-label="Voir le certificat ANSSI">
                     <i class="fas fa-file-pdf"></i> Voir le certificat
                 </a>
             </div>
 
             <!-- MooC EBIOS Risk Manager -->
-            <div class="certification-card fade-in card-3d">
+            <div class="certification-card fade-in">
                 <div class="certification-logos">
                     <img src="assets/img/ebios.png" alt="Club EBIOS" class="certification-logo">
                 </div>
@@ -1804,13 +1955,15 @@
                     <span class="tag">EBIOS</span>
                     <span class="tag">MooC</span>
                 </div>
-                <a href="#" class="certificate-link" onclick="openPdfModal('assets/pdf/Certificat - Loris amelaine - 16_12_2025.pdf'); return false;">
+                <!-- overlay link so clicking anywhere opens the cert -->
+                <a class="card-overlay" href="assets/img/ebios.pdf" onclick="openPdfModal('assets/img/ebios.pdf'); return false;" aria-label="Ouvrir le certificat EBIOS"></a>
+                <a href="assets/img/ebios.pdf" class="certificate-link" onclick="openPdfModal('assets/img/ebios.pdf'); return false;" target="_blank" rel="noopener" aria-label="Voir le certificat EBIOS">
                     <i class="fas fa-file-pdf"></i> Voir le certificat
                 </a>
             </div>
 
             <!-- Certification Advent of Cyber 2025 (TryHackMe) -->
-            <div class="certification-card fade-in card-3d">
+            <div class="certification-card fade-in">
                 <div class="certification-logos">
                     <img src="assets/img/thm.png" alt="TryHackMe" class="certification-logo">
                 </div>
@@ -1829,13 +1982,19 @@
                     <span class="tag">2025</span>
                     <span class="tag">Pentesting</span>
                 </div>
-                <a href="#" class="certificate-link" onclick="openPdfModal('assets/pdf/THM-9H4OE9OC8H.pdf'); return false;">
-                    <i class="fas fa-file-pdf"></i> Voir le certificat
+                <!-- overlay link so clicking anywhere opens the external profile -->
+                <a class="card-overlay" href="https://tryhackme.com/p/ceres" onclick="window.open('https://tryhackme.com/p/ceres','_blank'); return false;" aria-label="Voir le profil TryHackMe"></a>
+                <a href="https://tryhackme.com/p/ceres" target="_blank" class="certificate-link" rel="noopener">
+                    <i class="fas fa-external-link-alt"></i> Voir mon profil TryHackMe
+                </a>
+                <!-- Certificat AOC 2025 -->
+                <a href="assets/pdf/THM-9H4OE9OC8H.pdf" class="certificate-link" onclick="openPdfModal('assets/pdf/THM-9H4OE9OC8H.pdf'); return false;" target="_blank" rel="noopener" aria-label="Voir le certificat Advent of Cyber 2025 (THM)">
+                    <i class="fas fa-file-pdf"></i> Certificat Advent of Cyber 2025 (AOC)
                 </a>
             </div>
 
             <!-- Fortinet Certified Fundamentals in Cybersecurity -->
-            <div class="certification-card fade-in card-3d">
+            <div class="certification-card fade-in">
                 <div class="certification-logos">
                     <img src="assets/img/nse.png" alt="Fortinet" class="certification-logo">
                 </div>
@@ -1853,13 +2012,15 @@
                     <span class="tag">Fortinet</span>
                     <span class="tag">Fondamentaux</span>
                 </div>
-                <a href="#" class="certificate-link" onclick="openPdfModal('assets/pdf/Fortinet Certified Fundamentals in Cybersecurity.pdf'); return false;">
+                <!-- overlay link so clicking anywhere opens the cert -->
+                <a class="card-overlay" href="assets/pdf/Fortinet Certified Fundamentals in Cybersecurity.pdf" onclick="openPdfModal('assets/pdf/Fortinet Certified Fundamentals in Cybersecurity.pdf'); return false;" aria-label="Ouvrir le certificat Fortinet"></a>
+                <a href="assets/pdf/Fortinet Certified Fundamentals in Cybersecurity.pdf" class="certificate-link" onclick="openPdfModal('assets/pdf/Fortinet Certified Fundamentals in Cybersecurity.pdf'); return false;" target="_blank" rel="noopener" aria-label="Voir le certificat Fortinet">
                     <i class="fas fa-file-pdf"></i> Voir le certificat
                 </a>
             </div>
 
             <!-- NSE 1 et NSE 2 -->
-            <div class="certification-card fade-in card-3d">
+            <div class="certification-card fade-in">
                 <div class="certification-logos">
                     <img src="assets/img/nse1.png" alt="Fortinet" class="certification-logo">
                     <img src="assets/img/nse2.png" alt="Fortinet" class="certification-logo">
@@ -1879,13 +2040,16 @@
                     <span class="tag">NSE 2</span>
                     <span class="tag">Sécurité Réseau</span>
                 </div>
-                <a href="#" class="certificate-link" onclick="openPdfModal('assets/pdf/certificats-nse.pdf'); return false;">
-                    <i class="fas fa-file-pdf"></i> Voir les certificats
+                <!-- NSE 1 & NSE 2 sont des badges/compétences, pas de PDF à présenter -->
+                <span class="card-overlay" aria-hidden="true"></span>
+                <a href="#" class="certificate-link disabled" aria-disabled="true" title="Pas de PDF pour les badges NSE 1 & 2">
+                    <i class="fas fa-award"></i> Badges NSE 1 & NSE 2 (pas de PDF)
                 </a>
+                <p style="text-align:center; margin-top:8px; font-size:13px; opacity:0.85;">Remarque : <strong>NSE 1 & NSE 2</strong> sont des badges/compétences — ils servent de fondation pour le <em>Fortinet Certified Fundamentals</em>. Si tu obtiens un PDF, je l'ajouterai volontiers.</p>
             </div>
 
             <!-- NS3 (En cours) -->
-            <div class="certification-card fade-in card-3d">
+            <div class="certification-card fade-in">
                 <div class="certification-logos">
                     <img src="assets/img/nse3.png" alt="NS3" class="certification-logo">
                 </div>
