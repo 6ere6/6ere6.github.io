@@ -26,6 +26,33 @@
             --shadow-color-light: rgba(10, 10, 10, 0.1);
         }
 
+        /* Light theme overrides (applied when html[data-theme="light"]) */
+        html[data-theme="light"] {
+            --bg-dark: var(--bg-light);
+            --text-dark: var(--text-light);
+            --glass-effect: rgba(10, 10, 10, 0.03);
+            --border-color: var(--border-color-light);
+            --shadow-color: rgba(0, 0, 0, 0.06);
+        }
+
+        /* Theme toggle button */
+        .theme-toggle{
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            margin-left:12px;
+            padding:8px 10px;
+            border-radius:20px;
+            background: var(--glass-effect);
+            border:1px solid var(--border-color);
+            color: var(--text-dark);
+            cursor:pointer;
+            font-size:14px;
+            transition: background 180ms ease, transform 120ms ease, color 120ms ease;
+        }
+        .theme-toggle:focus{ outline:2px solid var(--primary-color); outline-offset:2px; }
+        .theme-toggle[aria-pressed="true"]{ background: linear-gradient(90deg, var(--primary-color), #ff9ecb); color: #fff; transform: translateY(-1px); }
+
         /* Fix pour le texte "Portfolio de Loris" sur Opéra */
         .hero h1 {
             font-size: clamp(40px, 8vw, 80px);
@@ -1592,6 +1619,10 @@
         <a href="assets/img/CV_Loris_Amelaine.pdf" class="cta-nav" download>
             <i class="fas fa-download"></i> MON CV
         </a>
+        <!-- Theme toggle: light / dark -->
+        <button id="theme-toggle" class="theme-toggle" aria-pressed="false" aria-label="Basculer thème clair/sombre" title="Thème sombre">
+            <i class="fas fa-moon"></i>
+        </button>
     </nav>
 
     <!-- Hero Section -->
@@ -2004,8 +2035,8 @@
                     <i class="fas fa-star difficulty-star"></i>
                     <i class="fas fa-star difficulty-star"></i>
                     <i class="fas fa-star difficulty-star"></i>
-                    <i class="fas fa-star difficulty-star"></i>
                     <i class="fas fa-star-half-alt difficulty-star"></i>
+                    <i class="fas fa-star difficulty-star" style="color: #333;"></i>
                 </div>
                 <div class="project-tags" style="justify-content: center; margin-top: 20px;">
                     <span class="tag">Cybersécurité</span>
@@ -2045,7 +2076,7 @@
                 <a href="#" class="certificate-link disabled" aria-disabled="true" title="Pas de PDF pour les badges NSE 1 & 2">
                     <i class="fas fa-award"></i> Badges NSE 1 & NSE 2 (pas de PDF)
                 </a>
-                <p style="text-align:center; margin-top:8px; font-size:13px; opacity:0.85;">Remarque : <strong>NSE 1 & NSE 2</strong> sont des badges/compétences — ils servent de fondation pour le <em>Fortinet Certified Fundamentals</em>. </p>
+                <p style="text-align:center; margin-top:8px; font-size:13px; opacity:0.85;">Remarque : <strong>NSE 1 & NSE 2</strong> sont des badges/compétences — ils servent de fondation pour le <em>Fortinet Certified Fundamentals</em>. Si tu obtiens un PDF, je l'ajouterai volontiers.</p>
             </div>
 
             <!-- NS3 (En cours) -->
@@ -2054,7 +2085,9 @@
                     <img src="assets/img/nse3.png" alt="NS3" class="certification-logo">
                 </div>
                 <h3>NSE 3 (En cours)</h3>
-                <p>Actuellement en formation pour maîtriser NSE 3, un outil puissant pour la simulation réseau et la recherche en cybersécurité.</p>
+                <p>En préparation de la certification NSE 3 Fortinet pour maîtriser la 
+configuration FortiGate, l'implémentation de politiques de pare-feu, 
+la mise en place de VPN et la sécurisation des infrastructures réseau.</p>
                 <div class="difficulty">
                     <i class="fas fa-star difficulty-star"></i>
                     <i class="fas fa-star difficulty-star"></i>
@@ -2063,8 +2096,8 @@
                     <i class="fas fa-star difficulty-star"></i>
                 </div>
                 <div class="project-tags" style="justify-content: center; margin-top: 20px;">
-                    <span class="tag">NS3</span>
-                    <span class="tag">Simulation Réseau</span>
+                    <span class="tag">NSE 3</span>
+                    <span class="tag">Fortinet</span>
                     <span class="tag">En cours</span>
                 </div>
                 <div style="margin-top: 20px; text-align: center;">
@@ -2112,7 +2145,7 @@
                 <a href="mailto:loris.amelaine@proton.me" class="contact-link card-3d">
                     <i class="fas fa-envelope"></i> loris.amelaine@proton.me
                 </a>
-                <a href="https://www.linkedin.com/in/loris-amelaine-a84530389/" class="contact-link card-3d" target="_blank">
+                <a href="https://www.linkedin.com/in/loris-amelaine" class="contact-link card-3d" target="_blank">
                     <i class="fab fa-linkedin"></i> LinkedIn
                 </a>
                 <a href="https://github.com/6ere6" class="contact-link card-3d" target="_blank">
@@ -2133,7 +2166,7 @@
                 <h3>LORIS.AMELAINE.FR</h3>
                 <p>Portfolio de Loris Amelaine, étudiant en cybersécurité et passionné par le pentesting, le DevSecOps et l'analyse forensique.</p>
                 <div class="social-links">
-                    <a href="https://www.linkedin.com/in/loris-amelaine-a84530389/" class="social-link card-3d" target="_blank">
+                    <a href="https://www.linkedin.com/in/loris-amelaine" class="social-link card-3d" target="_blank">
                         <i class="fab fa-linkedin"></i>
                     </a>
                     <a href="https://github.com/6ere6" class="social-link card-3d" target="_blank">
@@ -2334,7 +2367,7 @@
                         terminalContent.innerHTML += `
                             <p>Contactez-moi :</p>
                             <p>- Email : <a href="mailto:loris.amelaine@proton.me" style="color: #f1719b">loris.amelaine@proton.me</a></p>
-                            <p>- LinkedIn : <a href="https://www.linkedin.com/in/loris-amelaine-a84530389/" style="color: #f1719b" target="_blank">linkedin.com/in/loris-amelaine</a></p>
+                            <p>- LinkedIn : <a href="https://linkedin.com/in/loris-amelaine" style="color: #f1719b" target="_blank">linkedin.com/in/loris-amelaine</a></p>
                             <p>- GitHub : <a href="https://github.com/6ere6" style="color: #f1719b" target="_blank">github.com/6ere6</a></p>
                             <p>- TryHackMe : <a href="https://tryhackme.com/p/ceres" style="color: #f1719b" target="_blank">tryhackme.com/p/ceres</a></p>
                         `;
@@ -2461,8 +2494,48 @@
                 card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
             });
         });
+
+        // Theme toggle (light / dark) — persists choice in localStorage
+        (function(){
+            const toggle = document.getElementById('theme-toggle');
+            if (!toggle) return;
+
+            const saved = localStorage.getItem('theme');
+            const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+            const initial = saved || (prefersLight ? 'light' : 'dark');
+
+            function setTheme(theme){
+                if (theme === 'light'){
+                    document.documentElement.setAttribute('data-theme','light');
+                    toggle.setAttribute('aria-pressed','true');
+                    toggle.innerHTML = '<i class="fas fa-sun"></i>';
+                    toggle.title = 'Thème clair';
+                } else {
+                    document.documentElement.removeAttribute('data-theme');
+                    toggle.setAttribute('aria-pressed','false');
+                    toggle.innerHTML = '<i class="fas fa-moon"></i>';
+                    toggle.title = 'Thème sombre';
+                }
+            }
+
+            // initialize
+            setTheme(initial);
+
+            toggle.addEventListener('click', () => {
+                const current = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+                const next = current === 'light' ? 'dark' : 'light';
+                setTheme(next);
+                localStorage.setItem('theme', next);
+            });
+
+            // keyboard accessibility
+            toggle.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggle.click();
+                }
+            });
+        })();
     </script>
 </body>
 </html>
-
-
