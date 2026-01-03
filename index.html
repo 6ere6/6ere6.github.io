@@ -33,51 +33,6 @@
             100% { transform: scale(1); opacity: 0.5; }
         }
 
-        /* NOUVEAU : Style pour le compteur de visites */
-        #visitor-counter-container {
-            position: fixed;
-            top: 10px;
-            left: 20px;
-            z-index: 1001;
-            display: flex;
-            gap: 15px;
-            align-items: center;
-            font-family: 'Fira Code', monospace;
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        #total-visits, #active-visitors {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        #active-dot, #active-dot-animation {
-            display: none;
-            position: absolute;
-            border-radius: 50%;
-        }
-
-        #active-dot {
-            width: 8px;
-            height: 8px;
-            background: #10b981;
-            border: 1px solid #0a0a0a;
-            top: -5px;
-            right: -5px;
-        }
-
-        #active-dot-animation {
-            width: 12px;
-            height: 12px;
-            background: #10b981;
-            opacity: 0.5;
-            animation: ping 1.5s infinite;
-            top: -7px;
-            right: -7px;
-        }
-
         /* Reste de ton CSS existant */
         * {
             margin: 0;
@@ -859,8 +814,8 @@
             border-radius: 20px;
             transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
-            overflow: hidden;
-            transform-style: preserve-3d;
+            overflow: visible; /* Permet aux liens de dépasser */
+            transform-style: flat; /* Désactive les effets 3D pour les enfants */
         }
 
         .certification-card::before {
@@ -921,6 +876,102 @@
             opacity: 0.7;
             text-align: center;
             color: var(--text-dark);
+        }
+
+        /* Style pour la difficulté */
+        .difficulty {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin: 15px 0;
+        }
+
+        .difficulty-star {
+            color: #ffa500;
+            font-size: 16px;
+        }
+
+        /* Style pour le lien de certificat */
+        .certificate-link {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background: var(--glass-effect);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-dark);
+            text-decoration: none;
+            text-align: center;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            z-index: 10; /* Assure que le lien reste au-dessus */
+        }
+
+        .certificate-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Désactive les transformations 3D sur le lien */
+        .certification-card:hover .certificate-link {
+            transform: none !important;
+        }
+
+        /* ===== MODAL POUR LES PDF ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            overflow: auto;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .modal.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 900px;
+            height: 80vh;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+        }
+
+        .close-modal:hover {
+            color: var(--primary-color);
+        }
+
+        .pdf-viewer {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
 
         /* ===== PARCOURS SECTION ===== */
@@ -1590,7 +1641,6 @@
                     <path d="M 100.0 42.9 L 144.7 64.4 L 155.7 112.7 L 124.8 151.5 L 75.2 151.5 L 44.3 112.7 L 55.3 64.4 L 100.0 42.9"/>
                     <path d="M 100.0 57.1 L 133.5 73.3 L 141.8 109.5 L 118.6 138.6 L 81.4 138.6 L 58.2 109.5 L 66.5 73.3 L 100.0 57.1"/>
                     <path d="M 100.0 71.4 L 122.3 82.2 L 127.9 106.4 L 112.4 125.7 L 87.6 125.7 L 72.1 106.4 L 77.7 82.2 L 100.0 71.4"/>
-                    <path d="M 100.0 85.7 L 111.2 91.1 L 113.9 103.2 L 106.2 112.9 L 93.8 112.9 L 86.1 103.2 L 88.8 91.1 L 100.0 85.7"/>
                 </g>
                 <path d="M 100.0 50.0 L 154.7 56.4 L 148.7 111.1 L 134.7 172.1 L 87.0 127.0 L 41.5 113.4 L 53.1 62.6 L 100.0 50.0" fill="#2589d030" stroke="#f1719b"/>
                 <g fill="#f1719b">
@@ -1718,11 +1768,21 @@
                 </div>
                 <h3>Certification Cybersécurité</h3>
                 <p>Formation aux bases de la cybersécurité et tests d'intrusion. Apprentissage des bonnes pratiques, des outils (Nmap, Metasploit) et des méthodologies d'audit.</p>
+                <div class="difficulty">
+                    <i class="fas fa-star difficulty-star"></i>
+                    <i class="fas fa-star difficulty-star"></i>
+                    <i class="fas fa-star-half-alt difficulty-star"></i>
+                    <i class="fas fa-star difficulty-star" style="color: #333;"></i>
+                    <i class="fas fa-star difficulty-star" style="color: #333;"></i>
+                </div>
                 <div class="project-tags" style="justify-content: center; margin-top: 20px;">
                     <span class="tag">Cybersécurité</span>
                     <span class="tag">Pentesting</span>
                     <span class="tag">ANSSI</span>
                 </div>
+                <a href="#" class="certificate-link" onclick="openPdfModal('assets/pdf/certificat-anssi.pdf'); return false;">
+                    <i class="fas fa-file-pdf"></i> Voir le certificat
+                </a>
             </div>
 
             <!-- MooC EBIOS Risk Manager -->
@@ -1732,11 +1792,21 @@
                 </div>
                 <h3>MooC EBIOS Risk Manager</h3>
                 <p>Introduction à la méthode EBIOS Risk Manager. Formation à distance d'une durée de 3 heures, validée avec succès.</p>
+                <div class="difficulty">
+                    <i class="fas fa-star difficulty-star"></i>
+                    <i class="fas fa-star difficulty-star"></i>
+                    <i class="fas fa-star difficulty-star" style="color: #333;"></i>
+                    <i class="fas fa-star difficulty-star" style="color: #333;"></i>
+                    <i class="fas fa-star difficulty-star" style="color: #333;"></i>
+                </div>
                 <div class="project-tags" style="justify-content: center; margin-top: 20px;">
                     <span class="tag">Gestion des Risques</span>
                     <span class="tag">EBIOS</span>
                     <span class="tag">MooC</span>
                 </div>
+                <a href="#" class="certificate-link" onclick="openPdfModal('assets/pdf/Certificat - Loris amelaine - 16_12_2025.pdf'); return false;">
+                    <i class="fas fa-file-pdf"></i> Voir le certificat
+                </a>
             </div>
 
             <!-- Certification Advent of Cyber 2025 (TryHackMe) -->
@@ -1746,16 +1816,97 @@
                 </div>
                 <h3>AOC 2025</h3>
                 <p>Certification obtenue en 2025 sur TryHackMe. Maîtrise des défis quotidiens de cybersécurité, incluant l'analyse forensique, le pentesting, et la sécurisation des infrastructures.</p>
+                <div class="difficulty">
+                    <i class="fas fa-star difficulty-star"></i>
+                    <i class="fas fa-star difficulty-star"></i>
+                    <i class="fas fa-star difficulty-star"></i>
+                    <i class="fas fa-star difficulty-star"></i>
+                    <i class="fas fa-star difficulty-star" style="color: #333;"></i>
+                </div>
                 <div class="project-tags" style="justify-content: center; margin-top: 20px;">
                     <span class="tag">TryHackMe</span>
                     <span class="tag">Advent of Cyber</span>
                     <span class="tag">2025</span>
                     <span class="tag">Pentesting</span>
                 </div>
+                <a href="#" class="certificate-link" onclick="openPdfModal('assets/pdf/THM-9H4OE9OC8H.pdf'); return false;">
+                    <i class="fas fa-file-pdf"></i> Voir le certificat
+                </a>
+            </div>
+
+            <!-- Fortinet Certified Fundamentals in Cybersecurity -->
+            <div class="certification-card fade-in card-3d">
+                <div class="certification-logos">
+                    <img src="assets/img/nse.png" alt="Fortinet" class="certification-logo">
+                </div>
+                <h3>Fortinet Certified Fundamentals in Cybersecurity</h3>
+                <p>Certification officielle Fortinet couvrant les principes fondamentaux de la cybersécurité, les menaces actuelles et les bonnes pratiques pour sécuriser les réseaux.</p>
+                <div class="difficulty">
+                    <i class="fas fa-star difficulty-star"></i>
+                    <i class="fas fa-star difficulty-star"></i>
+                    <i class="fas fa-star difficulty-star"></i>
+                    <i class="fas fa-star difficulty-star"></i>
+                    <i class="fas fa-star-half-alt difficulty-star"></i>
+                </div>
+                <div class="project-tags" style="justify-content: center; margin-top: 20px;">
+                    <span class="tag">Cybersécurité</span>
+                    <span class="tag">Fortinet</span>
+                    <span class="tag">Fondamentaux</span>
+                </div>
+                <a href="#" class="certificate-link" onclick="openPdfModal('assets/pdf/Fortinet Certified Fundamentals in Cybersecurity.pdf'); return false;">
+                    <i class="fas fa-file-pdf"></i> Voir le certificat
+                </a>
+            </div>
+
+            <!-- NSE 1 et NSE 2 -->
+            <div class="certification-card fade-in card-3d">
+                <div class="certification-logos">
+                    <img src="assets/img/nse1.png" alt="Fortinet" class="certification-logo">
+                    <img src="assets/img/nse2.png" alt="Fortinet" class="certification-logo">
+                </div>
+                <h3>NSE 1 & NSE 2</h3>
+                <p>Badges Fortinet NSE 1 et NSE 2, validant les connaissances en sécurité réseau, produits Fortinet et bonnes pratiques de protection contre les cybermenaces.</p>
+                <div class="difficulty">
+                    <i class="fas fa-star difficulty-star"></i>
+                    <i class="fas fa-star difficulty-star"></i>
+                    <i class="fas fa-star difficulty-star"></i>
+                    <i class="fas fa-star difficulty-star" style="color: #333;"></i>
+                    <i class="fas fa-star difficulty-star" style="color: #333;"></i>
+                </div>
+                <div class="project-tags" style="justify-content: center; margin-top: 20px;">
+                    <span class="tag">Fortinet</span>
+                    <span class="tag">NSE 1</span>
+                    <span class="tag">NSE 2</span>
+                    <span class="tag">Sécurité Réseau</span>
+                </div>
+                <a href="#" class="certificate-link" onclick="openPdfModal('assets/pdf/certificats-nse.pdf'); return false;">
+                    <i class="fas fa-file-pdf"></i> Voir les certificats
+                </a>
+            </div>
+
+            <!-- NS3 (En cours) -->
+            <div class="certification-card fade-in card-3d">
+                <div class="certification-logos">
+                    <img src="assets/img/nse3.png" alt="NS3" class="certification-logo">
+                </div>
+                <h3>NSE 3 (En cours)</h3>
+                <p>Actuellement en formation pour maîtriser NSE 3, un outil puissant pour la simulation réseau et la recherche en cybersécurité.</p>
+                <div class="difficulty">
+                    <i class="fas fa-star difficulty-star"></i>
+                    <i class="fas fa-star difficulty-star"></i>
+                    <i class="fas fa-star difficulty-star"></i>
+                    <i class="fas fa-star difficulty-star"></i>
+                    <i class="fas fa-star difficulty-star"></i>
+                </div>
+                <div class="project-tags" style="justify-content: center; margin-top: 20px;">
+                    <span class="tag">NS3</span>
+                    <span class="tag">Simulation Réseau</span>
+                    <span class="tag">En cours</span>
+                </div>
                 <div style="margin-top: 20px; text-align: center;">
-                    <a href="https://tryhackme.com/p/ceres" target="_blank" style="color: #f1719b; text-decoration: none; font-weight: 600;">
-                        <i class="fas fa-external-link-alt"></i> Voir mon profil TryHackMe
-                    </a>
+                    <span style="color: #f1719b; font-weight: 600;">
+                        <i class="fas fa-spinner fa-pulse"></i> En préparation
+                    </span>
                 </div>
             </div>
         </div>
@@ -1854,66 +2005,13 @@
         </div>
     </footer>
 
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-database-compat.js"></script>
-
-    <!-- Compteur de visites -->
-    <div id="visitor-counter-container" style="
-        position: fixed;
-        top: 25px;
-        left: 20px;
-        z-index: 1001;
-        display: flex;
-        gap: 15px;
-        align-items: center;
-        font-family: 'Fira Code', monospace;
-        font-size: 14px;
-        color: rgba(255, 255, 255, 0.8);
-    ">
-        <div id="total-visits" style="display: flex; align-items: center; gap: 6px;">
-            <span id="total-visits-number">0</span>
-            <i class="fas fa-eye" style="font-size: 12px;"></i>
-        </div>
-        <div id="active-visitors" style="display: flex; align-items: center; gap: 6px;">
-            <span id="active-visitors-number">0</span>
-            <div style="position: relative;">
-                <i class="fas fa-users" style="font-size: 12px;"></i>
-                <span id="active-dot" style="
-                    display: none;
-                    position: absolute;
-                    top: -5px;
-                    right: -5px;
-                    width: 8px;
-                    height: 8px;
-                    background: #10b981;
-                    border-radius: 50%;
-                    border: 1px solid #0a0a0a;
-                "></span>
-                <span id="active-dot-animation" style="
-                    display: none;
-                    position: absolute;
-                    top: -7px;
-                    right: -7px;
-                    width: 12px;
-                    height: 12px;
-                    border-radius: 50%;
-                    background: #10b981;
-                    opacity: 0.5;
-                    animation: ping 1.5s infinite;
-                "></span>
-            </div>
+    <!-- Modal pour afficher les PDF -->
+    <div id="pdfModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="closePdfModal">&times;</span>
+            <embed id="pdfViewer" class="pdf-viewer" type="application/pdf">
         </div>
     </div>
-
-    <!-- Animation pour le point vert -->
-    <style>
-        @keyframes ping {
-            0% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.5); opacity: 0; }
-            100% { transform: scale(1); opacity: 0.5; }
-        }
-    </style>
 
     <!-- JavaScript -->
     <script>
@@ -1940,103 +2038,29 @@
         setInterval(updateClock, 1000);
         updateClock();
 
-        // Configuration Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyCpMttDii_oW8srSYBhxf1qJdrWnQXkqj0",
-            databaseURL: "https://portfolio-loris-compteur-default-rtdb.europe-west1.firebasedatabase.app",
-        };
-
-        // Initialisation Firebase
-        firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
-
-        // Génère un ID de session unique
-        const sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-
-        // Références Firebase
-        const totalVisitsRef = database.ref('totalVisits');
-        const activeSessionsRef = database.ref('activeSessions');
-
-        // Met à jour le compteur total
-        function updateTotalVisits() {
-            totalVisitsRef.transaction((current) => (current || 0) + 1);
+        // Fonction pour ouvrir la modal PDF
+        function openPdfModal(pdfUrl) {
+            const modal = document.getElementById('pdfModal');
+            const pdfViewer = document.getElementById('pdfViewer');
+            pdfViewer.src = pdfUrl;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
 
-        // Met à jour l'affichage des visiteurs totaux
-        function updateTotalVisitsDisplay() {
-            totalVisitsRef.on('value', (snapshot) => {
-                const total = snapshot.val() || 0;
-                document.getElementById('total-visits-number').textContent = total.toLocaleString();
-            });
-        }
-
-        // Met à jour la session active
-        function updateActiveSession() {
-            const sessionData = {
-                lastActive: Date.now()
-            };
-            activeSessionsRef.child(sessionId).set(sessionData);
-        }
-
-        // Nettoie les sessions expirées
-        function cleanupExpiredSessions() {
-            const now = Date.now();
-            const cutoff = now - (5 * 60 * 1000); // 5 minutes
-
-            activeSessionsRef.once('value', (snapshot) => {
-                snapshot.forEach((childSnapshot) => {
-                    const session = childSnapshot.val();
-                    if (session.lastActive < cutoff) {
-                        activeSessionsRef.child(childSnapshot.key).remove();
-                    }
-                });
-            });
-        }
-
-        // Met à jour l'affichage des visiteurs actifs
-        function updateActiveVisitorsDisplay() {
-            activeSessionsRef.on('value', (snapshot) => {
-                const activeVisitors = snapshot.numChildren();
-                document.getElementById('active-visitors-number').textContent = activeVisitors;
-
-                // Affiche/masque le point vert
-                const activeDot = document.getElementById('active-dot');
-                const activeDotAnimation = document.getElementById('active-dot-animation');
-
-                if (activeVisitors > 0) {
-                    activeDot.style.display = 'block';
-                    activeDotAnimation.style.display = 'block';
-                } else {
-                    activeDot.style.display = 'none';
-                    activeDotAnimation.style.display = 'none';
-                }
-            });
-        }
-
-        // Heartbeat pour maintenir la session active
-        function startHeartbeat() {
-            updateActiveSession();
-            setInterval(updateActiveSession, 60 * 1000); // Toutes les 60 secondes
-        }
-
-        // Nettoyage périodique des sessions expirées
-        function startCleanup() {
-            cleanupExpiredSessions();
-            setInterval(cleanupExpiredSessions, 30 * 1000); // Toutes les 30 secondes
-        }
-
-        // Nettoie la session au départ
-        window.addEventListener('beforeunload', () => {
-            activeSessionsRef.child(sessionId).remove();
+        // Fermer la modal
+        document.getElementById('closePdfModal').addEventListener('click', () => {
+            const modal = document.getElementById('pdfModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
         });
 
-        // Initialisation
-        document.addEventListener('DOMContentLoaded', () => {
-            updateTotalVisits();
-            updateTotalVisitsDisplay();
-            startHeartbeat();
-            startCleanup();
-            updateActiveVisitorsDisplay();
+        // Fermer la modal en cliquant en dehors
+        window.addEventListener('click', (e) => {
+            const modal = document.getElementById('pdfModal');
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
         });
 
         // Terminal Interactif
@@ -2075,16 +2099,6 @@
                             <p>- <span style="color: #f1719b">time</span> : Affiche l'heure</p>
                             <p>- <span style="color: #f1719b">tools</span> : Liste les outils maîtrisés</p>
                             <p>- <span style="color: #f1719b">thm</span> : Affiche mon profil TryHackMe</p>
-                            <p>- <span style="color: #f1719b">stats</span> : Affiche les statistiques de visites</p>
-                        `;
-                    }
-                    else if (command.toLowerCase() === 'stats') {
-                        const totalVisits = document.getElementById('total-visits-number').textContent;
-                        const activeVisitors = document.getElementById('active-visitors-number').textContent;
-                        terminalContent.innerHTML += `
-                            <p>Statistiques du portfolio :</p>
-                            <p>- Visites totales : <span style="color: #f1719b">${totalVisits}</span></p>
-                            <p>- Visiteurs actifs : <span style="color: #f1719b">${activeVisitors}</span></p>
                         `;
                     }
                     else if (command.toLowerCase() === 'about') {
