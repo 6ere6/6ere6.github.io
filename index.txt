@@ -7,7 +7,7 @@
     <meta name="keywords" content="cybersécurité, pentest, BTS SIO, Loris Amelaine, portfolio, DevSecOps, SIEM, forensic, TryHackMe, Advent of Cyber 2025">
     <meta name="author" content="Loris Amelaine">
     <title>Loris Amelaine</title>
-    <link rel="icon" type="image/png" href="assets/img/favicon.png">
+    <link rel="icon" type="image/png" href="assets/img/favicon.jpeg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Rajdhani:wght@600&display=swap" rel="stylesheet">
     <style>
