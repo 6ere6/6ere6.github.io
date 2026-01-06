@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Projet OpenVPN Client-to-Site avec pfSense : création d'un tunnel VPN sécurisé, configuration des certificats, règles de pare-feu et déploiement client.">
+    <meta name="keywords" content="OpenVPN, pfSense, VPN, Client-to-Site, certificats, réseau, cybersécurité, tunnel VPN">
+    <meta name="author" content="Loris Amelaine">
+    <title>Projet OpenVPN Client-to-Site | Loris Amelaine</title>
+    <link rel="icon" type="image/png" href="assets/img/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Rajdhani:wght@600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-light: #f8f8f8;
+            --text-dark: #ffffff;
+            --text-light: #0a0a0a;
+            --primary-color: #f1719b;
+            --secondary-color: #f6f6f7;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --glass-effect: rgba(255, 255, 255, 0.05);
+            --shadow-color: rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(18px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Conteneur principal */
+        .project-container {
+            padding: 150px 60px 100px;
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: fadeInUp 0.6s ease-out both;
+        }
+
+        /* En-tête du projet */
+        .project-header {
+            text-align: center;
+            margin-bottom: 80px;
+            animation: fadeInUp 0.65s ease-out both;
+        }
+
+        .project-header h1 {
+            font-size: clamp(35px, 6vw, 60px);
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--text-dark), var(--primary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .project-header p {
+            font-size: 18px;
+            opacity: 0.8;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Section schéma réseau */
+        .network-section {
+            margin: 80px 0;
+            text-align: center;
+            animation: fadeInUp 0.7s ease-out both;
+        }
+
+        .network-section h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+        }
+
+        .network-diagram {
+            max-width: 100%;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            background: var(--glass-effect);
+            margin: 30px auto;
+        }
+
+        .network-diagram img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        /* Section étapes */
+        .steps-section {
+            margin: 80px 0;
+            animation: fadeInUp 0.75s ease-out both;
+        }
+
+        .steps-section h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            text-align: center;
+            color: var(--text-dark);
+        }
+
+        .step {
+            margin-bottom: 50px;
+            background: var(--glass-effect);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+        }
+
+        .step h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .step p {
+            font-size: 16px;
+            line-height: 1.8;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+
+        .step pre {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+        }
+
+        /* Section certificats */
+        .certificates-section {
+            margin: 80px 0;
+            background: var(--glass-effect);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 50px;
+        }
+
+        .certificates-section h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            text-align: center;
+            color: var(--text-dark);
+        }
+
+        .certificate-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .certificate-table th,
+        .certificate-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .certificate-table th {
+            background: rgba(255, 255, 255, 0.05);
+            font-weight: 600;
+        }
+
+        /* Section pare-feu */
+        .firewall-section {
+            margin: 80px 0;
+        }
+
+        .firewall-section h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            text-align: center;
+            color: var(--text-dark);
+        }
+
+        .firewall-rules {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .firewall-rule {
+            background: var(--glass-effect);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .firewall-rule h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        /* Section conclusion */
+        .conclusion-section {
+            margin: 80px 0;
+            text-align: center;
+        }
+
+        .conclusion-section h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: var(--text-dark);
+        }
+
+        .conclusion-section p {
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto 20px;
+            line-height: 1.8;
+        }
+
+        /* Bouton de retour */
+        .back-button {
+            display: block;
+            width: fit-content;
+            margin: 60px auto 0;
+            padding: 15px 35px;
+            background: var(--text-dark);
+            color: var(--bg-dark);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px var(--shadow-color);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 60px;
+            background: var(--bg-dark);
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        footer p {
+            opacity: 0.6;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .project-container {
+                padding: 120px 30px 60px;
+            }
+
+            .firewall-rules {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                padding: 15px 30px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="page-theme.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">LORIS-AMELAINE.FR</div>
+        <ul class="nav-links">
+            <li><a href="index.html">ACCUEIL</a></li>
+            <li><a href="index.html#works">PROJETS</a></li>
+            <li><a href="index.html#contact">CONTACT</a></li>
+        </ul>
+    </nav>
+
+    <!-- Conteneur principal -->
+    <div class="project-container">
+        <!-- En-tête du projet -->
+        <div class="project-header">
+            <h1>Tunnel VPN Client-to-Site avec OpenVPN et pfSense</h1>
+            <p>
+                Ce projet consiste en la création d'un tunnel VPN sécurisé en mode <strong>Client-to-Site</strong> grâce à OpenVPN et pfSense.
+                L'objectif est de permettre un accès distant sécurisé à un réseau local, avec une authentification par certificats et des règles de pare-feu adaptées.
+            </p>
+        </div>
+
+        <!-- Schéma réseau -->
+        <div class="network-section">
+            <h2><i class="fas fa-project-diagram"></i> Schéma réseau</h2>
+            <div class="network-diagram">
+                <img src="assets/img/schema-reseau-openvpn.png" alt="Schéma réseau OpenVPN">
+                <!-- Remplace par le chemin de ton schéma réseau -->
+            </div>
+            <p>
+                Le schéma ci-dessus illustre la topologie du réseau :
+                <ul style="text-align: left; max-width: 600px; margin: 0 auto;">
+                    <li><strong>LAN (11.0.0.0/8)</strong> : Réseau interne sécurisé.</li>
+                    <li><strong>WAN (DHCP)</strong> : Accès Internet via pfSense.</li>
+                    <li><strong>VPN (10.10.58.0/24)</strong> : Réseau virtuel pour les clients OpenVPN.</li>
+                </ul>
+            </p>
+        </div>
+
+        <!-- Étapes du projet -->
+        <div class="steps-section">
+            <h2><i class="fas fa-clipboard-list"></i> Étapes de configuration</h2>
+
+            <!-- Étape 1 : Autorité de certification -->
+            <div class="step">
+                <h3>1. Création de l'autorité de certification</h3>
+                <p>
+                    La première étape consiste à créer une autorité de certification (CA) pour signer les certificats des clients et du serveur OpenVPN.
+                    Cela garantit que seules les machines autorisées peuvent se connecter au VPN.
+                </p>
+                <p>
+                    <strong>Paramètres de la CA :</strong>
+                </p>
+                <table class="certificate-table">
+                    <tr>
+                        <th>Champ</th>
+                        <th>Valeur</th>
+                    </tr>
+                    <tr>
+                        <td>Descriptive name</td>
+                        <td>carrifiedServerSIO-amelaine</td>
+                    </tr>
+                    <tr>
+                        <td>Method</td>
+                        <td>Create an Internal Certificate Authority</td>
+                    </tr>
+                    <tr>
+                        <td>Key type</td>
+                        <td>RSA (3348 bits)</td>
+                    </tr>
+                    <tr>
+                        <td>Digest Algorithm</td>
+                        <td>SHA256</td>
+                    </tr>
+                    <tr>
+                        <td>Lifetime</td>
+                        <td>3650 jours</td>
+                    </tr>
+                    <tr>
+                        <td>Common Name</td>
+                        <td>Sio-Amelaine-OpenVPN</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Étape 2 : Certificat serveur -->
+            <div class="step">
+                <h3>2. Génération du certificat serveur</h3>
+                <p>
+                    Après la création de la CA, un certificat serveur est généré pour OpenVPN.
+                    Ce certificat est utilisé pour authentifier le serveur auprès des clients.
+                </p>
+                <p>
+                    <strong>Paramètres du certificat serveur :</strong>
+                </p>
+                <table class="certificate-table">
+                    <tr>
+                        <th>Champ</th>
+                        <th>Valeur</th>
+                    </tr>
+                    <tr>
+                        <td>Descriptive name</td>
+                        <td>carrifiedServerSIO-amelaine</td>
+                    </tr>
+                    <tr>
+                        <td>Certificate authority</td>
+                        <td>carrifiedServerSIO-amelaine</td>
+                    </tr>
+                    <tr>
+                        <td>Key type</td>
+                        <td>RSA (3348 bits)</td>
+                    </tr>
+                    <tr>
+                        <td>Digest Algorithm</td>
+                        <td>SHA256</td>
+                    </tr>
+                    <tr>
+                        <td>Lifetime</td>
+                        <td>3650 jours</td>
+                    </tr>
+                    <tr>
+                        <td>Common Name</td>
+                        <td>Sio-Amelaine-OpenVPN</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Étape 3 : Configuration OpenVPN -->
+            <div class="step">
+                <h3>3. Configuration du serveur OpenVPN</h3>
+                <p>
+                    Le serveur OpenVPN est configuré dans pfSense avec les paramètres suivants :
+                </p>
+                <ul>
+                    <li><strong>Server mode</strong> : Remote Access (SSL/TLS + User Auth)</li>
+                    <li><strong>Backend for authentication</strong> : Local Database</li>
+                    <li><strong>Device mode</strong> : tun - Layer 3 Tunnel Mode</li>
+                    <li><strong>Protocol</strong> : UDP on IPv4 only</li>
+                    <li><strong>Interface</strong> : WAN</li>
+                    <li><strong>Local port</strong> : 1194</li>
+                </ul>
+                <p>
+                    <strong>Capture d'écran de la configuration :</strong>
+                </p>
+                <img src="assets/img/config-openvpn-pfsense.png" alt="Configuration OpenVPN" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color);">
+                <!-- Remplace par le chemin de ta capture d'écran -->
+            </div>
+
+            <!-- Étape 4 : Règles de pare-feu -->
+            <div class="step">
+                <h3>4. Mise en place des règles de pare-feu</h3>
+                <p>
+                    Pour autoriser le trafic VPN, deux règles de pare-feu sont ajoutées :
+                </p>
+                <div class="firewall-rules">
+                    <div class="firewall-rule">
+                        <h3>Règle WAN</h3>
+                        <p>
+                            Autorise le trafic UDP sur le port 1194 pour les connexions OpenVPN entrantes.
+                        </p>
+                        <p>
+                            <strong>Paramètres :</strong>
+                        </p>
+                        <ul>
+                            <li>Interface : WAN</li>
+                            <li>Protocol : UDP</li>
+                            <li>Destination port range : 1194</li>
+                            <li>Action : Pass</li>
+                        </ul>
+                    </div>
+                    <div class="firewall-rule">
+                        <h3>Règle Floating</h3>
+                        <p>
+                            Autorise le trafic entre le réseau VPN et le LAN.
+                        </p>
+                        <p>
+                            <strong>Paramètres :</strong>
+                        </p>
+                        <ul>
+                            <li>Interface : OpenVPN</li>
+                            <li>Protocol : Any</li>
+                            <li>Source : 10.10.58.0/24</li>
+                            <li>Destination : LAN net</li>
+                            <li>Action : Pass</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Étape 5 : Export de la configuration client -->
+            <div class="step">
+                <h3>5. Export de la configuration client</h3>
+                <p>
+                    La configuration client est exportée depuis pfSense pour permettre aux utilisateurs de se connecter au VPN.
+                    Deux fichiers sont générés :
+                </p>
+                <ul>
+                    <li>Un fichier de configuration OpenVPN (.ovpn)</li>
+                    <li>Un installeur Windows pour OpenVPN (64-bit)</li>
+                </ul>
+                <p>
+                    <strong>Options d'export :</strong>
+                </p>
+                <ul>
+                    <li>Host Name Resolution : Interface IP Address</li>
+                    <li>Verify Server CN : Automatic</li>
+                    <li>Block Outside DNS : Activé</li>
+                    <li>Silent Installer : Désactivé</li>
+                </ul>
+            </div>
+
+            <!-- Étape 6 : Connexion client -->
+            <div class="step">
+                <h3>6. Connexion au VPN</h3>
+                <p>
+                    Pour se connecter au VPN, l'utilisateur doit :
+                </p>
+                <ol>
+                    <li>Installer OpenVPN GUI sur sa machine Windows.</li>
+                    <li>Importer le fichier de configuration (.ovpn) exporté.</li>
+                    <li>Lancer OpenVPN GUI et se connecter avec ses identifiants.</li>
+                </ol>
+                <p>
+                    <strong>Exemple de logs de connexion :</strong>
+                </p>
+                <pre>
+Tue Dec 2 11:44:06 2025 OpenVPN 2.6.7 Windows version 10.0
+Tue Dec 2 11:44:06 2025 Library versions: OpenSSL 3.1.4, LZO 2.10
+Tue Dec 2 11:44:08 2025 Peer Connection Initiated with [AF_INET]172.20.10.3:3094
+Tue Dec 2 11:44:09 2025 Initialization Sequence Completed
+Tue Dec 2 11:44:09 2025 Set TAP-Windows TUN subnet mode network/local/netmask = 10.10.58.0/10.10.58.2
+                </pre>
+                <p>
+                    Une fois connecté, l'adresse IP de la machine change pour refléter le réseau VPN (ex. : 10.10.58.2).
+                </p>
+            </div>
+        </div>
+
+        <!-- Conclusion -->
+        <div class="conclusion-section">
+            <h2><i class="fas fa-check-circle"></i> Conclusion</h2>
+            <p>
+                Ce projet m'a permis de maîtriser la configuration d'un tunnel VPN sécurisé avec OpenVPN et pfSense.
+                Les compétences acquises incluent :
+            </p>
+            <ul style="text-align: left; max-width: 600px; margin: 0 auto;">
+                <li>La création et la gestion d'une autorité de certification.</li>
+                <li>La configuration d'un serveur OpenVPN en mode Remote Access.</li>
+                <li>La mise en place de règles de pare-feu pour sécuriser le trafic VPN.</li>
+                <li>L'export et le déploiement de configurations clients.</li>
+                <li>La résolution de problèmes de connectivité et d'authentification.</li>
+            </ul>
+            <p>
+                Ce projet s'inscrit dans ma démarche pour allier <strong>réseau</strong> et <strong>cybersécurité</strong>,
+                en vue de proposer des solutions d'accès distant sécurisées pour les entreprises.
+            </p>
+        </div>
+
+        <!-- Bouton de retour -->
+        <a href="index.html#works" class="back-button">
+            <i class="fas fa-arrow-left"></i> Retour aux projets
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Loris Amelaine - Tous droits réservés.</p>
+    </footer>
+</body>
+</html>
