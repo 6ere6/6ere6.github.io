@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Veille technologique de Loris Amelaine - Sécurité des infrastructures virtualisées (VMware) et vulnérabilités des technologies web modernes (React/Next.js).">
+    <meta name="keywords" content="veille technologique, cybersécurité, VMware, Brickstorm, React2Shell, React, Next.js, CVE-2025-55182, Cloudflare, Loris Amelaine">
+    <title>Veille Technologique | Loris Amelaine</title>
+    <link rel="icon" type="image/png" href="assets/img/favicon.jpeg">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon.jpeg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Rajdhani:wght@600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="page-theme.css">
+    <style>
+        :root {
+            --bg-dark: #080808;
+            --bg-light: #f8f8f8;
+            --text-dark: #ffffff;
+            --text-light: #0a0a0a;
+            --primary-color: #f1719b;
+            --secondary-color: #f6f6f7;
+            --border-color: rgba(255, 255, 255, 0.12);
+            --glass-effect: rgba(255, 255, 255, 0.04);
+            --card-bg: rgba(18, 18, 18, 0.7);
+            --muted: #c8c8c8;
+            --shadow-color: rgba(0, 0, 0, 0.25);
+        }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(18px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: radial-gradient(circle at 15% 20%, rgba(241, 113, 155, 0.08), transparent 28%),
+                        radial-gradient(circle at 85% 15%, rgba(255, 255, 255, 0.05), transparent 32%),
+                        radial-gradient(circle at 50% 75%, rgba(241, 113, 155, 0.06), transparent 34%),
+                        var(--bg-dark);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            line-height: 1.65;
+            transition: background 0.5s ease, color 0.5s ease;
+        }
+
+        /* ===== HEURE EN TEMPS RÉEL ===== */
+        .real-time-clock {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1001;
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+            color: var(--primary-color);
+            background: var(--glass-effect);
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        /* ===== NAVIGATION ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 24px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(18px);
+            background: linear-gradient(90deg, rgba(8,8,8,0.72), rgba(8,8,8,0.52));
+            border-bottom: 1px solid transparent;
+        }
+
+        nav.scrolled {
+            padding: 18px 60px;
+            background: rgba(8, 8, 8, 0.9);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--text-dark);
+            transition: color 0.3s ease;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cta-nav {
+            padding: 12px 25px;
+            background: var(--text-dark);
+            color: var(--bg-dark);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .cta-nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(241, 113, 155, 0.2);
+            background: var(--primary-color);
+            color: var(--bg-dark);
+        }
+
+        /* ===== SECTIONS ===== */
+        .section {
+            padding: 100px 26px;
+            max-width: 1180px;
+            margin: 0 auto;
+            animation: fadeInUp 0.6s ease-out both;
+        }
+
+        .section + .section {
+            margin-top: -40px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInUp 0.65s ease-out both;
+        }
+
+        .section-header h1 {
+            font-size: clamp(40px, 6vw, 64px);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 18px;
+            background: linear-gradient(120deg, var(--text-dark), var(--primary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .section-header p {
+            font-size: 16px;
+            opacity: 0.82;
+            max-width: 820px;
+            margin: 0 auto;
+            color: var(--muted);
+        }
+
+        /* ===== CONTENU PRINCIPAL ===== */
+        .content-section {
+            margin-bottom: 72px;
+            animation: fadeInUp 0.7s ease-out both;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            max-width: 1080px;
+        }
+
+        .content-section h2 {
+            font-size: 27px;
+            margin-bottom: 6px;
+            color: var(--text-dark);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+            letter-spacing: -0.2px;
+        }
+
+        .content-section h3 {
+            font-size: 21px;
+            margin: 0 0 12px;
+            color: var(--primary-color);
+            letter-spacing: -0.2px;
+        }
+
+        .content-section p {
+            margin-bottom: 14px;
+            line-height: 1.75;
+            opacity: 0.9;
+            color: #e2e2e2;
+            max-width: 920px;
+        }
+
+        .content-section ul {
+            margin-bottom: 14px;
+            padding-left: 20px;
+            display: grid;
+            gap: 10px;
+            max-width: 920px;
+        }
+
+        .content-section li {
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .content-section .code-block,
+        .content-section table,
+        .content-section .image-container {
+            max-width: 1080px;
+        }
+
+        .content-section a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .content-section a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== CARTES D'INFORMATION ===== */
+        .info-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 32px;
+            margin: 14px 0;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.75s ease-out both;
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+        }
+
+        .info-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(241, 113, 155, 0.35);
+        }
+
+        .info-card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: -0.2px;
+        }
+
+        .info-card p {
+            margin-bottom: 10px;
+            opacity: 0.92;
+            color: #e1e1e1;
+        }
+
+        /* ===== IMAGES ET CAPTURES ===== */
+        .image-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .image-container:hover img {
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px var(--shadow-color);
+        }
+
+        .image-caption {
+            font-size: 14px;
+            opacity: 0.7;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        /* ===== TABLEAUX ===== */
+        .table-container {
+            overflow-x: auto;
+            margin: 30px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--glass-effect);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background: rgba(241, 113, 155, 0.1);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        /* ===== CODE BLOCKS ===== */
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+            margin: 20px 0;
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+        }
+
+        /* ===== BADGES ===== */
+        .badge {
+            display: inline-block;
+            padding: 6px 11px;
+            background: rgba(241, 113, 155, 0.12);
+            color: #ffd7e6;
+            border-radius: 18px;
+            font-size: 11px;
+            margin-right: 6px;
+            margin-bottom: 6px;
+            border: 1px solid rgba(241, 113, 155, 0.25);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        /* Apify feed container */
+        #apify-feed {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+        }
+
+        #apify-feed-list {
+            padding: 14px;
+        }
+
+        #apify-feed-empty {
+            padding: 14px;
+            color: var(--muted);
+        }
+
+        /* ===== SYNTHÈSE CHRONOLOGIQUE ===== */
+        .timeline {
+            position: relative;
+            margin: 40px 0;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary-color), rgba(241, 113, 155, 0.3));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding-left: 20px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            border: 2px solid var(--bg-dark);
+        }
+
+        .timeline-date {
+            font-size: 14px;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .timeline-content h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        /* ===== CONCLUSION ===== */
+        .conclusion {
+            background: var(--glass-effect);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 60px 0;
+            text-align: center;
+        }
+
+        .conclusion h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .conclusion ul {
+            text-align: left;
+            margin: 20px 0;
+            padding-left: 20px;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 80px 60px 40px;
+            background: var(--bg-dark);
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto 60px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 60px;
+        }
+
+        .footer-brand h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--text-dark), var(--primary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-brand p {
+            opacity: 0.6;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            color: var(--text-dark);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            background: var(--glass-effect);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-links h4 {
+            font-size: 16px;
+            margin-bottom: 25px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: var(--text-dark);
+            opacity: 0.6;
+            text-decoration: none;
+            font-size: 15px;
+            line-height: 2.2;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            padding-top: 40px;
+            border-top: 1px solid var(--border-color);
+            opacity: 0.5;
+            font-size: 14px;
+            color: var(--text-dark);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 80px 30px;
+            }
+
+            nav {
+                padding: 20px 30px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Barre de chargement -->
+    <div class="loading-bar" id="loadingBar"></div>
+
+    <!-- Heure en temps réel -->
+    <div class="real-time-clock" id="clock">00:00:00</div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="logo">LORIS-AMELAINE.FR</div>
+        <ul class="nav-links">
+            <li><a href="index.html#home">ACCUEIL</a></li>
+            <li><a href="index.html#about">À PROPOS</a></li>
+            <li><a href="index.html#tools">OUTILS</a></li>
+            <li><a href="index.html#skills">COMPÉTENCES</a></li>
+            <li><a href="index.html#works">PROJETS</a></li>
+            <li><a href="index.html#certifications">CERTIFICATIONS</a></li>
+            <li><a href="index.html#parcours">PARCOURS</a></li>
+            <li><a href="ressources-bts.html">RESSOURCES BTS</a></li>
+            <li><a href="index.html#contact" class="active">VEILLE TECHNO</a></li>
+        </ul>
+        <a href="assets/img/CV_Loris_Amelaine.pdf" class="cta-nav" download>
+            <i class="fas fa-download"></i> MON CV
+        </a>
+    </nav>
+
+    <!-- En-tête -->
+    <section class="section">
+        <div class="section-header">
+            <h1>VEILLE TECHNOLOGIQUE - DÉCEMBRE 2025</h1>
+            <p>
+                Synthèse des recherches sur la sécurité des infrastructures virtualisées (VMware) et les vulnérabilités des technologies web modernes (React/Next.js).
+                <br>
+                Réalisé dans le cadre du BTS SIO - Loris Amelaine.
+            </p>
+        </div>
+    </section>
+
+    <!-- Introduction -->
+    <section class="section">
+        <div class="content-section">
+            <h2>1. Introduction</h2>
+            <p>
+                Dans le cadre de ma formation en BTS SIO, la veille technologique est essentielle pour rester informé des évolutions et des menaces en cybersécurité.
+                Ce compte-rendu synthétise mes recherches sur deux sujets majeurs en décembre 2025 :
+            </p>
+            <ul>
+                <li>
+                    <strong>L'attaque Brickstorm</strong> ciblant VMware vSphere, attribuée à des acteurs étatiques chinois.
+                    <span class="badge">VMware</span>
+                    <span class="badge">Brickstorm</span>
+                    <span class="badge">Espionnage</span>
+                </li>
+                <li>
+                    <strong>La vulnérabilité React2Shell (CVE-2025-55182)</strong> affectant React et Next.js, ayant provoqué une panne mondiale de Cloudflare.
+                    <span class="badge">React</span>
+                    <span class="badge">Next.js</span>
+                    <span class="badge">RCE</span>
+                </li>
+            </ul>
+            <p>
+                Ces sujets illustrent les défis actuels en matière de sécurité des infrastructures virtualisées et des applications web.
+            </p>
+        </div>
+    </section>
+
+    <!-- Sujets choisis -->
+    <section class="section">
+        <div class="content-section">
+            <h2>2. Présentation et justification des sujets</h2>
+
+            <div class="info-card">
+                <h3>
+                    <i class="fas fa-server"></i>
+                    Sécurité des infrastructures virtualisées : Brickstorm sur VMware vSphere
+                </h3>
+                <p>
+                    VMware vSphere est une solution de virtualisation largement adoptée dans les entreprises.
+                    L'attaque <strong>Brickstorm</strong>, attribuée à des acteurs étatiques chinois, met en lumière la sophistication des cybermenaces ciblant les datacenters.
+                    Comprendre ce type d'attaque est crucial pour anticiper les risques de persistance et d'espionnage.
+                </p>
+                <p>
+                    <strong>Mécanismes clés :</strong>
+                </p>
+                <ul>
+                    <li>Création de machines virtuelles cachées pour le pivotement.</li>
+                    <li>Clonage de VM existantes pour voler des identifiants administratifs.</li>
+                    <li>Persistance via des services système et des scripts internes.</li>
+                    <li>Communications camouflées (HTTPS, WebSockets, DNS over HTTPS).</li>
+                </ul>
+                <p>
+                    <strong>Objectifs :</strong> Espionnage à long terme et maintien d'un accès persistant aux datacenters.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <h3>
+                    <i class="fas fa-code"></i>
+                    Vulnérabilités des technologies web modernes : React2Shell (React/Next.js)
+                </h3>
+                <p>
+                    React et Next.js sont des technologies phares du développement web.
+                    La vulnérabilité <strong>React2Shell (CVE-2025-55182)</strong>, permettant une exécution de code à distance (RCE), a eu un impact mondial avec la panne de Cloudflare le 5 décembre 2025.
+                </p>
+                <p>
+                    <strong>Caractéristiques :</strong>
+                </p>
+                <ul>
+                    <li>Exploitation des <strong>React Server Components</strong>.</li>
+                    <li>Injection de code malveillant via des requêtes API non sécurisées.</li>
+                    <li>Impact : 28% du trafic HTTP mondial interrompu pendant 25 minutes.</li>
+                </ul>
+                <p>
+                    Ce sujet m'a permis d'étudier les mécanismes d'exploitation rapide des failles et l'importance des correctifs en urgence.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Outils utilisés -->
+    <section class="section">
+        <div class="content-section">
+            <h2>3. Outils utilisés pour la veille</h2>
+
+            <div class="info-card">
+                <h3>
+                    <i class="fas fa-search"></i>
+                    Recherche d'articles spécialisés
+                </h3>
+                <p>
+                    Consultation régulière de sites comme :
+                </p>
+                <ul>
+                    <li><a href="https://www.it-connect.fr" target="_blank">IT-Connect</a> (ex: <a href="https://www.it-connect.fr/vmware-vsphere-malware-brickstorm-2025/" target="_blank">Article sur Brickstorm</a>)</li>
+                    <li><a href="https://www.lemagit.fr" target="_blank">LeMagIT</a></li>
+                    <li><a href="https://www.securityweek.com" target="_blank">SecurityWeek</a></li>
+                    <li><a href="https://thehackernews.com" target="_blank">The Hacker News</a></li>
+                </ul>
+                <p>
+                    Ces sources permettent de croiser les informations et d'obtenir des analyses techniques approfondies.
+                </p>
+            </div>
+
+           
+
+            <div class="info-card">
+                <h3>
+                    <i class="fas fa-rss"></i>
+                    Flux X React2Shell (Apify)
+                </h3>
+                <p>Derniers tweets collectés par l'API Apify sur le mot-clé <strong>React2Shell</strong>. Le flux se met à jour automatiquement si l'API est configurée.</p>
+                <div id="apify-feed" class="table-container" style="padding: 0;">
+                    <div id="apify-feed-list" style="display: grid; gap: 12px; padding: 12px;"></div>
+                    <div id="apify-feed-empty" style="padding: 12px; color: #bbb;">Chargement du flux…</div>
+                </div>
+                <p style="color: #888; font-size: 0.9rem; margin-top: 10px;">Configure l'URL de ton dataset Apify dans le script en bas de page (variable <strong>APIFY_DATASET_URL</strong>).</p>
+            </div>
+
+            <div class="info-card">
+                <h3>
+                    <i class="fas fa-balance-scale"></i>
+                    Expérience et pertinence des outils
+                </h3>
+                <p>
+                    <strong>Comparatif :</strong>
+                </p>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Outil</th>
+                                <th>Avantages</th>
+                                <th>Inconvénients</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Google Alerts</td>
+                                <td>Alertes ciblées et régulières.</td>
+                                <td>Nécessite un tri manuel.</td>
+                            </tr>
+                            <tr>
+                                <td>X (Twitter)</td>
+                                <td>Instantanéité et accès à des experts.</td>
+                                <td>Information parfois moins structurée.</td>
+                            </tr>
+                            <tr>
+                                <td>Articles spécialisés</td>
+                                <td>Analyses approfondies et fiables.</td>
+                                <td>Moins réactif que les réseaux sociaux.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Synthèse chronologique -->
+    <section class="section">
+        <div class="content-section">
+            <h2>4. Synthèse chronologique</h2>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Décembre 2025</div>
+                    <div class="timeline-content">
+                        <h4>Découverte de l'attaque Brickstorm</h4>
+                        <p>
+                            <strong>Sources :</strong> CISA, IT-Connect, SOC Prime.
+                        </p>
+                        <p>
+                            <strong>Caractéristiques :</strong>
+                        </p>
+                        <ul>
+                            <li>Création de machines virtuelles cachées pour le pivotement.</li>
+                            <li>Clonage de VM existantes pour voler des identifiants administratifs.</li>
+                            <li>Persistance via des services système et des scripts internes.</li>
+                            <li>Communications camouflées (HTTPS, WebSockets, DNS over HTTPS).</li>
+                        </ul>
+                        <p>
+                            <strong>Objectifs :</strong> Espionnage à long terme et maintien d'un accès persistant aux datacenters.
+                        </p>
+                        <p>
+                            <strong>Attribution :</strong> Groupe lié à la Chine, spécialisé dans les intrusions de longue durée.
+                        </p>
+                        <div class="image-container">
+                            <img src="assets/img/brickstorm-attack-flow.png" alt="Schéma de l'attaque Brickstorm">
+                            <p class="image-caption">Schéma de l'attaque Brickstorm (Source : SOC Prime, décembre 2025).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">5 décembre 2025</div>
+                    <div class="timeline-content">
+                        <h4>Panne mondiale de Cloudflare liée à React2Shell</h4>
+                        <p>
+                            <strong>Sources :</strong> Numerama, IT-Connect, LeMagIT.
+                        </p>
+                        <p>
+                            <strong>Cause :</strong> Modification urgente du WAF de Cloudflare pour contrer l'exploitation massive de React2Shell.
+                        </p>
+                        <p>
+                            <strong>Impact :</strong> 28% du trafic HTTP mondial interrompu pendant 25 minutes.
+                        </p>
+                        <p>
+                            <strong>Conséquences :</strong> Indisponibilité temporaire de milliers de sites, démonstration de la dépendance critique aux services cloud.
+                        </p>
+                        <div class="image-container">
+                            <img src="assets/img/" alt="Carte de la panne Cloudflare">
+                            <p class="image-caption">Pays touchés par l'exploit React2Shell (Source : Censys, décembre 2025).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Preuves techniques -->
+    <section class="section">
+        <div class="content-section">
+            <h2>5. Preuves techniques</h2>
+
+            <div class="info-card">
+                <h3>
+                    <i class="fas fa-terminal"></i>
+                    Détection de l'exploit React2Shell
+                </h3>
+                <p>
+                    Logiciel utilisé pour détecter l'exploit :
+                </p>
+                <div class="code-block">
+ubuntu@VM-4-3-ubuntu:~$ htop
+ubuntu@VM-4-3-ubuntu:~$ ls -al blue-bridge/blue-bridge/
+total 4440
+drwxrwxr-x  10 ubuntu ubuntu     4096 Dec  5 19:27 .
+-rw-r--r--   1 root   root    3522081 Dec  5 17:24 kal.tar.gz
+-rw-r--r--   1 root   root       1618 Dec  5 17:15 sex.sh
+                </div>
+                <p>
+                    <strong>Fichiers suspects :</strong>
+                </p>
+                <ul>
+                    <li><code>kal.tar.gz</code> : Archive malveillante.</li>
+                    <li><code>sex.sh</code> : Script d'exploitation.</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3>
+                    <i class="fas fa-globe"></i>
+                    Pays touchés par React2Shell
+                </h3>
+                <div class="image-container">
+                    <img src="assets/img/impactr2s.png" alt="Carte mondiale des hôtes infectés">
+                    <p class="image-caption">
+                        Top 10 des pays par nombre d'hôtes infectés (Source : Censys, décembre 2025).
+                        <br>
+                        <strong>États-Unis :</strong> 80 569 hôtes | <strong>Chine :</strong> 31 685 hôtes | <strong>Allemagne :</strong> 28 861 hôtes.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- Sources -->
+    <section class="section">
+        <div class="content-section">
+            <h2>7. Sources et références</h2>
+            <div class="info-card">
+                <h3>
+                    <i class="fas fa-link"></i>
+                    Liens utiles
+                </h3>
+                <ul>
+                    <li>
+                        <a href="https://www.it-connect.fr/vmware-vsphere-malware-brickstorm-2025/" target="_blank">
+                            IT-Connect - Brickstorm sur VMware vSphere (décembre 2025)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.it-connect.fr/cloudflare-panne-5-decembre-2025-react2shell/" target="_blank">
+                            IT-Connect - Panne Cloudflare et React2Shell (5 décembre 2025)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.it-connect.fr/react2shell-groupes-lies-a-la-chine-exploitent-vulnerabilite/" target="_blank">
+                            IT-Connect - Exploitation de React2Shell par des groupes liés à la Chine
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://socprime.com/fr/blog/detection-backdoor-brickstorm/" target="_blank">
+                            SOC Prime - Détection de la backdoor Brickstorm
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cisa.gov" target="_blank">
+                            CISA - Alertes officielles (Brickstorm)
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>LORIS.AMELAINE.FR</h3>
+                <p>Portfolio de Loris Amelaine, étudiant en cybersécurité et passionné par le pentesting, le DevSecOps et l'analyse forensique.</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/loris-amelaine" class="social-link" target="_blank">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://github.com/6ere6" class="social-link" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://tryhackme.com/p/ceres" class="social-link" target="_blank">
+                        <img src="assets/img/thm.png" alt="TryHackMe" style="width: 30px; height: 15px; filter: invert(1);">
+                    </a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>LIENS RAPIDES</h4>
+                <ul>
+                    <li><a href="index.html#home">Accueil</a></li>
+                    <li><a href="index.html#about">À Propos</a></li>
+                    <li><a href="index.html#tools">Outils</a></li>
+                    <li><a href="index.html#skills">Compétences</a></li>
+                    <li><a href="index.html#works">Projets</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>RESSOURCES</h4>
+                <ul>
+                    <li><a href="assets/img/CV_Loris_Amelaine.pdf" download>Mon CV</a></li>
+                    <li><a href="ressources-bts.html">Ressources BTS</a></li>
+                    <li><a href="index.html#certifications">Certifications</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Loris Amelaine - Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Barre de chargement
+        window.addEventListener('load', () => {
+            const loadingBar = document.getElementById('loadingBar');
+            loadingBar.style.width = '100%';
+            setTimeout(() => {
+                loadingBar.style.opacity = '0';
+                setTimeout(() => {
+                    loadingBar.style.display = 'none';
+                }, 500);
+            }, 1000);
+        });
+
+        // Heure en temps réel
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Gestion du scroll pour la navigation
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Apify feed React2Shell
+        (async () => {
+            // Token Apify pour récupérer les derniers tweets scrappés
+            const APIFY_TOKEN = "apify_api_ZB1rL6duR1fybN1j1QrdLlczMgfmxf26dmF1";
+            const APIFY_URL = `https://api.apify.com/v2/acts/apidojo~tweet-scraper/runs/last/dataset/items?token=${APIFY_TOKEN}&status=SUCCEEDED`;
+            
+            const feedList = document.getElementById('apify-feed-list');
+            const feedEmpty = document.getElementById('apify-feed-empty');
+            if (!feedList || !feedEmpty) {
+                console.error('Éléments HTML manquants pour le flux Apify');
+                return;
+            }
+
+            // Mise en page du grid pour un rendu propre
+            feedList.style.gridTemplateColumns = 'repeat(auto-fit, minmax(280px, 1fr))';
+            feedList.style.alignItems = 'stretch';
+
+            const formatDate = (raw) => {
+                if (!raw) return '';
+                const d = new Date(raw);
+                if (Number.isNaN(d.getTime())) return raw;
+                return d.toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric' });
+            };
+
+            try {
+                console.log('Récupération des tweets depuis Apify...');
+                const res = await fetch(APIFY_URL);
+                console.log('Réponse status:', res.status);
+                
+                if (!res.ok) {
+                    throw new Error(`Erreur API ${res.status} - Vérifie que le scraper a été lancé et qu'il y a des résultats`);
+                }
+                
+                const items = await res.json();
+                console.log('Tweets reçus:', items.length);
+
+                feedList.innerHTML = '';
+                if (!items || !items.length) {
+                    feedEmpty.textContent = '⚠️ Aucun tweet trouvé. Lance le scraper React2Shell sur Apify d\'abord.';
+                    console.warn('Pas de tweets dans le dataset');
+                    return;
+                }
+
+                feedEmpty.style.display = 'none';
+                items.slice(0, 10).forEach((item, idx) => {
+                    console.log(`Tweet ${idx}:`, item); // LOG POUR DÉBOGUER
+                    
+                    const card = document.createElement('div');
+                    card.style.padding = '14px';
+                    card.style.border = '1px solid var(--border-color)';
+                    card.style.borderRadius = '12px';
+                    card.style.background = 'rgba(255,255,255,0.05)';
+                    card.style.boxShadow = '0 10px 30px rgba(0,0,0,0.25)';
+                    card.style.overflow = 'hidden';
+                    card.style.display = 'flex';
+                    card.style.flexDirection = 'column';
+                    card.style.gap = '10px';
+
+                    // Image du tweet - tester les propriétés les plus courantes du dataset Apify
+                    const pickFromMediaArray = (arr) => {
+                        if (!Array.isArray(arr) || !arr.length) return '';
+                        const first = arr[0];
+                        if (typeof first === 'string') return first;
+                        if (first.media_url_https) return first.media_url_https;
+                        if (first.media_url) return first.media_url;
+                        if (first.url) return first.url;
+                        return '';
+                    };
+
+                    const imageUrl =
+                        pickFromMediaArray(item.media) ||
+                        pickFromMediaArray(item.extendedEntities?.media) ||
+                        pickFromMediaArray(item.entities?.media) ||
+                        item.image ||
+                        item.imageUrl ||
+                        item.photo ||
+                        (Array.isArray(item.photos) && item.photos[0]) ||
+                        (Array.isArray(item.images) && item.images[0]) ||
+                        item.image_url ||
+                        item.img ||
+                        '';
+                    
+                    if (imageUrl) {
+                        const imgContainer = document.createElement('div');
+                        imgContainer.style.marginBottom = '10px';
+                        imgContainer.style.borderRadius = '8px';
+                        imgContainer.style.overflow = 'hidden';
+                        imgContainer.style.backgroundColor = '#1a1a1a';
+                        
+                        const img = document.createElement('img');
+                        img.style.width = '100%';
+                        img.style.height = 'auto';
+                        img.style.maxHeight = '250px';
+                        img.style.objectFit = 'cover';
+                        img.style.display = 'block';
+                        img.referrerPolicy = 'no-referrer'; // limite les blocages hotlink
+
+                        const safeUrl = (url) => (typeof url === 'string' ? url.trim() : '');
+                        const directUrl = safeUrl(imageUrl);
+                        let hasRetriedWithProxy = false;
+
+                        const loadViaProxy = () => {
+                            // Proxy d'image pour contourner d'éventuels blocages hotlink (pbs.twimg)
+                            const proxied = `https://wsrv.nl/?url=${encodeURIComponent(directUrl)}&output=webp`;
+                            console.warn('Retry image via proxy:', proxied);
+                            img.src = proxied;
+                        };
+
+                        img.onerror = () => {
+                            if (!hasRetriedWithProxy) {
+                                hasRetriedWithProxy = true;
+                                loadViaProxy();
+                                return;
+                            }
+                            console.warn('Image échouée même via proxy:', directUrl);
+                            imgContainer.innerHTML = '<div style="padding: 20px; text-align: center; color: #666;">Image non chargée</div>';
+                        };
+
+                        img.src = directUrl;
+                        img.alt = 'Tweet image';
+                        
+                        imgContainer.appendChild(img);
+                        card.appendChild(imgContainer);
+                        console.log('Image ajoutée:', imageUrl);
+                    } else {
+                        console.log('Aucune image trouvée pour tweet', idx, 'Clés disponibles:', Object.keys(item));
+                    }
+
+                    const header = document.createElement('div');
+                    header.style.display = 'flex';
+                    header.style.justifyContent = 'space-between';
+                    header.style.alignItems = 'center';
+                    header.style.gap = '8px';
+
+                    const authorSpan = document.createElement('span');
+                    const authorHandle = item.author?.userName || item.username || item.author || item.authorHandle || 'Auteur inconnu';
+                    authorSpan.textContent = `@${authorHandle}`;
+                    authorSpan.style.fontWeight = '600';
+                    authorSpan.style.color = '#fff';
+
+                    const dateSpan = document.createElement('span');
+                    dateSpan.textContent = formatDate(item.createdAt || item.timestamp || item.date || '');
+                    dateSpan.style.color = '#bbb';
+                    dateSpan.style.fontSize = '12px';
+
+                    header.appendChild(authorSpan);
+                    header.appendChild(dateSpan);
+
+                    const text = document.createElement('p');
+                    text.style.margin = '0';
+                    text.style.fontSize = '14px';
+                    text.style.lineHeight = '1.5';
+                    text.style.color = '#eaeaea';
+                    text.textContent = item.text || item.fullText || item.content || 'Sans contenu';
+
+                    const meta = document.createElement('div');
+                    meta.style.display = 'flex';
+                    meta.style.alignItems = 'center';
+                    meta.style.justifyContent = 'space-between';
+                    meta.style.fontSize = '12px';
+                    meta.style.color = '#bbb';
+
+                    const stats = document.createElement('div');
+                    stats.style.display = 'flex';
+                    stats.style.gap = '10px';
+
+                    const addBadge = (label, value) => {
+                        const span = document.createElement('span');
+                        span.style.padding = '4px 8px';
+                        span.style.borderRadius = '999px';
+                        span.style.background = 'rgba(255,255,255,0.08)';
+                        span.style.border = '1px solid rgba(255,255,255,0.08)';
+                        span.textContent = `${label} ${value ?? 0}`;
+                        stats.appendChild(span);
+                    };
+                    addBadge('❤', item.likeCount);
+                    addBadge('🔁', item.retweetCount);
+                    addBadge('💬', item.replyCount);
+
+                    const link = document.createElement('a');
+                    link.href = item.url || item.twitterUrl || '#';
+                    link.target = '_blank';
+                    link.rel = 'noopener noreferrer';
+                    link.textContent = 'Voir sur X';
+                    link.style.color = '#f1719b';
+                    link.style.textDecoration = 'none';
+
+                    meta.appendChild(stats);
+                    meta.appendChild(link);
+
+                    card.appendChild(header);
+                    card.appendChild(text);
+                    card.appendChild(meta);
+                    feedList.appendChild(card);
+                });
+                console.log('Tweets affichés avec succès');
+            } catch (err) {
+                console.error('Erreur Apify:', err);
+                feedEmpty.textContent = `❌ ${err.message}`;
+            }
+        })();
+    </script>
+</body>
+</html>
