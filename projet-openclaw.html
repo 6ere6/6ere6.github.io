@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Projet OpenClaw - AI SOC Analyst pour Wazuh. Installation et configuration d'une solution d'analyse de sécurité basée sur IA.">
+    <meta name="keywords" content="OpenClaw, Wazuh, XDR, EDR, IA, Intelligence Artificielle, SOC, Analyse de sécurité, Détection d'incidents">
+    <meta name="author" content="Loris Amelaine">
+    <title>Projet OpenClaw - AI SOC Analyst | Loris Amelaine</title>
+    <link rel="icon" type="image/png" href="assets/img/favicon.jpeg">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon.jpeg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ai-primary: #f1719b;
+            --ai-secondary: #f1719b;
+            --ai-accent: #f1719b;
+            --bg-dark: #0a0a0a;
+            --bg-darker: #0a0a0a;
+            --text-primary: #ffffff;
+            --text-secondary: #cbd5e1;
+            --border-light: rgba(255, 255, 255, 0.1);
+            --glow-soft: rgba(241, 113, 155, 0.15);
+            --glow-strong: rgba(241, 113, 155, 0.25);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px var(--glow-soft); }
+            50% { box-shadow: 0 0 40px var(--glow-strong); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.25rem 3.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 20, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .logo {
+            font-size: 1.125rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            background: linear-gradient(90deg, var(--ai-primary), var(--ai-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--ai-primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--ai-primary), var(--ai-secondary));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Conteneur principal */
+        .project-container {
+            padding: 150px 60px 100px;
+            max-width: 1400px;
+            margin: 0 auto;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        /* En-tête du projet */
+        .project-header {
+            text-align: center;
+            margin-bottom: 100px;
+            animation: slideUp 0.8s ease-out 0.1s both;
+        }
+
+        .project-header h1 {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, var(--ai-primary) 0%, var(--ai-secondary) 50%, var(--ai-accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        .project-header .subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            line-height: 1.8;
+        }
+
+        .header-tags {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .tag {
+            padding: 0.5rem 1rem;
+            background: var(--glow-soft);
+            border: 1px solid var(--ai-primary);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--ai-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Hero Stats */
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            padding-top: 3rem;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .stat {
+            text-align: center;
+            animation: slideUp 0.8s ease-out 0.2s both;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--ai-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Section principale avec tabs */
+        .main-section {
+            margin: 100px 0;
+            animation: slideUp 0.8s ease-out 0.3s both;
+        }
+
+        .tabs-container {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--border-light);
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button:hover {
+            color: var(--ai-primary);
+        }
+
+        .tab-button.active {
+            color: var(--ai-primary);
+        }
+
+        .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--ai-primary), var(--ai-secondary));
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        /* Feature cards */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-card {
+            padding: 2rem;
+            background: rgba(241, 113, 155, 0.05);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            border-color: var(--ai-primary);
+            background: var(--glow-soft);
+            transform: translateY(-5px);
+        }
+
+        .feature-card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--ai-primary);
+        }
+
+        .feature-card h3 {
+            font-size: 1.125rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* PDF Section */
+        .pdf-section {
+            background: linear-gradient(135deg, rgba(241, 113, 155, 0.1) 0%, rgba(241, 113, 155, 0.08) 100%);
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            padding: 3rem;
+            margin: 3rem 0;
+            animation: slideUp 0.8s ease-out 0.4s both;
+        }
+
+        .pdf-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .pdf-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pdf-info p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .pdf-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--ai-primary), var(--ai-secondary));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(241, 113, 155, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(241, 113, 155, 0.15);
+            color: var(--ai-primary);
+            border: 1px solid var(--ai-primary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(241, 113, 155, 0.25);
+        }
+
+        /* PDF Viewer Modal */
+        .pdf-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .pdf-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pdf-modal-content {
+            position: relative;
+            width: 90%;
+            height: 90vh;
+            max-width: 900px;
+            background: var(--bg-dark);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-light);
+        }
+
+        .pdf-modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 40px;
+            height: 40px;
+            background: rgba(241, 113, 155, 0.2);
+            border: none;
+            border-radius: 50%;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .pdf-modal-close:hover {
+            background: var(--ai-primary);
+            color: white;
+        }
+
+        .pdf-viewer {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Tech Stack */
+        .tech-stack {
+            margin: 3rem 0;
+        }
+
+        .tech-stack h3 {
+            font-size: 1.375rem;
+            margin-bottom: 2rem;
+        }
+
+        .tech-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+        }
+
+        .tech-item {
+            padding: 1rem;
+            background: rgba(241, 113, 155, 0.05);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .tech-item:hover {
+            background: var(--glow-soft);
+            border-color: var(--ai-primary);
+        }
+
+        .tech-item i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--ai-primary);
+        }
+
+        .tech-item p {
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        /* Back button */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 3rem auto 0;
+            padding: 0.75rem 1.5rem;
+            background: var(--ai-primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: center;
+            width: fit-content;
+            display: block;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(241, 113, 155, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border-light);
+            color: var(--text-secondary);
+            margin-top: 100px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .project-container {
+                padding: 100px 1.5rem 60px;
+            }
+
+            nav {
+                padding: 1rem 1.5rem;
+                flex-wrap: wrap;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.75rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pdf-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .tabs-container {
+                flex-direction: column;
+            }
+
+            .tab-button {
+                border-bottom: 2px solid transparent;
+            }
+
+            .tab-button.active::after {
+                display: none;
+            }
+
+            .tab-button.active {
+                border-bottom: 2px solid var(--ai-primary);
+            }
+
+            .pdf-modal-content {
+                width: 95%;
+                height: 95vh;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="page-theme.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="logo">LORIS-AMELAINE.FR</div>
+        <ul class="nav-links">
+            <li><a href="index.html#home">ACCUEIL</a></li>
+            <li><a href="index.html#about">À PROPOS</a></li>
+            <li><a href="index.html#tools">OUTILS</a></li>
+            <li><a href="index.html#skills">COMPÉTENCES</a></li>
+            <li><a href="index.html#works">PROJETS</a></li>
+            <li><a href="index.html#certifications">CERTIFICATIONS</a></li>
+            <li><a href="index.html#parcours">PARCOURS</a></li>
+            <li><a href="ressources-bts.html">RESSOURCES BTS</a></li>
+            <li><a href="index.html#contact">CONTACT</a></li>
+        </ul>
+        <a href="assets/img/CV_Loris_Amelaine.pdf" class="cta-nav" download>
+            <i class="fas fa-download"></i> MON CV
+        </a>
+    </nav>
+
+    <div class="project-container">
+        <!-- En-tête -->
+        <div class="project-header">
+            <h1>OpenClaw</h1>
+            <p class="subtitle">Une solution d'analyse de sécurité intelligente basée sur l'IA pour détecter et répondre automatiquement aux menaces en temps réel.</p>
+            <div class="header-tags">
+                <span class="tag">Intelligence Artificielle</span>
+                <span class="tag">XDR/EDR</span>
+                <span class="tag">Wazuh</span>
+                <span class="tag">Détection d'anomalies</span>
+                <span class="tag">SOC</span>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number">99%</div>
+                    <div class="stat-label">Détection</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">0.2s</div>
+                    <div class="stat-label">Temps réponse</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">ML</div>
+                    <div class="stat-label">Powered</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Surveillance</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section PDF principale -->
+        <div class="pdf-section">
+            <div class="pdf-header">
+                <div class="pdf-info">
+                    <h3><i class="fas fa-file-pdf"></i> Procédure d'installation</h3>
+                    <p>Documentation complète pour installer OpenClaw sur votre infrastructure Wazuh.</p>
+                </div>
+                <div class="pdf-buttons">
+                    <button class="btn btn-primary" onclick="openPdfViewer()">
+                        <i class="fas fa-eye"></i> Consulter
+                    </button>
+                    <a href="assets/pdf/Procédure_d'installation_Openclaw.pdf" download class="btn btn-secondary">
+                        <i class="fas fa-download"></i> Télécharger
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section avec tabs -->
+        <div class="main-section">
+            <div class="tabs-container">
+                <button class="tab-button active" onclick="switchTab('overview')">Vue d'ensemble</button>
+                <button class="tab-button" onclick="switchTab('features')">Fonctionnalités</button>
+                <button class="tab-button" onclick="switchTab('architecture')">Architecture</button>
+                <button class="tab-button" onclick="switchTab('tech')">Stack technique</button>
+            </div>
+
+            <!-- Tab: Vue d'ensemble -->
+            <div id="overview" class="tab-content active">
+                <p style="font-size: 1.05rem; line-height: 1.8; margin-bottom: 2rem; color: var(--text-secondary);">
+                    OpenClaw est une plateforme d'analyse de sécurité assistée par Intelligence Artificielle, conçue pour transformer Wazuh en un 
+                    <strong style="color: var(--ai-primary);">SOC autonome et intelligent</strong>. Elle détecte les menaces invisibles aux yeux humains grâce à 
+                    l'analyse comportementale et la corrélation d'événements alimentées par le machine learning.
+                </p>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="fas fa-robot"></i></div>
+                        <h3>Apprentissage automatique</h3>
+                        <p>Modèles ML avancés qui apprennent les patterns de votre infrastructure et détectent les anomalies sans surcharge faux positifs.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="fas fa-network-wired"></i></div>
+                        <h3>Corrélation d'événements</h3>
+                        <p>Relie les événements disparates pour identifier les attaques multi-étapes et les campagnes sophistiquées.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="fas fa-zap"></i></div>
+                        <h3>Réponse automatisée</h3>
+                        <p>Exécute les playbooks de réponse en millisecondes pour isoler les menaces avant qu'elles ne propagent.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="fas fa-chart-bar"></i></div>
+                        <h3>Rich contexte</h3>
+                        <p>Enrichit chaque alerte avec le contexte comportemental, historique et environnemental pour une investigation rapide.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="fas fa-brain"></i></div>
+                        <h3>Prédiction de menaces</h3>
+                        <p>Anticipe les attaques futures en analysant les tendances et l'évolution des menaces historiques.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="fas fa-shield-alt"></i></div>
+                        <h3>Conformité IA</h3>
+                        <p>Explique chaque décision de sécurité pour maintenir la conformité audit et la traçabilité totale.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Fonctionnalités -->
+            <div id="features" class="tab-content">
+                <h2 style="margin-bottom: 2rem;">Fonctionnalités clés</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="fas fa-search"></i></div>
+                        <h3>Analyse comportementale</h3>
+                        <p>Établit des profils de comportement normaux et détecte les écarts statistiquement significatifs en temps réel.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="fas fa-code-branch"></i></div>
+                        <h3>Détection par arborescence</h3>
+                        <p>Suit les chaînes d'exploitation : du phishing initial jusqu'à l'exfiltration de données sensibles.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="fas fa-puzzle-piece"></i></div>
+                        <h3>Intégration transparente</h3>
+                        <p>S'intègre nativement avec Wazuh sans migration de données. Compatible avec vos sources de logs existantes.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        <h3>Performance optimale</h3>
+                        <p>Traite millions d'événements/jour avec latence sub-seconde grâce à architecture distribuée.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="fas fa-sliders-h"></i></div>
+                        <h3>Configuration granulaire</h3>
+                        <p>Ajuste les seuils de détection, les timeframes d'analyse et les actions de réponse par contexte.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <h3>Auto-amélioration</h3>
+                        <p>Les modèles s'affinent continuellement avec vos retours et cases résolus pour moins de faux positifs.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Architecture -->
+            <div id="architecture" class="tab-content">
+                <h2 style="margin-bottom: 2rem;">Architecture système</h2>
+                <div style="background: rgba(241, 113, 155, 0.05); border: 1px solid var(--border-light); border-radius: 12px; padding: 3rem; margin: 2rem 0; text-align: center;">
+                    <i class="fas fa-sitemap" style="font-size: 3rem; color: var(--ai-primary); margin-bottom: 1rem;"></i>
+                    <h3 style="margin-bottom: 1rem;">Architecture XDR/EDR modulaire</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+                        OpenClaw fonctionne comme une couche IA intelligente au-dessus de Wazuh, enrichissant vos capacités de détection avec des algorithmes avancés.
+                    </p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="fas fa-server"></i></div>
+                        <h3>Wazuh Manager</h3>
+                        <p>Collecteur centralisé des logs de sécurité depuis tous vos endpoints et sources.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="fas fa-laptop"></i></div>
+                        <h3>Wazuh Agents</h3>
+                        <p>Collecte distribuée sur les endpoints Windows, Linux et macOS pour visibilité complète.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="fas fa-database"></i></div>
+                        <h3>Elasticsearch</h3>
+                        <p>Moteur de recherche et indexation horizontalement scalable pour millions d'événements.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="fas fa-brain"></i></div>
+                        <h3>Moteur IA OpenClaw</h3>
+                        <p>Analyse comportementale et ML en temps réel pour détection des anomalies sophistiquées.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="fas fa-bolt"></i></div>
+                        <h3>Response Engine</h3>
+                        <p>Exécution automatisée des playbooks de réponse pour isoler les menaces.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="fas fa-dashboard"></i></div>
+                        <h3>Dashboard & API</h3>
+                        <p>Interface visuelle et API REST pour intégration avec vos outils SOAR existants.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Tech Stack -->
+            <div id="tech" class="tab-content">
+                <h2 style="margin-bottom: 2rem;">Stack technique</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+                    OpenClaw est construit sur une architecture moderne et scalable utilisant les meilleures technologies open-source et propriétaires.
+                </p>
+                <div class="tech-stack">
+                    <h3>Sécurité & Detection</h3>
+                    <div class="tech-items">
+                        <div class="tech-item">
+                            <i class="fas fa-shield-virus"></i>
+                            <p>Wazuh</p>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-code"></i>
+                            <p>YARA Rules</p>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-network-wired"></i>
+                            <p>Zeek IDS</p>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-search"></i>
+                            <p>Osquery</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tech-stack">
+                    <h3>Data & Intelligence</h3>
+                    <div class="tech-items">
+                        <div class="tech-item">
+                            <i class="fas fa-database"></i>
+                            <p>Elasticsearch</p>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-chart-line"></i>
+                            <p>Kibana</p>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-cube"></i>
+                            <p>Redis</p>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-server"></i>
+                            <p>Kafka</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tech-stack">
+                    <h3>Machine Learning</h3>
+                    <div class="tech-items">
+                        <div class="tech-item">
+                            <i class="fas fa-brain"></i>
+                            <p>TensorFlow</p>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-chart-bar"></i>
+                            <p>Scikit-Learn</p>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-infinity"></i>
+                            <p>PyTorch</p>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-flask"></i>
+                            <p>MLOps</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tech-stack">
+                    <h3>Backend & Infrastructure</h3>
+                    <div class="tech-items">
+                        <div class="tech-item">
+                            <i class="fab fa-python"></i>
+                            <p>Python 3.10+</p>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-server"></i>
+                            <p>FastAPI</p>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fab fa-docker"></i>
+                            <p>Docker</p>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-cloud"></i>
+                            <p>Kubernetes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to action -->
+        <div style="text-align: center; margin: 4rem 0; padding: 3rem; background: linear-gradient(135deg, rgba(241, 113, 155, 0.1), rgba(241, 113, 155, 0.1)); border: 1px solid var(--border-light); border-radius: 12px;">
+            <h2 style="margin-bottom: 1rem;">Prêt à déployer OpenClaw ?</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                Consultez la procédure d'installation complète pour configurer OpenClaw sur votre infrastructure Wazuh.
+            </p>
+            <button class="btn btn-primary" onclick="openPdfViewer()" style="cursor: pointer;">
+                <i class="fas fa-eye"></i> Consulter la procédure
+            </button>
+        </div>
+
+        <!-- Retour -->
+        <a href="index.html#works" class="back-button">
+            <i class="fas fa-arrow-left"></i> Retour aux projets
+        </a>
+    </div>
+
+    <!-- PDF Viewer Modal -->
+    <div id="pdfModal" class="pdf-modal">
+        <div class="pdf-modal-content">
+            <button class="pdf-modal-close" onclick="closePdfViewer()">
+                <i class="fas fa-times"></i>
+            </button>
+            <iframe id="pdfViewer" class="pdf-viewer" src="assets/pdf/Procédure_d'installation_Openclaw.pdf"></iframe>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Loris Amelaine - Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        // Tab switching
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab and activate button
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // PDF Viewer
+        function openPdfViewer() {
+            document.getElementById('pdfModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePdfViewer() {
+            document.getElementById('pdfModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on outside click
+        document.getElementById('pdfModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePdfViewer();
+            }
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closePdfViewer();
+            }
+        });
+    </script>
+</body>
+</html>
