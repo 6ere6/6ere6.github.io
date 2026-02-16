@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SOC Lab - Architecture Technique sur Hyper-V avec flux de données et cycle de vie des alertes en temps réel.">
+    <meta name="keywords" content="SOC, Hyper-V, Wazuh, SIEM, XDR, Sophos, détection d'attaques, cybersécurité, Shuffle">
+    <meta name="author" content="Loris Amelaine">
+    <title>SOC Lab - Architecture Hyper-V | Loris Amelaine</title>
+    <link rel="icon" type="image/png" href="assets/img/favicon.jpeg">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon.jpeg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ai-primary: #f1719b;
+            --bg-dark: #0a0a0a;
+            --text-primary: #ffffff;
+            --text-secondary: #cbd5e1;
+            --border-light: rgba(255, 255, 255, 0.1);
+            --glow-soft: rgba(241, 113, 155, 0.15);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(241, 113, 155, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(241, 113, 155, 0.8); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f1a2e 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            right: -10%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(241, 113, 155, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.25rem 3.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 20, 0.7);
+            backdrop-filter: blur(20px) brightness(0.9);
+            border-bottom: 1px solid rgba(241, 113, 155, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            font-size: 1.125rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: var(--ai-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--ai-primary);
+        }
+
+        .cta-nav {
+            padding: 0.7rem 1.5rem;
+            background: linear-gradient(135deg, var(--ai-primary) 0%, #ff9dc8 100%);
+            color: var(--bg-dark);
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.75rem;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            letter-spacing: 0.05em;
+            box-shadow: 0 8px 20px rgba(241, 113, 155, 0.3);
+        }
+
+        .cta-nav:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(241, 113, 155, 0.5);
+            letter-spacing: 0.1em;
+        }
+
+        .project-container {
+            padding: 150px 60px 100px;
+            max-width: 1400px;
+            margin: 0 auto;
+            animation: slideUp 0.8s ease-out;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-header {
+            text-align: center;
+            margin-bottom: 100px;
+            animation: slideUp 0.8s ease-out 0.1s both;
+        }
+
+        .project-header h1 {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, var(--ai-primary) 0%, #ff9dc8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .project-header .subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            line-height: 1.8;
+        }
+
+        .header-tags {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .tag {
+            padding: 0.6rem 1.3rem;
+            background: rgba(241, 113, 155, 0.08);
+            border: 1.5px solid var(--ai-primary);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--ai-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--ai-primary);
+            transition: left 0.5s ease;
+            z-index: -1;
+        }
+
+        .tag:hover {
+            transform: scale(1.05) translateY(-2px);
+            color: var(--bg-dark);
+            box-shadow: 0 8px 20px rgba(241, 113, 155, 0.3);
+        }
+
+        .tag:hover::before {
+            left: 0;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(241, 113, 155, 0.2);
+            border-bottom: 1px solid rgba(241, 113, 155, 0.2);
+            background: rgba(241, 113, 155, 0.02);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat {
+            text-align: center;
+            animation: slideUp 0.8s ease-out 0.2s both;
+            position: relative;
+            padding: 1rem;
+            transition: all 0.4s ease;
+        }
+
+        .stat:hover {
+            transform: scale(1.08);
+        }
+
+        .stat::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--ai-primary);
+            transform: translateX(-50%);
+            transition: width 0.4s ease;
+        }
+
+        .stat:hover::after {
+            width: 80%;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--ai-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .main-section {
+            margin: 100px 0;
+            animation: slideUp 0.8s ease-out 0.3s both;
+            padding: 2rem 0;
+            border-radius: 16px;
+        }
+
+        .tabs-container {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--border-light);
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+
+        .tab-button::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--ai-primary);
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+
+        .tab-button:hover {
+            color: var(--ai-primary);
+        }
+
+        .tab-button:hover::before {
+            transform: scaleX(1);
+        }
+
+        .tab-button.active {
+            color: var(--ai-primary);
+        }
+
+        .tab-button.active::before {
+            transform: scaleX(1);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-card {
+            padding: 2rem;
+            background: rgba(241, 113, 155, 0.03);
+            border: 1px solid rgba(241, 113, 155, 0.2);
+            border-radius: 12px;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(241, 113, 155, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-card:hover {
+            border-color: var(--ai-primary);
+            background: rgba(241, 113, 155, 0.08);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(241, 113, 155, 0.2);
+        }
+
+        .feature-card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--ai-primary);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+
+        .feature-card:hover .feature-card-icon {
+            transform: scale(1.2) rotate(10deg);
+            filter: drop-shadow(0 0 15px rgba(241, 113, 155, 0.5));
+        }
+
+        .feature-card h3 {
+            font-size: 1.125rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .architecture-diagram {
+            margin: 3rem 0;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, rgba(241, 113, 155, 0.08) 0%, rgba(15, 26, 46, 0.5) 100%);
+            border: 1.5px solid rgba(241, 113, 155, 0.3);
+            border-radius: 16px;
+            text-align: center;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+            box-shadow: 0 20px 60px rgba(241, 113, 155, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .architecture-diagram::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(241, 113, 155, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            transition: all 0.5s ease;
+        }
+
+        .architecture-diagram:hover::before {
+            top: -40%;
+            right: -40%;
+        }
+
+        .architecture-diagram:hover {
+            border-color: var(--ai-primary);
+            box-shadow: 0 30px 80px rgba(241, 113, 155, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            transform: translateY(-6px);
+        }
+
+        .architecture-diagram img {
+            max-width: 95%;
+            height: auto;
+            border-radius: 12px;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+            filter: brightness(1) contrast(1.05);
+            position: relative;
+            z-index: 1;
+        }
+
+        .architecture-diagram:hover img {
+            filter: brightness(1.1) contrast(1.1) drop-shadow(0 0 30px rgba(241, 113, 155, 0.4));
+            transform: scale(1.02);
+        }
+
+        .placeholder-image {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .tech-stack {
+            margin: 3rem 0;
+        }
+
+        .tech-stack h3 {
+            font-size: 1.375rem;
+            margin-bottom: 2rem;
+        }
+
+        .tech-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+        }
+
+        .tech-item {
+            padding: 1.5rem 1rem;
+            background: rgba(241, 113, 155, 0.03);
+            border: 1px solid rgba(241, 113, 155, 0.2);
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        .tech-item:hover {
+            background: rgba(241, 113, 155, 0.1);
+            border-color: var(--ai-primary);
+            transform: translateY(-6px);
+            box-shadow: 0 15px 40px rgba(241, 113, 155, 0.2);
+        }
+
+        .tech-item i {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+            color: var(--ai-primary);
+            transition: all 0.4s ease;
+        }
+
+        .tech-item:hover i {
+            transform: scale(1.2) rotate(5deg);
+            filter: drop-shadow(0 0 12px rgba(241, 113, 155, 0.5));
+        }
+
+        .tech-item i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--ai-primary);
+        }
+
+        .tech-item p {
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: var(--ai-primary);
+            color: var(--bg-dark);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(241, 113, 155, 0.3);
+        }
+
+        .back-button {
+            display: block;
+            width: fit-content;
+            margin: 4rem auto 0;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--ai-primary) 0%, #ff9dc8 100%);
+            color: var(--bg-dark);
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 700;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+            text-align: center;
+            letter-spacing: 0.05em;
+            box-shadow: 0 10px 30px rgba(241, 113, 155, 0.3);
+        }
+
+        .back-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 50px rgba(241, 113, 155, 0.5);
+            letter-spacing: 0.1em;
+        }
+
+        .phase-timeline {
+            margin: 3rem 0;
+            position: relative;
+        }
+
+        .phase-timeline-item {
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            background: rgba(241, 113, 155, 0.03);
+            border-left: 4px solid var(--ai-primary);
+            border-radius: 12px;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(241, 113, 155, 0.15);
+            border-left: 4px solid var(--ai-primary);
+            position: relative;
+        }
+
+        .phase-timeline-item:hover {
+            background: rgba(241, 113, 155, 0.08);
+            box-shadow: 0 15px 40px rgba(241, 113, 155, 0.2);
+            transform: translateX(8px);
+        }
+
+        .phase-timeline-item h3 {
+            color: var(--ai-primary);
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .phase-timeline-item ul {
+            margin-left: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .phase-timeline-item li {
+            margin-bottom: 0.75rem;
+        }
+
+        footer {
+            padding: 4rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(241, 113, 155, 0.2);
+            color: var(--text-secondary);
+            margin-top: 100px;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        @media (max-width: 768px) {
+            .project-container {
+                padding: 100px 1.5rem 60px;
+            }
+            nav { 
+                padding: 1rem 1.5rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .nav-links { 
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            .tabs-container { flex-direction: column; }
+            .tab-button.active::after { display: none; }
+            .tab-button.active { border-bottom: 2px solid var(--ai-primary); }
+        }
+    </style>
+    <link rel="stylesheet" href="page-theme.css">
+</head>
+<body>
+    <nav id="navbar">
+        <div class="logo">LORIS-AMELAINE.FR</div>
+        <ul class="nav-links">
+            <li><a href="index.html#home">ACCUEIL</a></li>
+            <li><a href="index.html#about">À PROPOS</a></li>
+            <li><a href="index.html#tools">OUTILS</a></li>
+            <li><a href="index.html#skills">COMPÉTENCES</a></li>
+            <li><a href="index.html#works">PROJETS</a></li>
+            <li><a href="index.html#certifications">CERTIFICATIONS</a></li>
+            <li><a href="index.html#parcours">PARCOURS</a></li>
+            <li><a href="ressources-bts.html">RESSOURCES BTS</a></li>
+            <li><a href="index.html#contact">CONTACT</a></li>
+        </ul>
+        <a href="assets/img/CV_Loris_Amelaine.pdf" class="cta-nav" download>
+            <i class="fas fa-download"></i> MON CV
+        </a>
+    </nav>
+
+    <div class="project-container">
+        <div class="project-header">
+            <h1>SOC Lab <span style="color: var(--text-secondary);">Hyper-V</span></h1>
+            <p class="subtitle">Architecture complète d'un Security Operations Center avec Wazuh SIEM/XDR, gestion centralisée des alertes et orchestration d'incidents via Shuffle.</p>
+            <div class="header-tags">
+                <span class="tag">SOC</span>
+                <span class="tag">SIEM</span>
+                <span class="tag">XDR</span>
+                <span class="tag">Hyper-V</span>
+                <span class="tag">Cybersécurité</span>
+                <span class="tag">Orchestration</span>
+            </div>
+
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number">5+</div>
+                    <div class="stat-label">Phases</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Zones Réseau</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">7+</div>
+                    <div class="stat-label">Outils Intégrés</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Automatisé</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Architecture Diagram Section -->
+        <section class="main-section">
+            <h2 style="font-size: 1.75rem; margin-bottom: 2rem;">Architecture Complète</h2>
+            <div class="architecture-diagram">
+                <img src="assets/img/soc.jpg" alt="Schéma d'architecture complète SOC Lab Hyper-V avec Wazuh, Shuffle et flux de détection" title="Architecture SOC Lab">
+            </div>
+        </section>
+
+        <!-- Overview Section -->
+        <section class="main-section">
+            <h2 style="font-size: 1.75rem; margin-bottom: 2rem;">Vue d'ensemble</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 2rem; line-height: 1.8;">
+                Ce projet implémente un SOC (Security Operations Center) complet en environnement Hyper-V. 
+                L'architecture est conçue pour capturer, transporter, analyser et répondre aux incidents de sécurité en temps réel. 
+                Le système utilise Wazuh comme SIEM/XDR central, complété par Sophos XG Firewall pour la détection réseau et 
+                Shuffle pour l'orchestration automatisée des réponses aux incidents.
+            </p>
+        </section>
+
+        <!-- Tabs -->
+        <div class="tabs-container">
+            <button class="tab-button active" onclick="switchTab(event, 'phases')">Phases</button>
+            <button class="tab-button" onclick="switchTab(event, 'architecture')">Architecture Réseau</button>
+            <button class="tab-button" onclick="switchTab(event, 'tools')">Outils & Services</button>
+            <button class="tab-button" onclick="switchTab(event, 'workflow')">Flux de Données</button>
+        </div>
+
+        <!-- Phases Tab -->
+        <div id="phases" class="tab-content active main-section">
+            <h3 style="font-size: 1.5rem; margin-bottom: 2rem;">Phases du Cycle de Vie des Alertes</h3>
+            
+            <div class="phase-timeline">
+                <div class="phase-timeline-item">
+                    <h3><i class="fas fa-network-wired"></i> Phase 1 : CAPTURE</h3>
+                    <p style="margin-bottom: 1rem; color: var(--text-secondary);">
+                        Collecte centralisée des événements de sécurité depuis plusieurs sources
+                    </p>
+                    <ul>
+                        <li><strong>SSH Access & Logs JSON</strong> - Accès sécurisé et logs structurés</li>
+                        <li><strong>Cowrie Honeypot</strong> - Container Docker pour détecter les brute force</li>
+                        <li><strong>Détection d'Activité Malveillante</strong> - Monitoring continu des comportements suspects</li>
+                    </ul>
+                </div>
+
+                <div class="phase-timeline-item">
+                    <h3><i class="fas fa-truck"></i> Phase 2 : TRANSPORT</h3>
+                    <p style="margin-bottom: 1rem; color: var(--text-secondary);">
+                        Transmission sécurisée des logs vers le manager central
+                    </p>
+                    <ul>
+                        <li><strong>Agent Wazuh</strong> - Collecteur et envoyeur de logs sécurisé</li>
+                        <li><strong>Wazuh Manager</strong> - Port 1514 (UDP/TCP) - Cœur du SIEM</li>
+                        <li><strong>Chiffrement des Logs</strong> - Protection du transport des données</li>
+                        <li><strong>Commutateur PRIVÉ (DMZ)</strong> - VLAN 172.16.16.0/24 isolé</li>
+                    </ul>
+                </div>
+
+                <div class="phase-timeline-item">
+                    <h3><i class="fas fa-brain"></i> Phase 3 : ANALYSE & CORRÉLATION</h3>
+                    <p style="margin-bottom: 1rem; color: var(--text-secondary);">
+                        Traitement intelligent et détection des incidents
+                    </p>
+                    <ul>
+                        <li><strong>Détection Brute Force SSH</strong> - Identification des tentatives d'accès non-autorisées</li>
+                        <li><strong>Alert SOC</strong> - Génération des alertes consolidées</li>
+                        <li><strong>Commutateur EXTERNE (Xsacuz)</strong> - Zone d'analyse sécurisée</li>
+                    </ul>
+                </div>
+
+                <div class="phase-timeline-item">
+                    <h3><i class="fas fa-gavel"></i> Phase 4 : NOTIFICATION & ESCALADE</h3>
+                    <p style="margin-bottom: 1rem; color: var(--text-secondary);">
+                        Dissémination des alertes via multiples canaux
+                    </p>
+                    <ul>
+                        <li><strong>Notifications SOC</strong> - Alertes vers l'équipe de sécurité</li>
+                        <li><strong>Canaux Multiples</strong> - Telegram, Discord, Twitter</li>
+                    </ul>
+                </div>
+
+                <div class="phase-timeline-item">
+                    <h3><i class="fas fa-cogs"></i> Phase 5 : ORCHESTRATION & RÉPONSE</h3>
+                    <p style="margin-bottom: 1rem; color: var(--text-secondary);">
+                        Automatisation des actions de réponse aux incidents
+                    </p>
+                    <ul>
+                        <li><strong>Shuffle Webhook API</strong> - Port 4444 (TTCP) - Orchestration d'incidents</li>
+                        <li><strong>Blocage IP Automatisé</strong> - Port 4244 (TCP) - Réponse immédiate aux menaces</li>
+                        <li><strong>Cas "Incident"</strong> - Gestion automatisée des incidents</li>
+                    </ul>
+                </div>
+
+                <div class="phase-timeline-item">
+                    <h3><i class="fas fa-shield-alt"></i> Protections Supplémentaires</h3>
+                    <p style="margin-bottom: 1rem; color: var(--text-secondary);">
+                        Couches de sécurité complémentaires
+                    </p>
+                    <ul>
+                        <li><strong>Sophos XG Firewall</strong> - Pare-feu avec détection réseau</li>
+                        <li><strong>Blocage IP</strong> - Pare-feu/IPS - Port 4244</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Architecture Réseau Tab -->
+        <div id="architecture" class="tab-content main-section">
+            <h3 style="font-size: 1.5rem; margin-bottom: 2rem;">Architecture Réseau Multi-Zones</h3>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-card-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3>Zone DMZ (172.16.16.0/24)</h3>
+                    <p>Commutateur PRIVÉ isolé. Contient l'agent Wazuh et la détection SSH.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3>Zone de Gestion (192.168.1.0/24)</h3>
+                    <p>Commutateur EXTERNE. Héberge le manager Wazuh, Shuffle et la base de données.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-icon">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h3>Zone Production (192.168.1.024)</h3>
+                    <p>Commutateur VLAN 192.168.1.0/24. Serveurs en production monitorés.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Sophos XG Firewall</h3>
+                    <p>Commutateur VLAN 192.168.1.024. Pare-feu avancé avec détection réseau.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3>Commutateur PRIVÉ (DMZ)</h3>
+                    <p>VLAN 172.16.16.0/24 - Isolé et sécurisé pour les agents de collecte.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Commutateur EXTERNE</h3>
+                    <p>Zone de gestion publique pour Shuffle et notifications externes.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tools Tab -->
+        <div id="tools" class="tab-content main-section">
+            <h3 style="font-size: 1.5rem; margin-bottom: 2rem;">Outils & Services Intégrés</h3>
+            
+            <div class="tech-stack">
+                <h3>Stack Technologique</h3>
+                <div class="tech-items">
+                    <div class="tech-item">
+                        <i class="fas fa-server"></i>
+                        <p>Wazuh SIEM</p>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <p>Sophos Firewall</p>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-cogs"></i>
+                        <p>Shuffle API</p>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-database"></i>
+                        <p>Elasticsearch</p>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-docker"></i>
+                        <p>Docker Cowrie</p>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-bell"></i>
+                        <p>Alertes JSON</p>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-cube"></i>
+                        <p>Hyper-V</p>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-share-alt"></i>
+                        <p>Slack/Discord</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="font-size: 1.25rem; margin: 3rem 0 1rem;">Services Principaux</h3>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-card-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3>Wazuh Manager</h3>
+                    <p><strong>Port:</strong> 1514 (UDP/TCP) - Cœur du SIEM/XDR. Collecte, corrèle et analyse les logs de sécurité.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <h3>Agent Wazuh</h3>
+                    <p>Déploiement sur les endpoints. Collecte les logs SSH, système et application.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>Shuffle Webhook API</h3>
+                    <p><strong>Port:</strong> 4444 (TTCP) - Plateforme d'orchestration pour l'automatisation des incidents.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-icon">
+                        <i class="fas fa-ban"></i>
+                    </div>
+                    <h3>Blocage IP Automatisé</h3>
+                    <p><strong>Port:</strong> 4244 (TCP) - Réponse immédiate au contrôle central pour bloquer les menaces.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Sophos XG Firewall</h3>
+                    <p>Pare-feu avancé. Détection réseau et prévention des intrusions (NGFW).</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-icon">
+                        <i class="fas fa-docker"></i>
+                    </div>
+                    <h3>Cowrie Honeypot</h3>
+                    <p>Container Docker. Leurre SSH pour capturer les brute force et exploits.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Workflow Tab -->
+        <div id="workflow" class="tab-content main-section">
+            <h3 style="font-size: 1.5rem; margin-bottom: 2rem;">Flux de Données Complet</h3>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-card-icon">
+                        <i class="fas fa-1"></i>
+                    </div>
+                    <h3>1. Attaque Détectée</h3>
+                    <p>Un attaquant tente un accès SSH ou exploit via le Sophos XG Firewall (VLAN 192.168.1.024).</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-icon">
+                        <i class="fas fa-2"></i>
+                    </div>
+                    <h3>2. Logs Capturés</h3>
+                    <p>Les logs SSH et les honeypot Cowrie envoient les événements au Manager Wazuh via l'Agent (Port 1514).</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-icon">
+                        <i class="fas fa-3"></i>
+                    </div>
+                    <h3>3. Analyse Wazuh</h3>
+                    <p>Wazuh SIEM/XDR corrèle les événements et génère des alertes en temps réel (JSON).</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-icon">
+                        <i class="fas fa-4"></i>
+                    </div>
+                    <h3>4. Alertes Générées</h3>
+                    <p>Création de cases "Incident" avec détails complets (attaquant, target, règle déclenchée).</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-icon">
+                        <i class="fas fa-5"></i>
+                    </div>
+                    <h3>5. Notifications</h3>
+                    <p>Shuffle reçoit l'alerte et envoie des notifications via Telegram, Discord, Twitter.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-icon">
+                        <i class="fas fa-6"></i>
+                    </div>
+                    <h3>6. Blocage Automatisé</h3>
+                    <p>Shuffle déclenche le blocage IP automatisé (Port 4244 TTCP) via le pare-feu Sophos.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Features -->
+        <section class="main-section">
+            <h2 style="font-size: 1.75rem; margin-bottom: 2rem;">Caractéristiques Clés</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-card-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Temps Réel</h3>
+                    <p>Détection et réponse aux incidents en temps réel avec SIEM/XDR Wazuh.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Sécurité Zonale</h3>
+                    <p>Architecture multi-zone avec DMZ isolée (VLAN 172.16.16.0/24) pour la capture.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>Automatisation Complète</h3>
+                    <p>Orchestration d'incidents via Shuffle et blocage IP automatisé en réponse.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Scalabilité</h3>
+                    <p>Architecture Hyper-V permettant l'ajout de nouveaux agents et sources facilement.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Multi-Intégrations</h3>
+                    <p>Intégrations avec Sophos XG, Cowrie, Elasticsearch, et services externes (Slack, Discord).</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-icon">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <h3>Conformité</h3>
+                    <p>Logs JSON structurés, traçabilité complète et archivage sécurisé des alertes.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Retour -->
+        <a href="index.html#works" class="back-button">
+            <i class="fas fa-arrow-left"></i> Retour aux Projets
+        </a>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Loris Amelaine. Tous droits réservés. | Portfolio | Cybersécurité & Infrastructure IT</p>
+    </footer>
+
+    <script>
+        // Smooth scroll behaviors et interactions avancées
+        function switchTab(evt, tabName) {
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => button.classList.remove('active'));
+
+            const activeTab = document.getElementById(tabName);
+            if (activeTab) {
+                activeTab.classList.add('active');
+            }
+            evt.currentTarget.classList.add('active');
+        }
+
+        // Observer for staggered animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = `slideUp 0.8s ease-out ${index * 0.1}s both`;
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
