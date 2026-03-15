@@ -3,922 +3,936 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Projet OpenClaw - AI SOC Analyst pour Wazuh. Installation et configuration d'une solution d'analyse de sécurité basée sur IA.">
-    <meta name="keywords" content="OpenClaw, Wazuh, XDR, EDR, IA, Intelligence Artificielle, SOC, Analyse de sécurité, Détection d'incidents">
-    <meta name="author" content="Loris Amelaine">
     <title>Projet OpenClaw - AI SOC Analyst | Loris Amelaine</title>
     <link rel="icon" type="image/png" href="assets/img/favicon.jpeg">
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon.jpeg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
+        /* ─── RESET & BASE ─────────────────────────────── */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+
         :root {
-            --ai-primary: #f1719b;
-            --ai-secondary: #f1719b;
-            --ai-accent: #f1719b;
-            --bg-dark: #0a0a0a;
-            --bg-darker: #0a0a0a;
-            --text-primary: #ffffff;
-            --text-secondary: #cbd5e1;
-            --border-light: rgba(255, 255, 255, 0.1);
-            --glow-soft: rgba(241, 113, 155, 0.15);
-            --glow-strong: rgba(241, 113, 155, 0.25);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes glow {
-            0%, 100% { box-shadow: 0 0 20px var(--glow-soft); }
-            50% { box-shadow: 0 0 40px var(--glow-strong); }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
+            --pink:       #f1719b;
+            --pink-light: rgba(241,113,155,0.12);
+            --pink-glow:  rgba(241,113,155,0.25);
+            --bg:         #0a0a0a;
+            --bg2:        #111111;
+            --bg3:        #1a1a1a;
+            --border:     rgba(255,255,255,0.08);
+            --border2:    rgba(255,255,255,0.14);
+            --text:       #f0f0f0;
+            --muted:      #888888;
+            --green:      #4ade80;
+            --amber:      #fbbf24;
+            --red:        #f87171;
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-            color: var(--text-primary);
+            background: var(--bg);
+            color: var(--text);
             line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* Navigation */
+        /* ─── SCROLLBAR ─────────────────────────────────── */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--pink); border-radius: 3px; }
+
+        /* ─── NAV ───────────────────────────────────────── */
         nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            padding: 1.25rem 3.75rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(10, 10, 20, 0.92);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-light);
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            padding: 1.1rem 3.5rem;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(10,10,10,0.95);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
         }
-
         .logo {
-            font-size: 1.125rem;
-            font-weight: 700;
-            letter-spacing: 0.05em;
-            background: linear-gradient(90deg, var(--ai-primary), var(--ai-secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 1rem; font-weight: 800; letter-spacing: 0.08em;
+            color: #fff; text-decoration: none;
         }
-
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-            list-style: none;
-        }
-
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
         .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.875rem;
-            font-weight: 500;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
+            color: rgba(255,255,255,0.55); text-decoration: none;
+            font-size: 0.75rem; font-weight: 600; letter-spacing: 0.07em;
+            text-transform: uppercase; transition: color 0.25s; position: relative;
         }
-
-        .nav-links a:hover {
-            color: var(--ai-primary);
-        }
-
+        .nav-links a:hover { color: var(--pink); }
         .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--ai-primary), var(--ai-secondary));
-            transition: width 0.3s ease;
+            content: ''; position: absolute; bottom: -4px; left: 0;
+            width: 0; height: 1px; background: var(--pink); transition: width 0.25s;
         }
-
-        .nav-links a:hover::after {
-            width: 100%;
+        .nav-links a:hover::after { width: 100%; }
+        .cv-btn {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            padding: 0.5rem 1.1rem; border: 1px solid var(--pink);
+            color: var(--pink); font-size: 0.75rem; font-weight: 600;
+            letter-spacing: 0.06em; text-transform: uppercase;
+            text-decoration: none; border-radius: 4px;
+            transition: all 0.25s; background: var(--pink-light);
         }
+        .cv-btn:hover { background: var(--pink-glow); }
 
-        /* Conteneur principal */
-        .project-container {
-            padding: 150px 60px 100px;
-            max-width: 1400px;
-            margin: 0 auto;
-            animation: slideUp 0.8s ease-out;
+        /* ─── HERO ──────────────────────────────────────── */
+        .hero {
+            min-height: 100vh; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            text-align: center; padding: 6rem 2rem 4rem;
+            position: relative; overflow: hidden;
         }
-
-        /* En-tête du projet */
-        .project-header {
-            text-align: center;
-            margin-bottom: 100px;
-            animation: slideUp 0.8s ease-out 0.1s both;
+        .hero::before {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(241,113,155,0.06) 0%, transparent 70%);
+            pointer-events: none;
         }
-
-        .project-header h1 {
-            font-size: clamp(2.5rem, 8vw, 4rem);
-            font-weight: 800;
+        .hero-eye {
+            font-size: 0.65rem; font-weight: 700; letter-spacing: 0.25em;
+            text-transform: uppercase; color: var(--pink);
             margin-bottom: 1.5rem;
-            letter-spacing: -0.02em;
-            background: linear-gradient(135deg, var(--ai-primary) 0%, var(--ai-secondary) 50%, var(--ai-accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: glow 3s ease-in-out infinite;
+            animation: fadeUp 0.7s ease 0.1s both;
         }
-
-        .project-header .subtitle {
-            font-size: 1.125rem;
-            color: var(--text-secondary);
-            max-width: 700px;
-            margin: 0 auto 2rem;
-            line-height: 1.8;
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem); font-weight: 800;
+            letter-spacing: -0.03em; line-height: 1;
+            background: linear-gradient(135deg, #fff 30%, var(--pink) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 0.4rem;
+            animation: fadeUp 0.7s ease 0.2s both;
         }
-
-        .header-tags {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 2rem;
+        .hero-sub-title {
+            font-size: clamp(1rem, 2.5vw, 1.4rem); font-weight: 300;
+            color: rgba(255,255,255,0.45); margin-bottom: 1.5rem;
+            animation: fadeUp 0.7s ease 0.25s both;
         }
-
+        .hero-sep {
+            width: 36px; height: 2px; background: var(--pink);
+            margin: 0 auto 1.5rem; border-radius: 2px;
+            animation: fadeUp 0.7s ease 0.3s both;
+        }
+        .hero p {
+            font-size: 0.95rem; color: var(--muted); max-width: 580px;
+            line-height: 1.85; margin: 0 auto 2.5rem;
+            animation: fadeUp 0.7s ease 0.35s both;
+        }
+        .hero-tags {
+            display: flex; gap: 0.6rem; flex-wrap: wrap;
+            justify-content: center; margin-bottom: 3rem;
+            animation: fadeUp 0.7s ease 0.4s both;
+        }
         .tag {
-            padding: 0.5rem 1rem;
-            background: var(--glow-soft);
-            border: 1px solid var(--ai-primary);
-            border-radius: 50px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--ai-primary);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            padding: 0.35rem 0.9rem; border: 1px solid var(--border2);
+            border-radius: 50px; font-size: 0.72rem; color: rgba(255,255,255,0.5);
+            letter-spacing: 0.04em; transition: all 0.2s;
         }
+        .tag:hover { border-color: var(--pink); color: var(--pink); }
 
-        /* Hero Stats */
         .hero-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-            padding-top: 3rem;
-            border-top: 1px solid var(--border-light);
+            display: flex; gap: 4rem; padding-top: 3rem;
+            border-top: 1px solid var(--border);
+            animation: fadeUp 0.7s ease 0.5s both;
+        }
+        .stat { text-align: center; }
+        .stat-num {
+            display: block; font-size: 2.2rem; font-weight: 800;
+            color: var(--pink); line-height: 1; margin-bottom: 0.3rem;
+        }
+        .stat-lbl {
+            font-size: 0.65rem; color: var(--muted);
+            letter-spacing: 0.12em; text-transform: uppercase;
         }
 
-        .stat {
-            text-align: center;
-            animation: slideUp 0.8s ease-out 0.2s both;
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--ai-primary);
-            margin-bottom: 0.5rem;
+        /* ─── DIVIDER ───────────────────────────────────── */
+        .divider { border: none; border-top: 1px solid var(--border); }
+
+        /* ─── SECTION ───────────────────────────────────── */
+        .wrap { max-width: 1280px; margin: 0 auto; padding: 6rem 3.5rem; }
+        .section-eye {
+            font-size: 0.62rem; font-weight: 700; letter-spacing: 0.22em;
+            text-transform: uppercase; color: var(--pink); margin-bottom: 0.6rem;
+        }
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800;
+            letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 0.8rem;
+        }
+        .section-desc {
+            font-size: 0.9rem; color: var(--muted); max-width: 600px;
+            line-height: 1.85; margin-bottom: 3.5rem;
         }
 
-        .stat-label {
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+        /* ─── CONTEXT BAND ──────────────────────────────── */
+        .ctx-band {
+            display: flex; border: 1px solid var(--border); border-radius: 8px;
+            overflow: hidden; margin-bottom: 4rem;
+        }
+        .ctx-item {
+            flex: 1; padding: 1.5rem 2rem;
+            border-right: 1px solid var(--border);
+            transition: background 0.2s;
+        }
+        .ctx-item:last-child { border-right: none; }
+        .ctx-item:hover { background: var(--pink-light); }
+        .ctx-lbl {
+            font-size: 0.58rem; font-weight: 700; letter-spacing: 0.15em;
+            text-transform: uppercase; color: var(--muted); margin-bottom: 0.35rem;
+        }
+        .ctx-val { font-size: 0.88rem; font-weight: 600; }
+
+        /* ─── PIPELINE ──────────────────────────────────── */
+        .pipeline {
+            display: grid; grid-template-columns: repeat(6, 1fr);
+            border: 1px solid var(--border); border-radius: 8px;
+            overflow: hidden; margin-bottom: 4rem;
+        }
+        .pipe {
+            padding: 1.75rem 1.25rem; background: var(--bg2);
+            border-right: 1px solid var(--border);
+            transition: background 0.2s; position: relative;
+        }
+        .pipe:last-child { border-right: none; }
+        .pipe:hover { background: var(--bg3); }
+        .pipe:not(:last-child)::after {
+            content: '›'; position: absolute; right: -8px; top: 50%;
+            transform: translateY(-50%); color: var(--pink);
+            font-size: 1.2rem; z-index: 2; line-height: 1;
+        }
+        .pipe-n { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.1em; color: var(--pink); margin-bottom: 0.75rem; }
+        .pipe-ico { font-size: 1.4rem; color: var(--pink); margin-bottom: 0.6rem; opacity: 0.8; }
+        .pipe-name { font-size: 0.85rem; font-weight: 700; margin-bottom: 0.3rem; }
+        .pipe-tool { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--muted); }
+
+        /* ─── FEATURES ──────────────────────────────────── */
+        .features {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 1px; background: var(--border);
+            border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+        }
+        .feat {
+            background: var(--bg2); padding: 2.25rem 2rem;
+            transition: background 0.2s;
+        }
+        .feat:hover { background: var(--bg3); }
+        .feat-ico {
+            width: 42px; height: 42px; display: flex; align-items: center;
+            justify-content: center; border: 1px solid var(--border);
+            border-radius: 8px; color: var(--pink); font-size: 1rem;
+            margin-bottom: 1.25rem; transition: border-color 0.2s;
+        }
+        .feat:hover .feat-ico { border-color: var(--pink); }
+        .feat h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .feat p { font-size: 0.8rem; color: var(--muted); line-height: 1.75; }
+
+        /* ─── TABS ──────────────────────────────────────── */
+        .tabs-nav {
+            display: flex; border-bottom: 1px solid var(--border); margin-bottom: 3rem;
+        }
+        .tab-btn {
+            padding: 0.85rem 1.5rem; background: none; border: none;
+            border-bottom: 2px solid transparent; color: var(--muted);
+            font-family: 'Inter', sans-serif; font-size: 0.83rem; font-weight: 600;
+            cursor: pointer; transition: all 0.2s; margin-bottom: -1px;
+        }
+        .tab-btn:hover { color: #fff; }
+        .tab-btn.active { color: var(--pink); border-bottom-color: var(--pink); }
+        .tab-pane { display: none; animation: fadeUp 0.3s ease; }
+        .tab-pane.active { display: block; }
+
+        /* ─── VLAN GRID ─────────────────────────────────── */
+        .vlan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+        .vlan-card {
+            padding: 2rem; border: 1px solid var(--border);
+            border-radius: 8px; transition: border-color 0.2s;
+        }
+        .vlan-card:hover { border-color: var(--pink); }
+        .vlan-badge {
+            display: inline-block; padding: 0.25rem 0.7rem;
+            border-radius: 50px; font-size: 0.6rem; font-weight: 700;
+            letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem;
+        }
+        .vlan-wan .vlan-badge { background: rgba(74,222,128,0.1); color: var(--green); border: 1px solid rgba(74,222,128,0.3); }
+        .vlan-lan .vlan-badge { background: var(--pink-light); color: var(--pink); border: 1px solid rgba(241,113,155,0.3); }
+        .vlan-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+        .vlan-card code { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--muted); display: block; margin-bottom: 1rem; }
+        .vlan-card ul { list-style: none; }
+        .vlan-card ul li {
+            font-size: 0.8rem; color: rgba(255,255,255,0.55);
+            padding: 0.4rem 0; border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+        .vlan-card ul li:last-child { border-bottom: none; }
+        .vlan-card ul li::before { content: '›'; color: var(--pink); }
+
+        /* ─── FLOW ──────────────────────────────────────── */
+        .flow {
+            display: flex; align-items: center; justify-content: center;
+            flex-wrap: wrap; gap: 0.5rem; padding: 1.5rem;
+            background: var(--bg2); border: 1px solid var(--border);
+            border-radius: 8px; margin-bottom: 2rem;
+        }
+        .fn {
+            padding: 0.55rem 0.9rem; background: var(--bg);
+            border: 1px solid var(--border); border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+            color: var(--muted); text-align: center; line-height: 1.4;
+            transition: all 0.2s; white-space: nowrap;
+        }
+        .fn:hover { border-color: var(--pink); color: #fff; }
+        .fn.hl { border-color: var(--pink); color: var(--pink); background: var(--pink-light); }
+        .fn.gn { border-color: rgba(74,222,128,0.4); color: var(--green); }
+        .fa { color: var(--muted); font-size: 0.85rem; }
+
+        /* ─── ALERTS TABLE ──────────────────────────────── */
+        .alert-table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; }
+        .alert-table th {
+            text-align: left; padding: 0.75rem 1rem;
+            font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em;
+            text-transform: uppercase; color: var(--muted);
+            border-bottom: 1px solid var(--border);
+        }
+        .alert-table td {
+            padding: 0.8rem 1rem; font-size: 0.8rem;
+            border-bottom: 1px solid var(--border); transition: background 0.2s;
+        }
+        .alert-table tr:hover td { background: var(--pink-light); }
+        .badge {
+            display: inline-block; padding: 0.15rem 0.55rem;
+            border-radius: 4px; font-size: 0.6rem; font-weight: 700;
+            letter-spacing: 0.05em; min-width: 50px; text-align: center;
+        }
+        .badge-high { background: rgba(248,113,113,0.12); color: var(--red); border: 1px solid rgba(248,113,113,0.3); }
+        .badge-med  { background: rgba(251,191,36,0.12); color: var(--amber); border: 1px solid rgba(251,191,36,0.3); }
+        .badge-low  { background: rgba(74,222,128,0.12); color: var(--green); border: 1px solid rgba(74,222,128,0.3); }
+        .alert-table code { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--muted); }
+
+        /* ─── WORKFLOW STEPS ────────────────────────────── */
+        .wf-steps { display: flex; flex-direction: column; gap: 0; margin-bottom: 3rem; }
+        .wf-step {
+            display: flex; gap: 1.5rem; padding: 1.75rem 2rem;
+            background: var(--bg2); border: 1px solid var(--border);
+            border-bottom: none; transition: background 0.2s;
+        }
+        .wf-step:first-child { border-radius: 8px 8px 0 0; }
+        .wf-step:last-child { border-bottom: 1px solid var(--border); border-radius: 0 0 8px 8px; }
+        .wf-step:hover { background: var(--bg3); }
+        .wf-num {
+            flex-shrink: 0; width: 32px; height: 32px;
+            border: 1px solid var(--pink); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.72rem; font-weight: 700; color: var(--pink);
+        }
+        .wf-step h4 { font-size: 0.92rem; font-weight: 700; margin-bottom: 0.4rem; }
+        .wf-step p { font-size: 0.8rem; color: var(--muted); line-height: 1.7; margin-bottom: 0.5rem; }
+        .wf-step code {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
+            color: rgba(241,113,155,0.7); background: var(--pink-light);
+            padding: 0.15rem 0.5rem; border-radius: 3px; display: inline-block;
         }
 
-        /* Section principale avec tabs */
-        .main-section {
-            margin: 100px 0;
-            animation: slideUp 0.8s ease-out 0.3s both;
+        /* ─── SOC TERMINAL ──────────────────────────────── */
+        .terminal {
+            background: #060608; border: 1px solid rgba(241,113,155,0.2);
+            border-radius: 10px; overflow: hidden; max-width: 650px;
+        }
+        .terminal-bar {
+            padding: 0.65rem 1rem; background: rgba(241,113,155,0.06);
+            border-bottom: 1px solid rgba(241,113,155,0.12);
+            display: flex; align-items: center; gap: 0.45rem;
+        }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .dot-r { background: #ff5f57; } .dot-y { background: #ffbd2e; } .dot-g { background: #28c941; }
+        .terminal-bar span { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: rgba(255,255,255,0.3); margin-left: 0.4rem; }
+        .terminal-body {
+            padding: 1.5rem 1.75rem;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; line-height: 2.1;
+        }
+        .tl { display: flex; gap: 0.75rem; }
+        .tk { color: var(--pink); min-width: 230px; flex-shrink: 0; }
+        .tv { color: rgba(255,255,255,0.8); }
+        .tv.hi { color: var(--red); } .tv.ok { color: var(--green); } .tv.w { color: var(--amber); }
+        .thr { border: none; border-top: 1px solid rgba(255,255,255,0.05); margin: 0.5rem 0; }
+
+        /* ─── PRE / CODE ────────────────────────────────── */
+        pre {
+            background: #060608; border: 1px solid var(--border); border-radius: 8px;
+            padding: 1.5rem 1.75rem; overflow-x: auto; margin: 1.5rem 0;
+        }
+        pre code {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
+            color: rgba(255,255,255,0.75); line-height: 1.9;
         }
 
-        .tabs-container {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 3rem;
-            border-bottom: 1px solid var(--border-light);
-            flex-wrap: wrap;
+        /* ─── FILE TREE ─────────────────────────────────── */
+        .filetree {
+            background: #060608; border: 1px solid var(--border); border-radius: 8px;
+            padding: 1.25rem 1.5rem; font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem; line-height: 2.1; display: inline-block;
+        }
+        .ft-root { color: var(--pink); }
+        .ft-file { color: rgba(255,255,255,0.35); padding-left: 1.25rem; }
+        .ft-file.hl { color: var(--pink); }
+
+        /* ─── TABLE ─────────────────────────────────────── */
+        .data-table { width: 100%; border-collapse: collapse; }
+        .data-table th {
+            text-align: left; padding: 0.75rem 1rem; font-size: 0.65rem;
+            font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+            color: var(--muted); border-bottom: 1px solid var(--border);
+        }
+        .data-table td {
+            padding: 0.85rem 1rem; font-size: 0.8rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .data-table tr:hover td { background: var(--pink-light); }
+        .data-table code { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--pink); }
+
+        /* ─── TIMELINE ──────────────────────────────────── */
+        .timeline { position: relative; padding-left: 2rem; }
+        .timeline::before {
+            content: ''; position: absolute; left: 0; top: 0.5rem; bottom: 0;
+            width: 1px; background: linear-gradient(to bottom, var(--pink), rgba(241,113,155,0.05));
+        }
+        .tl-item { position: relative; padding-left: 1.75rem; margin-bottom: 3rem; }
+        .tl-item::before {
+            content: ''; position: absolute; left: -2.1rem; top: 0.4rem;
+            width: 8px; height: 8px; border-radius: 50%; background: var(--pink);
+            box-shadow: 0 0 12px var(--pink-glow);
+        }
+        .tl-phase {
+            font-size: 0.6rem; font-weight: 700; letter-spacing: 0.16em;
+            text-transform: uppercase; color: var(--pink); margin-bottom: 0.3rem;
+        }
+        .tl-item h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .tl-item p { font-size: 0.8rem; color: var(--muted); line-height: 1.8; }
+        .tl-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.8rem; }
+        .tl-tag {
+            padding: 0.18rem 0.55rem; border: 1px solid var(--border); border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.6rem;
+            color: rgba(255,255,255,0.3);
         }
 
-        .tab-button {
-            padding: 1rem 1.5rem;
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            position: relative;
-            transition: all 0.3s ease;
+        /* ─── TECH GRID ─────────────────────────────────── */
+        .tech-section { margin-bottom: 2.5rem; }
+        .tech-section h3 { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; margin-bottom: 1rem; }
+        .tech-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 0.75rem;
         }
-
-        .tab-button:hover {
-            color: var(--ai-primary);
-        }
-
-        .tab-button.active {
-            color: var(--ai-primary);
-        }
-
-        .tab-button.active::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--ai-primary), var(--ai-secondary));
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.4s ease-out;
-        }
-
-        /* Feature cards */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .feature-card {
-            padding: 2rem;
-            background: rgba(241, 113, 155, 0.05);
-            border: 1px solid var(--border-light);
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .feature-card:hover {
-            border-color: var(--ai-primary);
-            background: var(--glow-soft);
-            transform: translateY(-5px);
-        }
-
-        .feature-card-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--ai-primary);
-        }
-
-        .feature-card h3 {
-            font-size: 1.125rem;
-            margin-bottom: 0.75rem;
-            font-weight: 700;
-        }
-
-        .feature-card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        /* PDF Section */
-        .pdf-section {
-            background: linear-gradient(135deg, rgba(241, 113, 155, 0.1) 0%, rgba(241, 113, 155, 0.08) 100%);
-            border: 1px solid var(--border-light);
-            border-radius: 16px;
-            padding: 3rem;
-            margin: 3rem 0;
-            animation: slideUp 0.8s ease-out 0.4s both;
-        }
-
-        .pdf-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            gap: 2rem;
-        }
-
-        .pdf-info h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .pdf-info p {
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-        }
-
-        .pdf-buttons {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            text-decoration: none;
-            font-size: 0.95rem;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--ai-primary), var(--ai-secondary));
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(241, 113, 155, 0.3);
-        }
-
-        .btn-secondary {
-            background: rgba(241, 113, 155, 0.15);
-            color: var(--ai-primary);
-            border: 1px solid var(--ai-primary);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(241, 113, 155, 0.25);
-        }
-
-        /* PDF Viewer Modal */
-        .pdf-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 2000;
-            backdrop-filter: blur(5px);
-            animation: fadeIn 0.3s ease;
-        }
-
-        .pdf-modal.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .pdf-modal-content {
-            position: relative;
-            width: 90%;
-            height: 90vh;
-            max-width: 900px;
-            background: var(--bg-dark);
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid var(--border-light);
-        }
-
-        .pdf-modal-close {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            width: 40px;
-            height: 40px;
-            background: rgba(241, 113, 155, 0.2);
-            border: none;
-            border-radius: 50%;
-            color: var(--text-primary);
-            font-size: 1.5rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            z-index: 10;
-        }
-
-        .pdf-modal-close:hover {
-            background: var(--ai-primary);
-            color: white;
-        }
-
-        .pdf-viewer {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Tech Stack */
-        .tech-stack {
-            margin: 3rem 0;
-        }
-
-        .tech-stack h3 {
-            font-size: 1.375rem;
-            margin-bottom: 2rem;
-        }
-
-        .tech-items {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 1rem;
-        }
-
         .tech-item {
-            padding: 1rem;
-            background: rgba(241, 113, 155, 0.05);
-            border: 1px solid var(--border-light);
-            border-radius: 8px;
-            text-align: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
+            padding: 1.25rem 1rem; background: var(--bg2);
+            border: 1px solid var(--border); border-radius: 8px;
+            text-align: center; transition: all 0.2s; cursor: default;
         }
+        .tech-item:hover { background: var(--pink-light); border-color: var(--pink); }
+        .tech-item i { font-size: 1.6rem; color: var(--pink); margin-bottom: 0.5rem; display: block; opacity: 0.8; }
+        .tech-item span { font-size: 0.72rem; color: var(--muted); }
 
-        .tech-item:hover {
-            background: var(--glow-soft);
-            border-color: var(--ai-primary);
+        /* ─── PDF SECTION ───────────────────────────────── */
+        .pdf-box {
+            background: var(--pink-light); border: 1px solid rgba(241,113,155,0.25);
+            border-radius: 12px; padding: 2rem 2.5rem;
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 2rem; flex-wrap: wrap; margin-bottom: 4rem;
         }
-
-        .tech-item i {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            color: var(--ai-primary);
+        .pdf-box h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.4rem; }
+        .pdf-box p { font-size: 0.83rem; color: var(--muted); }
+        .btn-row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            padding: 0.7rem 1.4rem; border-radius: 6px;
+            font-size: 0.82rem; font-weight: 600; cursor: pointer;
+            text-decoration: none; transition: all 0.2s; border: none;
         }
+        .btn-primary { background: var(--pink); color: #fff; }
+        .btn-primary:hover { background: #f589ac; box-shadow: 0 8px 20px rgba(241,113,155,0.3); transform: translateY(-1px); }
+        .btn-ghost { background: transparent; color: rgba(255,255,255,0.6); border: 1px solid var(--border2); }
+        .btn-ghost:hover { border-color: rgba(255,255,255,0.4); color: #fff; }
 
-        .tech-item p {
-            font-size: 0.875rem;
-            font-weight: 500;
+        /* ─── BACK BUTTON ───────────────────────────────── */
+        .back-btn {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            margin: 2rem auto 0; padding: 0.8rem 1.8rem;
+            background: var(--pink); color: #fff; border-radius: 6px;
+            font-size: 0.85rem; font-weight: 600; text-decoration: none;
+            transition: all 0.2s;
         }
+        .back-btn:hover { background: #f589ac; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(241,113,155,0.3); }
+        .back-wrap { text-align: center; padding-bottom: 6rem; }
 
-        /* Back button */
-        .back-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin: 3rem auto 0;
-            padding: 0.75rem 1.5rem;
-            background: var(--ai-primary);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            text-align: center;
-            width: fit-content;
-            display: block;
-        }
-
-        .back-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(241, 113, 155, 0.3);
-        }
-
-        /* Footer */
+        /* ─── FOOTER ────────────────────────────────────── */
         footer {
-            padding: 3rem 2rem;
-            text-align: center;
-            border-top: 1px solid var(--border-light);
-            color: var(--text-secondary);
-            margin-top: 100px;
+            padding: 2rem 3.5rem; border-top: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
         }
+        footer p { font-size: 0.73rem; color: var(--muted); }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .project-container {
-                padding: 100px 1.5rem 60px;
-            }
+        /* ─── MODAL ─────────────────────────────────────── */
+        .modal {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.85); z-index: 2000;
+            align-items: center; justify-content: center;
+            backdrop-filter: blur(6px);
+        }
+        .modal-inner {
+            position: relative; width: 90%; height: 88vh; max-width: 960px;
+            background: var(--bg); border: 1px solid var(--border);
+            border-radius: 12px; overflow: hidden;
+        }
+        .modal-close {
+            position: absolute; top: 0.75rem; right: 0.75rem; width: 34px; height: 34px;
+            background: rgba(241,113,155,0.15); border: 1px solid rgba(241,113,155,0.3);
+            border-radius: 50%; color: #fff; font-size: 1rem;
+            cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s;
+        }
+        .modal-close:hover { background: rgba(241,113,155,0.3); }
 
-            nav {
-                padding: 1rem 1.5rem;
-                flex-wrap: wrap;
-            }
+        /* ─── MISC UTILS ────────────────────────────────── */
+        .flex-row { display: flex; gap: 2.5rem; align-items: flex-start; flex-wrap: wrap; }
+        .flex-1 { flex: 1; min-width: 260px; }
+        .mt1 { margin-top: 1rem; }
+        .mt2 { margin-top: 2rem; }
+        .mt3 { margin-top: 3rem; }
+        .mb1 { margin-bottom: 1rem; }
+        .mb2 { margin-bottom: 2rem; }
+        .h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .h3 { font-size: 1.1rem; font-weight: 700; color: var(--pink); margin-bottom: 1.25rem; }
+        .sub { font-size: 0.85rem; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; }
 
-            .nav-links {
-                gap: 1rem;
-                font-size: 0.75rem;
-            }
+        /* ─── REVEAL ────────────────────────────────────── */
+        .r { opacity: 0; transform: translateY(16px); transition: opacity 0.65s ease, transform 0.65s ease; }
+        .r.v { opacity: 1; transform: translateY(0); }
+        .r.d1 { transition-delay: 0.1s; } .r.d2 { transition-delay: 0.2s; } .r.d3 { transition-delay: 0.3s; }
 
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .pdf-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .tabs-container {
-                flex-direction: column;
-            }
-
-            .tab-button {
-                border-bottom: 2px solid transparent;
-            }
-
-            .tab-button.active::after {
-                display: none;
-            }
-
-            .tab-button.active {
-                border-bottom: 2px solid var(--ai-primary);
-            }
-
-            .pdf-modal-content {
-                width: 95%;
-                height: 95vh;
-            }
+        /* ─── RESPONSIVE ────────────────────────────────── */
+        @media (max-width: 900px) {
+            nav { padding: 1rem 1.25rem; }
+            .nav-links, .cv-btn { display: none; }
+            .wrap { padding: 4rem 1.25rem; }
+            .hero { padding: 5rem 1.25rem 3rem; }
+            .pipeline { grid-template-columns: repeat(2,1fr); }
+            .pipe:not(:last-child)::after { display: none; }
+            .features { grid-template-columns: 1fr; }
+            .vlan-grid { grid-template-columns: 1fr; }
+            .ctx-band { flex-direction: column; }
+            .ctx-item { border-right: none; border-bottom: 1px solid var(--border); }
+            .ctx-item:last-child { border-bottom: none; }
+            .hero-stats { gap: 2rem; flex-wrap: wrap; justify-content: center; }
+            footer { flex-direction: column; gap: 0.4rem; text-align: center; }
+            .flex-row { flex-direction: column; }
         }
     </style>
-    <link rel="stylesheet" href="page-theme.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav id="navbar">
-        <div class="logo">LORIS-AMELAINE.FR</div>
-        <ul class="nav-links">
-            <li><a href="index.html#home">ACCUEIL</a></li>
-            <li><a href="index.html#about">À PROPOS</a></li>
-            <li><a href="index.html#tools">OUTILS</a></li>
-            <li><a href="index.html#skills">COMPÉTENCES</a></li>
-            <li><a href="index.html#works">PROJETS</a></li>
-            <li><a href="index.html#certifications">CERTIFICATIONS</a></li>
-            <li><a href="index.html#parcours">PARCOURS</a></li>
-            <li><a href="ressources-bts.html">RESSOURCES BTS</a></li>
-            <li><a href="index.html#contact">CONTACT</a></li>
-        </ul>
-        <a href="assets/img/CV_Loris_Amelaine.pdf" class="cta-nav" download>
-            <i class="fas fa-download"></i> MON CV
-        </a>
-    </nav>
 
-    <div class="project-container">
-        <!-- En-tête -->
-        <div class="project-header">
-            <h1>OpenClaw</h1>
-            <p class="subtitle">Une solution d'analyse de sécurité intelligente basée sur l'IA pour détecter et répondre automatiquement aux menaces en temps réel.</p>
-            <div class="header-tags">
-                <span class="tag">Intelligence Artificielle</span>
-                <span class="tag">XDR/EDR</span>
-                <span class="tag">Wazuh</span>
-                <span class="tag">Détection d'anomalies</span>
-                <span class="tag">SOC</span>
-            </div>
-            <div class="hero-stats">
-                <div class="stat">
-                    <div class="stat-number">99%</div>
-                    <div class="stat-label">Détection</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number">0.2s</div>
-                    <div class="stat-label">Temps réponse</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number">ML</div>
-                    <div class="stat-label">Powered</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number">24/7</div>
-                    <div class="stat-label">Surveillance</div>
-                </div>
-            </div>
-        </div>
+<!-- ─── NAV ─────────────────────────────────────────────── -->
+<nav>
+    <a href="index.html" class="logo">LORIS-AMELAINE.FR</a>
+    <ul class="nav-links">
+        <li><a href="index.html#home">Accueil</a></li>
+        <li><a href="index.html#about">À propos</a></li>
+        <li><a href="index.html#tools">Outils</a></li>
+        <li><a href="index.html#skills">Compétences</a></li>
+        <li><a href="index.html#works">Projets</a></li>
+        <li><a href="index.html#certifications">Certifications</a></li>
+        <li><a href="index.html#parcours">Parcours</a></li>
+        <li><a href="ressources-bts.html">Ressources BTS</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <a href="assets/img/CV_Loris_Amelaine.pdf" class="cv-btn" download>
+        <i class="fas fa-download"></i> Mon CV
+    </a>
+</nav>
 
-        <!-- Section PDF principale -->
-        <div class="pdf-section">
-            <div class="pdf-header">
-                <div class="pdf-info">
-                    <h3><i class="fas fa-file-pdf"></i> Procédure d'installation</h3>
-                    <p>Documentation complète pour installer OpenClaw sur votre infrastructure Wazuh.</p>
-                </div>
-                <div class="pdf-buttons">
-                    <button class="btn btn-primary" onclick="openPdfViewer()">
-                        <i class="fas fa-eye"></i> Consulter
-                    </button>
-                    <a href="assets/pdf/Procédure_d'installation_Openclaw.pdf" download class="btn btn-secondary">
-                        <i class="fas fa-download"></i> Télécharger
-                    </a>
-                </div>
-            </div>
-        </div>
+<!-- ─── HERO ─────────────────────────────────────────────── -->
+<section class="hero">
+    <div class="hero-eye">Stage Moabee &nbsp;·&nbsp; 19 fév → 13 mars 2026</div>
+    <h1>OpenClaw</h1>
+    <p class="hero-sub-title">AI SOC Analyst</p>
+    <div class="hero-sep"></div>
+    <p>Conception et déploiement d'un SOC de nouvelle génération piloté par l'intelligence artificielle — détection réseau, corrélation SIEM, orchestration automatisée et notification en temps réel.</p>
+    <div class="hero-tags">
+        <span class="tag">Wazuh SIEM</span>
+        <span class="tag">Suricata IDS/IPS</span>
+        <span class="tag">Sophos XG NGFW</span>
+        <span class="tag">OpenClaw IA</span>
+        <span class="tag">Ollama / Qwen 2.5</span>
+        <span class="tag">Hyper-V</span>
+        <span class="tag">Discord / Teams</span>
+        <span class="tag">PowerShell</span>
+        <span class="tag">Honeypot</span>
+    </div>
+    <div class="hero-stats">
+        <div class="stat"><span class="stat-num">6</span><span class="stat-lbl">Phases</span></div>
+        <div class="stat"><span class="stat-num">&lt;10s</span><span class="stat-lbl">Temps d'alerte</span></div>
+        <div class="stat"><span class="stat-num">354</span><span class="stat-lbl">Alertes Wazuh</span></div>
+        <div class="stat"><span class="stat-num">2 min</span><span class="stat-lbl">Cycle pipeline</span></div>
+    </div>
+</section>
 
-        <!-- Section avec tabs -->
-        <div class="main-section">
-            <div class="tabs-container">
-                <button class="tab-button active" onclick="switchTab('overview')">Vue d'ensemble</button>
-                <button class="tab-button" onclick="switchTab('features')">Fonctionnalités</button>
-                <button class="tab-button" onclick="switchTab('architecture')">Architecture</button>
-                <button class="tab-button" onclick="switchTab('tech')">Stack technique</button>
-            </div>
+<hr class="divider">
 
-            <!-- Tab: Vue d'ensemble -->
-            <div id="overview" class="tab-content active">
-                <p style="font-size: 1.05rem; line-height: 1.8; margin-bottom: 2rem; color: var(--text-secondary);">
-                    OpenClaw est une plateforme d'analyse de sécurité assistée par Intelligence Artificielle, conçue pour transformer Wazuh en un 
-                    <strong style="color: var(--ai-primary);">SOC autonome et intelligent</strong>. Elle détecte les menaces invisibles aux yeux humains grâce à 
-                    l'analyse comportementale et la corrélation d'événements alimentées par le machine learning.
-                </p>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-card-icon"><i class="fas fa-robot"></i></div>
-                        <h3>Apprentissage automatique</h3>
-                        <p>Modèles ML avancés qui apprennent les patterns de votre infrastructure et détectent les anomalies sans surcharge faux positifs.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-card-icon"><i class="fas fa-network-wired"></i></div>
-                        <h3>Corrélation d'événements</h3>
-                        <p>Relie les événements disparates pour identifier les attaques multi-étapes et les campagnes sophistiquées.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-card-icon"><i class="fas fa-zap"></i></div>
-                        <h3>Réponse automatisée</h3>
-                        <p>Exécute les playbooks de réponse en millisecondes pour isoler les menaces avant qu'elles ne propagent.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-card-icon"><i class="fas fa-chart-bar"></i></div>
-                        <h3>Rich contexte</h3>
-                        <p>Enrichit chaque alerte avec le contexte comportemental, historique et environnemental pour une investigation rapide.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-card-icon"><i class="fas fa-brain"></i></div>
-                        <h3>Prédiction de menaces</h3>
-                        <p>Anticipe les attaques futures en analysant les tendances et l'évolution des menaces historiques.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-card-icon"><i class="fas fa-shield-alt"></i></div>
-                        <h3>Conformité IA</h3>
-                        <p>Explique chaque décision de sécurité pour maintenir la conformité audit et la traçabilité totale.</p>
-                    </div>
-                </div>
-            </div>
+<!-- ─── CONTEXTE ─────────────────────────────────────────── -->
+<div class="wrap">
+    <div class="section-eye r">Contexte</div>
+    <h2 class="section-title r d1">Rapport de stage</h2>
+    <p class="section-desc r d2">Stage chez Moabee — services IT, infogérance, cybersécurité. Mission principale : concevoir un SOC proactif piloté par IA pour PME, en remplacement des solutions passives (simples pare-feu).</p>
 
-            <!-- Tab: Fonctionnalités -->
-            <div id="features" class="tab-content">
-                <h2 style="margin-bottom: 2rem;">Fonctionnalités clés</h2>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-card-icon"><i class="fas fa-search"></i></div>
-                        <h3>Analyse comportementale</h3>
-                        <p>Établit des profils de comportement normaux et détecte les écarts statistiquement significatifs en temps réel.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-card-icon"><i class="fas fa-code-branch"></i></div>
-                        <h3>Détection par arborescence</h3>
-                        <p>Suit les chaînes d'exploitation : du phishing initial jusqu'à l'exfiltration de données sensibles.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-card-icon"><i class="fas fa-puzzle-piece"></i></div>
-                        <h3>Intégration transparente</h3>
-                        <p>S'intègre nativement avec Wazuh sans migration de données. Compatible avec vos sources de logs existantes.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-card-icon"><i class="fas fa-tachometer-alt"></i></div>
-                        <h3>Performance optimale</h3>
-                        <p>Traite millions d'événements/jour avec latence sub-seconde grâce à architecture distribuée.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-card-icon"><i class="fas fa-sliders-h"></i></div>
-                        <h3>Configuration granulaire</h3>
-                        <p>Ajuste les seuils de détection, les timeframes d'analyse et les actions de réponse par contexte.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-card-icon"><i class="fas fa-graduation-cap"></i></div>
-                        <h3>Auto-amélioration</h3>
-                        <p>Les modèles s'affinent continuellement avec vos retours et cases résolus pour moins de faux positifs.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tab: Architecture -->
-            <div id="architecture" class="tab-content">
-                <h2 style="margin-bottom: 2rem;">Architecture système</h2>
-                <div style="background: rgba(241, 113, 155, 0.05); border: 1px solid var(--border-light); border-radius: 12px; padding: 3rem; margin: 2rem 0; text-align: center;">
-                    <i class="fas fa-sitemap" style="font-size: 3rem; color: var(--ai-primary); margin-bottom: 1rem;"></i>
-                    <h3 style="margin-bottom: 1rem;">Architecture XDR/EDR modulaire</h3>
-                    <p style="color: var(--text-secondary); margin-bottom: 2rem;">
-                        OpenClaw fonctionne comme une couche IA intelligente au-dessus de Wazuh, enrichissant vos capacités de détection avec des algorithmes avancés.
-                    </p>
-                </div>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-card-icon"><i class="fas fa-server"></i></div>
-                        <h3>Wazuh Manager</h3>
-                        <p>Collecteur centralisé des logs de sécurité depuis tous vos endpoints et sources.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-card-icon"><i class="fas fa-laptop"></i></div>
-                        <h3>Wazuh Agents</h3>
-                        <p>Collecte distribuée sur les endpoints Windows, Linux et macOS pour visibilité complète.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-card-icon"><i class="fas fa-database"></i></div>
-                        <h3>Elasticsearch</h3>
-                        <p>Moteur de recherche et indexation horizontalement scalable pour millions d'événements.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-card-icon"><i class="fas fa-brain"></i></div>
-                        <h3>Moteur IA OpenClaw</h3>
-                        <p>Analyse comportementale et ML en temps réel pour détection des anomalies sophistiquées.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-card-icon"><i class="fas fa-bolt"></i></div>
-                        <h3>Response Engine</h3>
-                        <p>Exécution automatisée des playbooks de réponse pour isoler les menaces.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-card-icon"><i class="fas fa-dashboard"></i></div>
-                        <h3>Dashboard & API</h3>
-                        <p>Interface visuelle et API REST pour intégration avec vos outils SOAR existants.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tab: Tech Stack -->
-            <div id="tech" class="tab-content">
-                <h2 style="margin-bottom: 2rem;">Stack technique</h2>
-                <p style="color: var(--text-secondary); margin-bottom: 2rem;">
-                    OpenClaw est construit sur une architecture moderne et scalable utilisant les meilleures technologies open-source et propriétaires.
-                </p>
-                <div class="tech-stack">
-                    <h3>Sécurité & Detection</h3>
-                    <div class="tech-items">
-                        <div class="tech-item">
-                            <i class="fas fa-shield-virus"></i>
-                            <p>Wazuh</p>
-                        </div>
-                        <div class="tech-item">
-                            <i class="fas fa-code"></i>
-                            <p>YARA Rules</p>
-                        </div>
-                        <div class="tech-item">
-                            <i class="fas fa-network-wired"></i>
-                            <p>Zeek IDS</p>
-                        </div>
-                        <div class="tech-item">
-                            <i class="fas fa-search"></i>
-                            <p>Osquery</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="tech-stack">
-                    <h3>Data & Intelligence</h3>
-                    <div class="tech-items">
-                        <div class="tech-item">
-                            <i class="fas fa-database"></i>
-                            <p>Elasticsearch</p>
-                        </div>
-                        <div class="tech-item">
-                            <i class="fas fa-chart-line"></i>
-                            <p>Kibana</p>
-                        </div>
-                        <div class="tech-item">
-                            <i class="fas fa-cube"></i>
-                            <p>Redis</p>
-                        </div>
-                        <div class="tech-item">
-                            <i class="fas fa-server"></i>
-                            <p>Kafka</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="tech-stack">
-                    <h3>Machine Learning</h3>
-                    <div class="tech-items">
-                        <div class="tech-item">
-                            <i class="fas fa-brain"></i>
-                            <p>TensorFlow</p>
-                        </div>
-                        <div class="tech-item">
-                            <i class="fas fa-chart-bar"></i>
-                            <p>Scikit-Learn</p>
-                        </div>
-                        <div class="tech-item">
-                            <i class="fas fa-infinity"></i>
-                            <p>PyTorch</p>
-                        </div>
-                        <div class="tech-item">
-                            <i class="fas fa-flask"></i>
-                            <p>MLOps</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="tech-stack">
-                    <h3>Backend & Infrastructure</h3>
-                    <div class="tech-items">
-                        <div class="tech-item">
-                            <i class="fab fa-python"></i>
-                            <p>Python 3.10+</p>
-                        </div>
-                        <div class="tech-item">
-                            <i class="fas fa-server"></i>
-                            <p>FastAPI</p>
-                        </div>
-                        <div class="tech-item">
-                            <i class="fab fa-docker"></i>
-                            <p>Docker</p>
-                        </div>
-                        <div class="tech-item">
-                            <i class="fas fa-cloud"></i>
-                            <p>Kubernetes</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Call to action -->
-        <div style="text-align: center; margin: 4rem 0; padding: 3rem; background: linear-gradient(135deg, rgba(241, 113, 155, 0.1), rgba(241, 113, 155, 0.1)); border: 1px solid var(--border-light); border-radius: 12px;">
-            <h2 style="margin-bottom: 1rem;">Prêt à déployer OpenClaw ?</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
-                Consultez la procédure d'installation complète pour configurer OpenClaw sur votre infrastructure Wazuh.
-            </p>
-            <button class="btn btn-primary" onclick="openPdfViewer()" style="cursor: pointer;">
-                <i class="fas fa-eye"></i> Consulter la procédure
-            </button>
-        </div>
-
-        <!-- Retour -->
-        <a href="index.html#works" class="back-button">
-            <i class="fas fa-arrow-left"></i> Retour aux projets
-        </a>
+    <div class="ctx-band r">
+        <div class="ctx-item"><div class="ctx-lbl">Stagiaire</div><div class="ctx-val">Loris AMELAINE</div></div>
+        <div class="ctx-item"><div class="ctx-lbl">Entreprise</div><div class="ctx-val">Moabee</div></div>
+        <div class="ctx-item"><div class="ctx-lbl">Tuteur</div><div class="ctx-val">Mr. DELECLUSE</div></div>
+        <div class="ctx-item"><div class="ctx-lbl">Période</div><div class="ctx-val">19/02 → 13/03/2026</div></div>
+        <div class="ctx-item"><div class="ctx-lbl">Formation</div><div class="ctx-val">BTS SIO — SISR</div></div>
     </div>
 
-    <!-- PDF Viewer Modal -->
-    <div id="pdfModal" class="pdf-modal">
-        <div class="pdf-modal-content">
-            <button class="pdf-modal-close" onclick="closePdfViewer()">
-                <i class="fas fa-times"></i>
-            </button>
-            <iframe id="pdfViewer" class="pdf-viewer" src="assets/pdf/Procédure_d'installation_Openclaw.pdf"></iframe>
+    <!-- PDF -->
+    <div class="pdf-box r">
+        <div>
+            <h3><i class="fas fa-file-pdf"></i> &nbsp;Procédure d'installation</h3>
+            <p>Documentation complète pour installer OpenClaw sur votre infrastructure Wazuh.</p>
+        </div>
+        <div class="btn-row">
+            <button class="btn btn-primary" onclick="openPdf()"><i class="fas fa-eye"></i> Consulter</button>
+            <a class="btn btn-ghost" href="assets/pdf/Procédure_d'installation_Openclaw.pdf" download><i class="fas fa-download"></i> Télécharger</a>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 Loris Amelaine - Tous droits réservés.</p>
-    </footer>
+    <!-- PIPELINE -->
+    <div class="section-eye r">Pipeline SOC</div>
+    <h2 class="section-title r d1">Flux de détection</h2>
+    <p class="section-desc r d2">De l'attaque réseau à Discord/Teams en moins de 10 secondes.</p>
 
-    <script>
-        // Tab switching
-        function switchTab(tabName) {
-            // Hide all tabs
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            // Remove active class from all buttons
-            document.querySelectorAll('.tab-button').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            // Show selected tab and activate button
-            document.getElementById(tabName).classList.add('active');
-            event.target.classList.add('active');
-        }
+    <div class="pipeline r">
+        <div class="pipe"><div class="pipe-n">01</div><div class="pipe-ico"><i class="fas fa-crosshairs"></i></div><div class="pipe-name">Détection</div><div class="pipe-tool">Sophos XG + Suricata</div></div>
+        <div class="pipe"><div class="pipe-n">02</div><div class="pipe-ico"><i class="fas fa-database"></i></div><div class="pipe-name">Collecte logs</div><div class="pipe-tool">Wazuh Agent → eve.json</div></div>
+        <div class="pipe"><div class="pipe-n">03</div><div class="pipe-ico"><i class="fas fa-server"></i></div><div class="pipe-name">Centralisation</div><div class="pipe-tool">Wazuh Manager → alerts.json</div></div>
+        <div class="pipe"><div class="pipe-n">04</div><div class="pipe-ico"><i class="fas fa-brain"></i></div><div class="pipe-name">Analyse IA</div><div class="pipe-tool">OpenClaw + Ollama Qwen 2.5</div></div>
+        <div class="pipe"><div class="pipe-n">05</div><div class="pipe-ico"><i class="fas fa-shield-alt"></i></div><div class="pipe-name">Réponse active</div><div class="pipe-tool">Blocage IP + Honeypot DMZ</div></div>
+        <div class="pipe"><div class="pipe-n">06</div><div class="pipe-ico"><i class="fas fa-bell"></i></div><div class="pipe-name">Notification</div><div class="pipe-tool">Discord #eve + Teams</div></div>
+    </div>
 
-        // PDF Viewer
-        function openPdfViewer() {
-            document.getElementById('pdfModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
+    <!-- FEATURES -->
+    <div class="section-eye r">OpenClaw</div>
+    <h2 class="section-title r d1">Fonctionnalités IA</h2>
+    <p class="section-desc r d2">OpenClaw remplace les outils SOAR classiques (TheHive/Shuffle) jugés trop complexes pour PME.</p>
 
-        function closePdfViewer() {
-            document.getElementById('pdfModal').classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
+    <div class="features r">
+        <div class="feat"><div class="feat-ico"><i class="fas fa-robot"></i></div><h3>Analyse LLM locale</h3><p>Ollama + Qwen 2.5:8b tourne en local. Aucune donnée ne quitte l'infrastructure. Réception webhook HTTP POST JSON (alertes niveau &gt; 10).</p></div>
+        <div class="feat"><div class="feat-ico"><i class="fas fa-filter"></i></div><h3>Filtrage du bruit</h3><p>Suppression des faux positifs — PAM, sudo, sessions. Seuls scans, floods, SNMP/TFTP, brute force et injections SQL remontent.</p></div>
+        <div class="feat"><div class="feat-ico"><i class="fas fa-layer-group"></i></div><h3>Agrégation 120s</h3><p>Fenêtre d'analyse de 2 minutes. Un rapport synthétique par fenêtre — gravité globale, attaquant, cible, volume total.</p></div>
+        <div class="feat"><div class="feat-ico"><i class="fas fa-map-marker-alt"></i></div><h3>Enrichissement IP</h3><p>Géolocalisation automatique de l'IP attaquante via API. Extraction dynamique source/destination depuis les logs Snort/Wazuh.</p></div>
+        <div class="feat"><div class="feat-ico"><i class="fas fa-sitemap"></i></div><h3>Remplacement SOAR</h3><p>Pont intelligent entre Wazuh SIEM et Discord/Teams. Tâche planifiée Windows (OpenClaw-SOC-AutoReport) toutes les 2 minutes.</p></div>
+        <div class="feat"><div class="feat-ico"><i class="fas fa-history"></i></div><h3>État persistant</h3><p>state.json mémorise le dernier événement traité. Dossier sent\ pour anti-doublon Discord. Historique complet dans SOC-Rapports\.</p></div>
+    </div>
+</div>
 
-        // Close modal on outside click
-        document.getElementById('pdfModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closePdfViewer();
-            }
-        });
+<hr class="divider">
 
-        // Close on Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closePdfViewer();
-            }
-        });
-    </script>
+<!-- ─── TABS ─────────────────────────────────────────────── -->
+<div class="wrap">
+    <div class="tabs-nav r">
+        <button class="tab-btn active" onclick="tab('t1',this)">Architecture</button>
+        <button class="tab-btn" onclick="tab('t2',this)">Workflows</button>
+        <button class="tab-btn" onclick="tab('t3',this)">Phases du projet</button>
+        <button class="tab-btn" onclick="tab('t4',this)">Stack technique</button>
+    </div>
+
+    <!-- TAB 1 : ARCHITECTURE -->
+    <div id="t1" class="tab-pane active">
+        <h2 class="h2">Infrastructure réseau</h2>
+        <p class="sub">Serveur physique Hyper-V sous Windows Server 2022 — 64 Go RAM, 20 cœurs, 4 cartes réseau. Segmentation VLAN sur switch Aruba HP Enterprise. Pare-feu Sophos XG NGFW avec Deep Packet Inspection.</p>
+
+        <div class="vlan-grid">
+            <div class="vlan-card vlan-wan">
+                <span class="vlan-badge">VLAN 10 — WAN / DMZ</span>
+                <h3>Zone d'exposition</h3>
+                <code>192.168.1.0/24</code>
+                <ul>
+                    <li>Suricata IDS/IPS — mode promiscuous (eth0)</li>
+                    <li>Honeypot Debian — services volontairement vulnérables</li>
+                    <li>Sophos XG — patte WAN</li>
+                    <li>Serveur Hyper-V</li>
+                    <li>vSwitch_WAN / vSwitch_MGMT</li>
+                </ul>
+            </div>
+            <div class="vlan-card vlan-lan">
+                <span class="vlan-badge">VLAN 20 — LAN / SOC</span>
+                <h3>Zone de confiance</h3>
+                <code>10.0.0.0/24 — DHCP</code>
+                <ul>
+                    <li>Wazuh Manager SIEM — 192.168.1.106</li>
+                    <li>OpenClaw IA Analyst (Linux Mint / Pinokio)</li>
+                    <li>Snort IDS — 192.168.1.110</li>
+                    <li>The Hive + Shuffle SOAR</li>
+                    <li>vSwitch_LAN / vSwitch_SOC</li>
+                </ul>
+            </div>
+        </div>
+
+        <h3 class="h3 mt2">Flux réseau complet</h3>
+        <div class="flow">
+            <div class="fn">BOX 4G<br><small>192.168.1.1</small></div><span class="fa">→</span>
+            <div class="fn">Switch Aruba<br><small>VLAN 10/20</small></div><span class="fa">→</span>
+            <div class="fn hl">SOPHOS XG<br><small>DPI / NGFW</small></div><span class="fa">→</span>
+            <div class="fn gn">Suricata IDS<br><small>Port Mirror WAN</small></div><span class="fa">→</span>
+            <div class="fn">Wazuh Agent<br><small>eve.json</small></div><span class="fa">→</span>
+            <div class="fn">Wazuh Manager<br><small>192.168.1.106</small></div><span class="fa">→</span>
+            <div class="fn hl">OpenClaw<br><small>AI Analyst</small></div><span class="fa">→</span>
+            <div class="fn gn">Discord #eve<br><small>&lt; 10 sec</small></div>
+        </div>
+
+        <h3 class="h3 mt3">Détections observées — Tests Kali Linux (192.168.1.23)</h3>
+        <table class="alert-table">
+            <thead><tr><th>Gravité</th><th>Signature détectée</th><th>Source → Dest</th><th>IDS</th></tr></thead>
+            <tbody>
+                <tr><td><span class="badge badge-high">HIGH</span></td><td>SCAN TCP SYN — portscan détecté (Nmap)</td><td><code>192.168.1.23 → .24</code></td><td>Suricata</td></tr>
+                <tr><td><span class="badge badge-high">HIGH</span></td><td>SCAN Nmap XMAS — reconnaissance réseau</td><td><code>192.168.1.23 → .24</code></td><td>Suricata</td></tr>
+                <tr><td><span class="badge badge-med">MED</span></td><td>[] [1:249:8] DDOS mstream client to handler []</td><td><code>192.168.1.110 → réseau</code></td><td>Snort</td></tr>
+                <tr><td><span class="badge badge-med">MED</span></td><td>[] [1:1418:11] SNMP request tcp []</td><td><code>192.168.1.23 → .24</code></td><td>Snort / Wazuh</td></tr>
+                <tr><td><span class="badge badge-med">MED</span></td><td>[] [1:1420:11] SNMP trap tcp []</td><td><code>192.168.1.23 → .24</code></td><td>Snort / Wazuh</td></tr>
+                <tr><td><span class="badge badge-low">LOW</span></td><td>[] [1:1228:7] SCAN nmap XMAS []</td><td><code>192.168.1.23 → .24</code></td><td>Snort</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- TAB 2 : WORKFLOWS -->
+    <div id="t2" class="tab-pane">
+        <h2 class="h2">Workflow final — bout en bout</h2>
+        <p class="sub">Pipeline complet validé en conditions réelles. 4 colonnes : Détection → Analyse &amp; Blocage → Corrélation &amp; Orchestration → Notification.</p>
+
+        <div class="wf-steps">
+            <div class="wf-step"><div class="wf-num">1</div><div><h4>Attaquant Internet → Détection</h4><p>Trafic hostile depuis Kali Linux (192.168.1.23). Sophos XG effectue une Deep Packet Inspection. Suricata reçoit les paquets via port mirroring sur vSwitch_WAN — NIC en mode promiscuous, tout le trafic 192.168.1.0/24 analysé.</p><code>Sophos XG NGFW + Suricata IDS/IPS</code></div></div>
+            <div class="wf-step"><div class="wf-num">2</div><div><h4>Blocage IP malveillante + collecte logs</h4><p>Sophos bloque l'IP source et génère un log. Suricata identifie la signature (ex : TCP SYN scan). L'agent Wazuh remonte l'alerte via vSwitch_SOC au Manager (192.168.1.106).</p><code>Webhook JSON → Wazuh Manager</code></div></div>
+            <div class="wf-step"><div class="wf-num">3</div><div><h4>Tâche planifiée Windows → run-soc-pipeline.ps1</h4><p>La tâche OpenClaw-SOC-AutoReport (récurrence 2 min) lance le script maître. generate-soc-report.ps1 se connecte en SSH FIPS (clé RSA nopass) au Manager Wazuh et lit alerts.json.</p><code>OpenClaw-SOC-AutoReport — toutes les 2 minutes</code></div></div>
+            <div class="wf-step"><div class="wf-num">4</div><div><h4>Filtrage, agrégation 120s, calcul gravité</h4><p>Exclusion du bruit (PAM, sudo, sessions). Regroupement des événements suspects sur 120s. Calcul de la gravité globale, attaquant principal (source), cible, volume total d'alertes et signature majoritaire.</p><code>generate-soc-report.ps1 — logique PowerShell</code></div></div>
+            <div class="wf-step"><div class="wf-num">5</div><div><h4>Analyse LLM OpenClaw + enrichissement IP</h4><p>OpenClaw reçoit les données brutes (IP source, port, type attaque), enrichit via API géolocalisation, analyse via Ollama + Qwen 2.5:8b en local. Aucune donnée ne quitte l'infrastructure.</p><code>Ollama + Qwen 2.5:8b (Windows / Pinokio)</code></div></div>
+            <div class="wf-step"><div class="wf-num">6</div><div><h4>Réponse active + Notification Discord / Teams</h4><p>Redirection du trafic malveillant vers Honeypot DMZ. send-discord-report.ps1 vérifie sent\ (anti-doublon) et envoie via webhook sur Discord #eve et Teams Canal SOC. Rapport stocké dans SOC-Rapports\reports\.</p><code>rapport-YYYY-MM-DD_HH-mm-ss.txt → Discord #eve</code></div></div>
+        </div>
+
+        <h2 class="h2 mt3">Rapport SOC réel — Discord #eve</h2>
+        <p class="sub">RAPPORT#1 capturé le 03/11/2026 à 16:48:03, salon Discord #eve :</p>
+
+        <div class="flex-row">
+            <div class="terminal flex-1">
+                <div class="terminal-bar">
+                    <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+                    <span>RAPPORT#1 — 2026-03-11 16:48:03</span>
+                </div>
+                <div class="terminal-body">
+                    <div class="tl"><span class="tk">🛡️ SYSTÈME</span><span class="tv">Windows / Pinokio</span></div>
+                    <hr class="thr">
+                    <div class="tl"><span class="tk">📋 RAPPORT N°</span><span class="tv">RAPPORT#1</span></div>
+                    <div class="tl"><span class="tk">📅 DATE</span><span class="tv">2026-03-11 16:48:03</span></div>
+                    <div class="tl"><span class="tk">⚠️ GRAVITÉ</span><span class="tv w">MOYENNE</span></div>
+                    <div class="tl"><span class="tk">📊 NIVEAU WAZUH MAX</span><span class="tv">6</span></div>
+                    <div class="tl"><span class="tk">🕐 FENÊTRE</span><span class="tv">16:47:46 → 16:48:00</span></div>
+                    <hr class="thr">
+                    <div class="tl"><span class="tk">🎯 IDS</span><span class="tv">snort</span></div>
+                    <div class="tl"><span class="tk">📡 AGENT SOURCE</span><span class="tv w">192.168.1.110</span></div>
+                    <div class="tl"><span class="tk">🔔 ALERTE PRINCIPALE</span><span class="tv hi">DDOS mstream client</span></div>
+                    <div class="tl"><span class="tk">📈 VOLUME</span><span class="tv">10 événement(s) suspect(s)</span></div>
+                    <hr class="thr">
+                    <div class="tl"><span class="tk">📝 SYNTHÈSE</span><span class="tv">2x DDOS mstream</span></div>
+                    <div class="tl"><span class="tk"></span><span class="tv">2x SNMP request tcp</span></div>
+                    <div class="tl"><span class="tk"></span><span class="tv">2x SNMP trap tcp</span></div>
+                    <div class="tl"><span class="tk"></span><span class="tv">2x SNMP AgentX/tcp</span></div>
+                    <div class="tl"><span class="tk"></span><span class="tv">2x SCAN nmap XMAS</span></div>
+                    <hr class="thr">
+                    <div class="tl"><span class="tk">🔧 ACTION RECOMMANDÉE</span><span class="tv ok">Vérifier source, appliquer règle Sophos XG</span></div>
+                </div>
+            </div>
+            <div class="flex-1">
+                <p style="font-size:0.82rem;color:var(--muted);line-height:1.9;margin-bottom:1.5rem;">Structure des fichiers générés automatiquement dans <code style="color:var(--pink);font-family:'JetBrains Mono',monospace;font-size:0.72rem;">Desktop\SOC-Rapports\reports\</code> :</p>
+                <div class="filetree">
+                    <div class="ft-root">📁 SOC-Rapports\reports\</div>
+                    <div class="ft-file">├── last-report.txt</div>
+                    <div class="ft-file">├── last-status.txt</div>
+                    <div class="ft-file">├── last-discord-send.txt</div>
+                    <div class="ft-file">├── state.json</div>
+                    <div class="ft-file hl">├── rapport-YYYY-MM-DD_HH-mm-ss.txt</div>
+                    <div class="ft-file">└── sent\</div>
+                </div>
+                <div style="margin-top:1.5rem;font-size:0.8rem;color:var(--muted);line-height:1.9;">
+                    <p><strong style="color:#fff;">state.json</strong> — index du dernier log lu + numérotation rapports</p>
+                    <p><strong style="color:#fff;">sent\</strong> — marqueurs anti-doublon pour Discord</p>
+                    <p><strong style="color:#fff;">Tâche planifiée</strong> — OpenClaw-SOC-AutoReport, récurrence 2 min</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3 : PHASES -->
+    <div id="t3" class="tab-pane">
+        <h2 class="h2">6 phases — 3 semaines de stage</h2>
+        <p class="sub">Travaux réalisés de bout en bout chez Moabee (Nevers), du déploiement Hyper-V à la notification Discord automatisée.</p>
+
+        <div class="timeline">
+            <div class="tl-item">
+                <div class="tl-phase">Phase 1</div>
+                <h3>Infrastructure de virtualisation</h3>
+                <p>Déploiement Hyper-V sur Windows Server 2022. Configuration des 4 vSwitch (vSwitch_LAN, vSwitch_WAN, vSwitch_SOC, vSwitch_MGMT). Déploiement VMs : Wazuh Manager, Suricata IDS, Sophos XG, Honeypot Debian, Windows 11 (OpenClaw).</p>
+                <div class="tl-tags"><span class="tl-tag">Hyper-V</span><span class="tl-tag">Windows Server 2022</span><span class="tl-tag">64 Go RAM</span><span class="tl-tag">20 cœurs CPU</span><span class="tl-tag">4 cartes réseau</span></div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-phase">Phase 2</div>
+                <h3>Architecture réseau, VLANs &amp; sécurité périmétrale</h3>
+                <p>Segmentation VLAN 10 (WAN/DMZ — 192.168.1.0/24) et VLAN 20 (LAN/Confiance — 10.0.0.0/24) sur switch Aruba HP Enterprise. Configuration Sophos XG NGFW — règles inter-VLAN, firewall policies, DPI. Port mirroring vSwitch_WAN pour Suricata.</p>
+                <div class="tl-tags"><span class="tl-tag">VLAN Aruba HP</span><span class="tl-tag">Sophos XG NGFW</span><span class="tl-tag">Port Mirroring</span><span class="tl-tag">DMZ Honeypot</span></div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-phase">Phase 3</div>
+                <h3>Détection d'intrusion réseau — Suricata &amp; Snort</h3>
+                <p>Suricata en mode IDS/IPS, interface eth0 promiscuous sur VLAN WAN (192.168.1.0). Configuration pérennisée via service Systemd. Sonde Snort IDS sur 192.168.1.110. Tests offensifs Kali Linux (192.168.1.23) : scan SYN, XMAS, ICMP flood, SNMP, TFTP. Toutes les signatures validées.</p>
+                <div class="tl-tags"><span class="tl-tag">Suricata IDS/IPS</span><span class="tl-tag">Snort IDS</span><span class="tl-tag">Promiscuous</span><span class="tl-tag">Systemd</span><span class="tl-tag">Kali 192.168.1.23</span></div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-phase">Phase 4</div>
+                <h3>Supervision des hôtes &amp; SIEM avec Wazuh</h3>
+                <p>Déploiement Wazuh Manager (192.168.1.106) + agents sur toutes les VMs. Intégration des logs Suricata/Snort (eve.json). Chaîne validée : Suricata → Agent → Manager → alerts.json. <strong>354 alertes</strong> détectées sur le dashboard.</p>
+                <div class="tl-tags"><span class="tl-tag">Wazuh SIEM/XDR</span><span class="tl-tag">354 alertes</span><span class="tl-tag">192.168.1.106</span><span class="tl-tag">alerts.json</span><span class="tl-tag">eve.json</span></div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-phase">Phase 5</div>
+                <h3>Automatisation &amp; orchestration OpenClaw</h3>
+                <p>Développement des scripts PowerShell : generate-soc-report.ps1, send-discord-report.ps1, run-soc-pipeline.ps1, install-auto-task.ps1. Connexion SSH FIPS (clé id_rsa_openclaw_wazuh_nopass2). Tâche planifiée OpenClaw-SOC-AutoReport (2 min). Webhook Wazuh (niveau &gt; 10) → Ollama Qwen 2.5:8b.</p>
+                <div class="tl-tags"><span class="tl-tag">PowerShell 7</span><span class="tl-tag">OpenClaw / Pinokio</span><span class="tl-tag">Ollama Qwen 2.5:8b</span><span class="tl-tag">SSH RSA FIPS</span><span class="tl-tag">Task Scheduler</span></div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-phase">Phase 6</div>
+                <h3>Gestion des incidents &amp; notification Discord / Teams</h3>
+                <p>Serveur Discord dédié — salons "openclaw" (bot) et "eve" (rapports SOC). Webhook sur #eve. Pipeline complet validé — LastTaskResult = 0. Stockage dans Desktop\SOC-Rapports\reports\ avec state.json, last-report.txt, sent\. Teams Canal SOC opérationnel.</p>
+                <div class="tl-tags"><span class="tl-tag">Discord Bot</span><span class="tl-tag">Microsoft Teams</span><span class="tl-tag">Webhook</span><span class="tl-tag">SOC-Rapports\</span><span class="tl-tag">state.json</span></div>
+            </div>
+        </div>
+
+        <h2 class="h2 mt3">Missions terrain chez Moabee</h2>
+        <div class="features" style="margin-top:1.5rem;">
+            <div class="feat"><div class="feat-ico"><i class="fas fa-server"></i></div><h3>Maintenance serveurs</h3><p>Dépannage d'un serveur ne démarrant plus via IPMI / iRMC. Diagnostic précis de la panne, remise en service. MCO des infrastructures clients.</p></div>
+            <div class="feat"><div class="feat-ico"><i class="fas fa-network-wired"></i></div><h3>Interventions réseau</h3><p>Coupure de fibre optique — diagnostic réseau complet, rétablissement de la connexion et des services associés.</p></div>
+            <div class="feat"><div class="feat-ico"><i class="fas fa-search"></i></div><h3>Mini-pentest Zenmap</h3><p>Tests de sécurité via Zenmap pour vérifier la robustesse de l'infrastructure face aux scans de reconnaissance.</p></div>
+            <div class="feat"><div class="feat-ico"><i class="fas fa-desktop"></i></div><h3>Déploiement PXE</h3><p>Serveur de déploiement PXE pour automatiser et standardiser l'installation des OS sur plusieurs postes simultanément.</p></div>
+            <div class="feat"><div class="feat-ico"><i class="fas fa-headset"></i></div><h3>Support technique</h3><p>Assistance technique quotidienne, dépannage postes utilisateurs, maintenance préventive et corrective du parc informatique.</p></div>
+            <div class="feat"><div class="feat-ico"><i class="fas fa-tools"></i></div><h3>Infogérance</h3><p>Surveillance des systèmes clients, suivi des incidents, gestion du parc informatique, MCO des équipements et services.</p></div>
+        </div>
+    </div>
+
+    <!-- TAB 4 : STACK -->
+    <div id="t4" class="tab-pane">
+        <h2 class="h2">Stack technique</h2>
+        <p class="sub">Ensemble de la stack open source et propriétaire déployée durant le stage.</p>
+
+        <div class="tech-section">
+            <h3>Sécurité &amp; Détection</h3>
+            <div class="tech-grid">
+                <div class="tech-item"><i class="fas fa-shield-virus"></i><span>Wazuh SIEM/XDR</span></div>
+                <div class="tech-item"><i class="fas fa-fish"></i><span>Suricata IDS/IPS</span></div>
+                <div class="tech-item"><i class="fas fa-bug"></i><span>Snort IDS</span></div>
+                <div class="tech-item"><i class="fas fa-fire-alt"></i><span>Sophos XG NGFW</span></div>
+            </div>
+        </div>
+        <div class="tech-section">
+            <h3>IA &amp; Orchestration</h3>
+            <div class="tech-grid">
+                <div class="tech-item"><i class="fas fa-brain"></i><span>OpenClaw</span></div>
+                <div class="tech-item"><i class="fas fa-robot"></i><span>Ollama + Qwen 2.5:8b</span></div>
+                <div class="tech-item"><i class="fas fa-random"></i><span>Shuffle SOAR</span></div>
+                <div class="tech-item"><i class="fas fa-spider"></i><span>TheHive</span></div>
+            </div>
+        </div>
+        <div class="tech-section">
+            <h3>Infrastructure &amp; Virtualisation</h3>
+            <div class="tech-grid">
+                <div class="tech-item"><i class="fab fa-windows"></i><span>Hyper-V / WS2022</span></div>
+                <div class="tech-item"><i class="fas fa-network-wired"></i><span>Aruba HP VLAN</span></div>
+                <div class="tech-item"><i class="fab fa-linux"></i><span>Debian / Linux Mint</span></div>
+                <div class="tech-item"><i class="fas fa-terminal"></i><span>PowerShell 7</span></div>
+            </div>
+        </div>
+        <div class="tech-section">
+            <h3>Notification &amp; Tests</h3>
+            <div class="tech-grid">
+                <div class="tech-item"><i class="fab fa-discord"></i><span>Discord Webhook</span></div>
+                <div class="tech-item"><i class="fas fa-users"></i><span>Microsoft Teams</span></div>
+                <div class="tech-item"><i class="fas fa-eye"></i><span>Nmap / Zenmap</span></div>
+                <div class="tech-item"><i class="fab fa-linux"></i><span>Kali Linux</span></div>
+            </div>
+        </div>
+
+        <h2 class="h2 mt3">Scripts PowerShell — chemin base</h2>
+        <p class="sub"><code style="font-family:'JetBrains Mono',monospace;color:var(--pink);font-size:0.8rem;">C:\Users\afjaz\.openclaw\workspace\soc-automation\</code></p>
+
+        <table class="data-table">
+            <thead><tr><th>Fichier</th><th>Rôle</th></tr></thead>
+            <tbody>
+                <tr><td><code>generate-soc-report.ps1</code></td><td>Cœur du système — SSH Wazuh, lecture alertes, filtrage, agrégation 120s, génération rapport</td></tr>
+                <tr><td><code>send-discord-report.ps1</code></td><td>Lecture webhook, anti-doublon (sent\), envoi Discord automatique</td></tr>
+                <tr><td><code>run-soc-pipeline.ps1</code></td><td>Script maître — séquence génération + envoi, exécuté par la tâche planifiée</td></tr>
+                <tr><td><code>install-auto-task.ps1</code></td><td>Installation tâche planifiée Windows (récurrence 2 min)</td></tr>
+                <tr><td><code>state.json</code></td><td>Mémoire technique — index dernier log lu + numérotation rapports</td></tr>
+                <tr><td><code>discord-webhook.txt.txt</code></td><td>URL webhook Discord (une ligne, dossier secrets\)</td></tr>
+                <tr><td><code>sent\</code></td><td>Marqueurs des rapports transmis sur Discord (anti-doublon)</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- ─── BACK ───────────────────────────────────────────────── -->
+<div class="back-wrap">
+    <a href="index.html#works" class="back-btn">
+        <i class="fas fa-arrow-left"></i> Retour aux projets
+    </a>
+</div>
+
+<!-- ─── FOOTER ───────────────────────────────────────────────── -->
+<footer>
+    <p>© 2026 Loris Amelaine — Tous droits réservés.</p>
+    <p>BTS SIO · Stage Moabee · OpenClaw AI SOC Analyst</p>
+</footer>
+
+<!-- ─── PDF MODAL ────────────────────────────────────────────── -->
+<div id="pdfModal" class="modal">
+    <div class="modal-inner">
+        <button class="modal-close" onclick="closePdf()">✕</button>
+        <iframe id="pdfFrame" src="" style="width:100%;height:100%;border:none;"></iframe>
+    </div>
+</div>
+
+<script>
+    /* ─ Tabs ─ */
+    function tab(id, btn) {
+        document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        btn.classList.add('active');
+    }
+
+    /* ─ PDF Modal ─ */
+    function openPdf() {
+        document.getElementById('pdfFrame').src = "assets/pdf/Procédure_d'installation_Openclaw.pdf";
+        const m = document.getElementById('pdfModal');
+        m.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+    function closePdf() {
+        document.getElementById('pdfModal').style.display = 'none';
+        document.getElementById('pdfFrame').src = '';
+        document.body.style.overflow = '';
+    }
+    document.getElementById('pdfModal').addEventListener('click', e => { if (e.target === e.currentTarget) closePdf(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closePdf(); });
+
+    /* ─ Scroll reveal ─ */
+    const io = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('v'); });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.r').forEach(el => io.observe(el));
+</script>
 </body>
 </html>
