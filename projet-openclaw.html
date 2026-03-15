@@ -505,6 +505,52 @@
         .h3 { font-size: 1.1rem; font-weight: 700; color: var(--pink); margin-bottom: 1.25rem; }
         .sub { font-size: 0.85rem; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; }
 
+        /* ─── VIDEO EMBED ───────────────────────────────── */
+        .video-wrap {
+            position: relative; padding-bottom: 56.25%; height: 0;
+            border-radius: 10px; overflow: hidden;
+            border: 1px solid var(--border); margin-bottom: 3rem;
+        }
+        .video-wrap iframe {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%; border: none;
+        }
+
+        /* ─── SCHEMA IMAGE ──────────────────────────────── */
+        .schema-wrap {
+            border: 1px solid var(--border); border-radius: 10px;
+            overflow: hidden; margin-bottom: 2rem; background: var(--bg2);
+        }
+        .schema-wrap img {
+            width: 100%; display: block;
+        }
+        .schema-placeholder {
+            padding: 4rem 2rem; text-align: center;
+            border: 2px dashed rgba(241,113,155,0.25); border-radius: 10px;
+            margin-bottom: 2rem; background: var(--pink-light);
+        }
+        .schema-placeholder i { font-size: 2.5rem; color: var(--pink); opacity: 0.5; margin-bottom: 1rem; display: block; }
+        .schema-placeholder p { font-size: 0.85rem; color: var(--muted); }
+
+        /* ─── RAPPORT BOX ───────────────────────────────── */
+        .rapport-box {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 2rem; flex-wrap: wrap;
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+            border-radius: 10px; padding: 1.75rem 2rem; margin-bottom: 2rem;
+            transition: border-color 0.2s;
+        }
+        .rapport-box:hover { border-color: rgba(241,113,155,0.3); }
+        .rapport-box-info { display: flex; align-items: center; gap: 1.25rem; }
+        .rapport-box-icon {
+            width: 48px; height: 48px; border-radius: 8px;
+            background: var(--pink-light); border: 1px solid rgba(241,113,155,0.3);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem; color: var(--pink); flex-shrink: 0;
+        }
+        .rapport-box-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.2rem; }
+        .rapport-box-desc { font-size: 0.78rem; color: var(--muted); }
+
         /* ─── REVEAL ────────────────────────────────────── */
         .r { opacity: 0; transform: translateY(16px); transition: opacity 0.65s ease, transform 0.65s ease; }
         .r.v { opacity: 1; transform: translateY(0); }
@@ -592,11 +638,43 @@
         <div class="ctx-item"><div class="ctx-lbl">Formation</div><div class="ctx-val">BTS SIO — SISR</div></div>
     </div>
 
-    <!-- PDF -->
-    <div class="pdf-box r">
-        <div>
-            <h3><i class="fas fa-file-pdf"></i> &nbsp;Procédure d'installation</h3>
-            <p>Documentation complète pour installer OpenClaw sur votre infrastructure Wazuh.</p>
+    <!-- VIDÉO DÉMO -->
+    <div class="section-eye r mt2">Démonstration</div>
+    <h2 class="section-title r d1">Vidéo — test du pipeline en conditions réelles</h2>
+    <p class="section-desc r d2">Attaque Kali Linux → détection Suricata/Snort → Wazuh → OpenClaw → rapport Discord automatique.</p>
+    <div class="video-wrap r">
+        <iframe src="https://www.youtube.com/embed/leHSX-zYvy4"
+            title="OpenClaw — Analyste SOC via AI"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+    </div>
+
+    <!-- RAPPORT DE STAGE -->
+    <div class="section-eye r">Documents</div>
+    <h2 class="section-title r d1">Rapport de stage &amp; procédure</h2>
+    <p class="section-desc r d2">Documents produits durant le stage — rapport complet et procédure d'installation OpenClaw.</p>
+
+    <div class="rapport-box r">
+        <div class="rapport-box-info">
+            <div class="rapport-box-icon"><i class="fas fa-file-pdf"></i></div>
+            <div>
+                <div class="rapport-box-title">Rapport de stage — Loris AMELAINE</div>
+                <div class="rapport-box-desc">34 pages · Moabee · BTS SIO SISR · 2026 · SOC IA nouvelle génération</div>
+            </div>
+        </div>
+        <div class="btn-row">
+            <button class="btn btn-primary" onclick="openRapport()"><i class="fas fa-eye"></i> Consulter</button>
+            <a class="btn btn-ghost" href="assets/pdf/Rapport_de_stage_Loris.pdf" download><i class="fas fa-download"></i> Télécharger</a>
+        </div>
+    </div>
+
+    <div class="rapport-box r">
+        <div class="rapport-box-info">
+            <div class="rapport-box-icon"><i class="fas fa-book"></i></div>
+            <div>
+                <div class="rapport-box-title">Procédure d'installation OpenClaw</div>
+                <div class="rapport-box-desc">Documentation technique complète · Scripts PowerShell · Pipeline SOC</div>
+            </div>
         </div>
         <div class="btn-row">
             <button class="btn btn-primary" onclick="openPdf()"><i class="fas fa-eye"></i> Consulter</button>
@@ -648,6 +726,19 @@
     <div id="t1" class="tab-pane active">
         <h2 class="h2">Infrastructure réseau</h2>
         <p class="sub">Serveur physique Hyper-V sous Windows Server 2022 — 64 Go RAM, 20 cœurs, 4 cartes réseau. Segmentation VLAN sur switch Aruba HP Enterprise. Pare-feu Sophos XG NGFW avec Deep Packet Inspection.</p>
+
+        <!-- SCHÉMA RÉSEAU -->
+        <h3 class="h3">Schéma réseau</h3>
+        <!-- Remplace le placeholder par ton image : <img src="assets/img/schema-reseau.png" alt="Schéma réseau SOC"> -->
+        <div id="schemaContainer" class="schema-wrap" style="display:none;">
+            <img id="schemaImg" src="assets/img/schema-reseau.png" alt="Schéma réseau SOC Moabee"
+                onerror="document.getElementById('schemaContainer').style.display='none'; document.getElementById('schemaPlaceholder').style.display='block';">
+        </div>
+        <div id="schemaPlaceholder" class="schema-placeholder">
+            <i class="fas fa-project-diagram"></i>
+            <p><strong style="color:#fff;">Schéma réseau — à venir</strong><br>Envoie ton image et je l'intègre ici.<br>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--pink);">assets/img/schema-reseau.png</span></p>
+        </div>
 
         <div class="vlan-grid">
             <div class="vlan-card vlan-wan">
@@ -896,11 +987,19 @@
     <p>BTS SIO · Stage Moabee · OpenClaw AI SOC Analyst</p>
 </footer>
 
-<!-- ─── PDF MODAL ────────────────────────────────────────────── -->
+<!-- ─── PDF MODAL — PROCÉDURE ────────────────────────────────── -->
 <div id="pdfModal" class="modal">
     <div class="modal-inner">
         <button class="modal-close" onclick="closePdf()">✕</button>
         <iframe id="pdfFrame" src="" style="width:100%;height:100%;border:none;"></iframe>
+    </div>
+</div>
+
+<!-- ─── PDF MODAL — RAPPORT DE STAGE ────────────────────────── -->
+<div id="rapportModal" class="modal">
+    <div class="modal-inner">
+        <button class="modal-close" onclick="closeRapport()">✕</button>
+        <iframe id="rapportFrame" src="" style="width:100%;height:100%;border:none;"></iframe>
     </div>
 </div>
 
@@ -913,11 +1012,10 @@
         btn.classList.add('active');
     }
 
-    /* ─ PDF Modal ─ */
+    /* ─ PDF Modal — Procédure ─ */
     function openPdf() {
         document.getElementById('pdfFrame').src = "assets/pdf/Procédure_d'installation_Openclaw.pdf";
-        const m = document.getElementById('pdfModal');
-        m.style.display = 'flex';
+        document.getElementById('pdfModal').style.display = 'flex';
         document.body.style.overflow = 'hidden';
     }
     function closePdf() {
@@ -925,8 +1023,55 @@
         document.getElementById('pdfFrame').src = '';
         document.body.style.overflow = '';
     }
-    document.getElementById('pdfModal').addEventListener('click', e => { if (e.target === e.currentTarget) closePdf(); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closePdf(); });
+
+    /* ─ PDF Modal — Rapport de stage ─ */
+    function openRapport() {
+        document.getElementById('rapportFrame').src = "assets/pdf/Rapport_de_stage_Loris.pdf";
+        document.getElementById('rapportModal').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+    function closeRapport() {
+        document.getElementById('rapportModal').style.display = 'none';
+        document.getElementById('rapportFrame').src = '';
+        document.body.style.overflow = '';
+    }
+
+    /* ─ Fermeture modals ─ */
+    ['pdfModal','rapportModal'].forEach(id => {
+        document.getElementById(id).addEventListener('click', e => {
+            if (e.target === e.currentTarget) {
+                e.currentTarget.style.display = 'none';
+                e.currentTarget.querySelector('iframe').src = '';
+                document.body.style.overflow = '';
+            }
+        });
+    });
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+            ['pdfModal','rapportModal'].forEach(id => {
+                const m = document.getElementById(id);
+                if (m.style.display === 'flex') {
+                    m.style.display = 'none';
+                    m.querySelector('iframe').src = '';
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+    });
+
+    /* ─ Schéma réseau — essaie de charger l'image ─ */
+    (function() {
+        const img = new Image();
+        img.onload = function() {
+            document.getElementById('schemaContainer').style.display = 'block';
+            document.getElementById('schemaPlaceholder').style.display = 'none';
+        };
+        img.onerror = function() {
+            document.getElementById('schemaContainer').style.display = 'none';
+            document.getElementById('schemaPlaceholder').style.display = 'block';
+        };
+        img.src = 'assets/img/schema-reseau.png';
+    })();
 
     /* ─ Scroll reveal ─ */
     const io = new IntersectionObserver(entries => {
